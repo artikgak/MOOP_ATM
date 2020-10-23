@@ -16,10 +16,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ATM.cpp \
+    AccountMenu.cpp \
+    Card.cpp \
+    DataBase.cpp \
+    Menu.cpp \
+    Validator.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    ATM.h \
+    AccountMenu.h \
+    Card.h \
+    DataBase.h \
+    Menu.h \
+    Validator.h \
     mainwindow.h
 
 FORMS += \
