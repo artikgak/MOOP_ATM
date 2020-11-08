@@ -63,18 +63,18 @@
      <item row="1" column="0">
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page">
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="pinField">
          <property name="enabled">
           <bool>true</bool>
          </property>
          <property name="geometry">
           <rect>
-           <x>50</x>
-           <y>140</y>
-           <width>371</width>
+           <x>150</x>
+           <y>160</y>
+           <width>131</width>
            <height>31</height>
           </rect>
          </property>
@@ -82,7 +82,7 @@
           <string/>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_13">
+        <widget class="QPushButton" name="inputCard">
          <property name="geometry">
           <rect>
            <x>370</x>
@@ -98,8 +98,8 @@
         <widget class="QLabel" name="label_2">
          <property name="geometry">
           <rect>
-           <x>50</x>
-           <y>110</y>
+           <x>150</x>
+           <y>120</y>
            <width>151</width>
            <height>31</height>
           </rect>
@@ -369,17 +369,17 @@
           </item>
          </layout>
         </widget>
-        <widget class="QPushButton" name="pushButton_16">
+        <widget class="QPushButton" name="ejectCard">
          <property name="geometry">
           <rect>
-           <x>380</x>
+           <x>344</x>
            <y>0</y>
-           <width>75</width>
+           <width>111</width>
            <height>24</height>
           </rect>
          </property>
          <property name="text">
-          <string>PushButton</string>
+          <string>Витягти картку</string>
          </property>
         </widget>
        </widget>
@@ -548,6 +548,13 @@
         <widget class="QPushButton" name="button1">
          <property name="text">
           <string>1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="5">
+        <widget class="QPushButton" name="buttonBack">
+         <property name="text">
+          <string>Back</string>
          </property>
         </widget>
        </item>

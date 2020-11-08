@@ -15,7 +15,29 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void handleInputCard();
+    void handleEjectCard();
+    void handleZero();
+    void handleOne();
+    void handleTwo();
+    void handleTree();
+    void handleFour();
+    void handleFive();
+    void handleSix();
+    void handleSeven();
+    void handleEight();
+    void handleNine();
+    void handleMinus();
+    void handlePlus();
+    void handleDelete();
+    void handleEnter();
+    void handleBack();
+
 private:
+    int state;
     Ui::MainWindow *ui;
+    void attachListeners();
+    void changeAvailable();
 };
 #endif // MAINWINDOW_H
