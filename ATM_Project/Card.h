@@ -1,11 +1,18 @@
-#ifndef CARD_H
-#define CARD_H
+#pragma once
+#define uint64 unsigned long long
+class Card {
+    
+private:
+const uint64 cardNumber;
 
-
-class Card
-{
 public:
-    Card();
-};
+    Card(const Card&);
+    Card(const uint64);
+    
+    Card() = delete;
+    Card& operator=(const Card&) = delete;
 
-#endif // CARD_H
+    ~Card();
+
+    uint64 getNumber() const;
+};
