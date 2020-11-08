@@ -35,6 +35,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    mainMenu.ui \
     mainwindow.ui
 
 # Default rules for deployment.
