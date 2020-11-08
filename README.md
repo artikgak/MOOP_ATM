@@ -1,2 +1,2 @@
 # MOOP_ATM
-moop
+Project for the MOOP course at NaUKMA, 3rd year.
