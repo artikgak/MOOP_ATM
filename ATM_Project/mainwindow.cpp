@@ -71,7 +71,7 @@ void MainWindow::timerEvent(QTimerEvent * event)
 // 9 select game
 // 10 game data
 
-void MainWindow::changeAvailable()
+/*void MainWindow::changeAvailable()
 {
     if(state==0)
     {
@@ -82,7 +82,7 @@ void MainWindow::changeAvailable()
         ui->inputCard->setEnabled(false);
         ui->buttonR1->setEnabled(true);
     }
-}
+}*/
 
 void MainWindow::attachListeners()
 {
@@ -125,7 +125,7 @@ void MainWindow::handleInputCard()
     {
         state=1;
         ui->stackedWidget->setCurrentIndex(1);
-        changeAvailable();
+        //changeAvailable();
     }
 // if ok nomer-> set availbale inteface
 // else message box wrong card number
@@ -263,15 +263,13 @@ void MainWindow::handleButtonR3()
 
 }
 
-
-
 void MainWindow::handleButtonR4()
 {
 //if(not valid)
 // if(tries) -> you left n-1 ties
 //else card blocked
 //else go to menu
-    if(state==1)
+/*    if(state==1)
     {
         state=0;
         ui->stackedWidget->setCurrentIndex(0);
@@ -280,6 +278,14 @@ void MainWindow::handleButtonR4()
         msgBox.setText("The card has been ejected. Have a nice day.");
         msgBox.exec();
 
-    }
-changeAvailable();
+    }*/
+//changeAvailable();
+}
+
+// update front:
+void callMessageBox(const QString& info)
+{
+    QMessageBox msgBox;
+    msgBox.setText("The card has been ejected. Have a nice day.");
+    msgBox.exec();
 }

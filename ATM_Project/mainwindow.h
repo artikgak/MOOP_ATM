@@ -16,6 +16,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void callMessageBox(const QString& info);
+    //void goToPage(/*EnumPage*/int);
+
+
+
 private slots:
     void handleInputCard();
 
@@ -50,6 +55,6 @@ private:
     int state;
     Ui::MainWindow *ui;
     void attachListeners();
-    void changeAvailable();
+    //void changeAvailable();
 };
 #endif // MAINWINDOW_H
