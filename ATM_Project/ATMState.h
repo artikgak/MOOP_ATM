@@ -1,7 +1,8 @@
 #pragma once
 
 class ATM;
-
+enum ScreenButton;
+enum PinButton;
 class ATMState {
 
 protected:
@@ -14,6 +15,6 @@ public:
       this->context_ = context;
     }
 
-    virtual void act1() = 0;
-    virtual void act1() = 0;
+    virtual void pushPinButton(PinButton) = 0;
+    virtual void pushScreenButton(ScreenButton) = 0;
 };
