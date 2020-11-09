@@ -9,7 +9,6 @@ ATM::ATM():
     
 
 }
-
 ATM::~ATM() {
     delete state;
     delete card;
