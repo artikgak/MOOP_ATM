@@ -19,7 +19,6 @@ SOURCES += \
     ATM.cpp \
     AccountMenu.cpp \
     Card.cpp \
-    DataBase.cpp \
     Menu.cpp \
     Validator.cpp \
     main.cpp \
@@ -27,10 +26,11 @@ SOURCES += \
 
 HEADERS += \
     ATM.h \
+    ATMState.h \
     AccountMenu.h \
     Card.h \
-    DataBase.h \
     Menu.h \
+    Utils.h \
     Validator.h \
     mainwindow.h
 
