@@ -1,8 +1,8 @@
 #pragma once
+#include "Utils.h"
 
 class ATM;
-enum ScreenButton;
-enum PinButton;
+
 class ATMState {
 
 protected:
@@ -15,6 +15,6 @@ public:
       this->context_ = context;
     }
 
-    virtual void pushPinButton(PinButton) = 0;
-    virtual void pushScreenButton(ScreenButton) = 0;
+    virtual void pushPinButton(const PinButton pb) = 0;
+    virtual void pushScreenButton(const ScreenButton sb) = 0;
 };

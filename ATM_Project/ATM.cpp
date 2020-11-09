@@ -1,14 +1,14 @@
 #include "ATM.h"
+ATM* ATM::singletonInstance = nullptr;
 
 ATM::ATM():
-    card(nullptr),
-    state(nullptr)
-    {
-    
-
-    
-
+    state(nullptr),
+    card(nullptr)
+{
+     
 }
+
+
 ATM::~ATM() {
     delete state;
     delete card;
