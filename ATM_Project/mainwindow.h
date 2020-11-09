@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -17,7 +18,7 @@ public:
 
 private slots:
     void handleInputCard();
-    void handleEjectCard();
+
     void handleZero();
     void handleOne();
     void handleTwo();
@@ -30,11 +31,22 @@ private slots:
     void handleNine();
     void handleMinus();
     void handlePlus();
+
     void handleDelete();
     void handleEnter();
-    void handleBack();
+    void handleNothing();
+
+    void handleButtonL1();
+    void handleButtonL2();
+    void handleButtonL3();
+    void handleButtonL4();
+    void handleButtonR1();
+    void handleButtonR2();
+    void handleButtonR3();
+    void handleButtonR4();
 
 private:
+    void timerEvent(QTimerEvent *event);
     int state;
     Ui::MainWindow *ui;
     void attachListeners();
