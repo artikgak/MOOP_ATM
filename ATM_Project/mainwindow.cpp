@@ -17,13 +17,16 @@ MainWindow::MainWindow(QWidget *parent)
     , state(0)
     , ui(new Ui::MainWindow)
     , atm(nullptr)
+    ,_currentScreen(Welcome)
 {
     ui->setupUi(this);
     attachListeners();
     MainWindow::setGeometry(330,200,MAINWINW,MAINWINH);
     ui->pinField->setReadOnly(true);
     ui->pinField->setMaxLength(8);
+    ui->stackedWidget->setCurrentIndex(_currentScreen);
     startTimer(1000);   // 1-second timer
+    ui->wrongCardNumLabel->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -349,3 +352,283 @@ void callMessageBox(const QString& info)
     msgBox.setText("The card has been ejected. Have a nice day.");
     msgBox.exec();
 }
+
+// ************************************ FeedBackFrom back-end ***************************************************
+
+//f - feedback
+// to find these functions much easier
+
+// 0 welcome
+void MainWindow::fDisplayWrongCardNum()
+{
+ ui->wrongCardNumLabel->setVisible(true);
+}
+
+// 1 PIN
+void MainWindow::fAddPinChar()
+{
+ui->pinField->setText(ui->pinField->text()+'*');
+}
+
+void MainWindow::fDeletePinChar()
+{
+QString st = ui->pinField->text();
+ui->pinField->setText(st.length()>0 ? st.left(st.length()-1) : "" );
+}
+
+void MainWindow::fClearPinField()
+{
+ui->pinField->clear();
+}
+
+void MainWindow::fDisplayWrongPIN(const int triesLeft)
+{
+ui->wrongPINLabel->setText("Wrong pin, left " + QString(triesLeft) + " tries");
+}
+
+
+// 2 Menu ???
+
+// 3 balance
+void MainWindow::fDisplayBalance(const int money)
+{
+    ui->cashBalanceLabel->setText(QString(money)+ "₴");
+}
+
+
+// 4 transaction data
+    //??select
+/*
+void MainWindow::fAddTrasfCardNumChar(char c)
+{
+    QString st = ui->targetCardField->text();
+    ui->targetCardField->setText(st+c);
+}
+
+void MainWindow::fDeleteTrasfCardNumChar()
+{
+    QString st = ui->targetCardField->text();
+    ui->targetCardField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+}
+
+void MainWindow::fClearTrasfCardNumField()
+{
+ui->targetCardField->clear();
+}
+
+
+void MainWindow::fAddTransferSumChar(char c)
+{
+    QString st = ui->transactionSumField->text();
+    ui->transactionSumField->setText(st+c);
+}
+
+void MainWindow::fDeleteTransferSumChar()
+{
+    QString st = ui->transactionSumField->text();
+    ui->transactionSumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+}
+
+void MainWindow::fClearTransferSumField()
+{
+    ui->transactionSumField->clear();
+}
+
+*/
+// 5 phone data
+void MainWindow::fDisplayWrongPhone()
+{
+
+}
+
+void MainWindow::fDisplayWrongGameID()
+{
+
+}
+
+
+// 6 get cash
+void MainWindow::fDisplayBadBanknotesAmount(const QString&) // available banktotes
+{
+
+}
+
+// all input fields
+void MainWindow::fInputFieldAddChar(const InputField inf, const char c)
+{
+    switch (inf)
+    {
+    case CashSum:
+    {
+        QString st = ui->cashSumField->text();
+        ui->cashSumField->setText(st+c);
+             break;
+    }
+    case GameAccountID:
+    {
+        QString st = ui->gameIDField->text();
+        ui->gameIDField->setText(st+c);
+             break;
+    }
+    case GameSum:
+    {
+        QString st = ui->gameSumField->text();
+        ui->gameSumField->setText(st+c);
+             break;
+    }
+    case CharitySum:
+    {
+        QString st = ui->charitySumField->text();
+        ui->charitySumField->setText(st+c);
+             break;
+    }
+    case PhoneNum:
+    {
+        QString st = ui->phoneNumField->text();
+        ui->phoneNumField->setText(st+c);
+             break;
+    }
+    case PhoneSum:
+    {
+        QString st = ui->phoneSumField->text();
+        ui->phoneSumField->setText(st+c);
+             break;
+    }
+    case TransactionCard:
+    {
+        QString st = ui->targetCardField->text();
+        ui->targetCardField->setText(st+c);
+             break;
+    }
+    case TransactionSum:
+    {
+        QString st = ui->transactionSumField->text();
+        ui->transactionSumField->setText(st+c);
+             break;
+    }
+    }
+}
+
+void MainWindow::fDeleteFiledChar(const InputField inf)
+{
+    switch (inf)
+    {
+    case CashSum:
+    {
+        QString st = ui->cashSumField->text();
+        ui->cashSumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+             break;
+    }
+    case GameAccountID:
+    {
+        QString st = ui->gameIDField->text();
+        ui->gameIDField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+             break;
+    }
+    case GameSum:
+    {
+        QString st = ui->gameSumField->text();
+        ui->gameSumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+             break;
+    }
+    case CharitySum:
+    {
+        QString st = ui->charitySumField->text();
+        ui->charitySumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+             break;
+    }
+    case PhoneNum:
+    {
+        QString st = ui->phoneNumField->text();
+        ui->phoneNumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+             break;
+    }
+    case PhoneSum:
+    {
+        QString st = ui->phoneSumField->text();
+        ui->phoneSumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+             break;
+    }
+    case TransactionCard:
+    {
+        QString st = ui->targetCardField->text();
+        ui->targetCardField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+             break;
+    }
+    case TransactionSum:
+    {
+        QString st = ui->transactionSumField->text();
+        ui->transactionSumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
+             break;
+    }
+    }
+}
+
+void MainWindow::fClearField(const InputField inf)
+{
+    switch (inf)
+    {
+    case CashSum:
+    {
+        ui->cashSumField->clear();
+             break;
+    }
+    case GameAccountID:
+    {
+        ui->gameIDField->clear();
+             break;
+    }
+    case GameSum:
+    {
+        ui->gameSumField->clear();
+             break;
+    }
+    case CharitySum:
+    {
+        ui->charitySumField->clear();
+             break;
+    }
+    case PhoneNum:
+    {
+        ui->phoneNumField->clear();
+             break;
+    }
+    case PhoneSum:
+    {
+        ui->phoneSumField->clear();
+             break;
+    }
+    case TransactionCard:
+    {
+        ui->targetCardField->clear();
+             break;
+    }
+    case TransactionSum:
+    {
+        ui->transactionSumField->clear();
+             break;
+    }
+    }
+}
+
+
+// 7 select charity
+    //list of fonds
+
+
+// 8 charity data
+void MainWindow::fDisplaySelectedFond(const QString& str)
+{
+ui-> selectedFondLabel->setText(str);
+}
+
+
+// 9 select game
+//list of games
+
+// 10 game data
+void MainWindow::fDisplaySelectedGame(const QString& str)
+{
+ui-> selectedGameLabel->setText(str);
+}
+
