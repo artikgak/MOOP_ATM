@@ -4,29 +4,26 @@
 #include "ATMState.h"
 #include "Utils.h"
 
+class MainWindow;
+
 class ATM
 {
 private:
-    
-    static ATM* singletonInstance;
-    ATM();
+    ATM& operator=(ATM&) = delete;
+    ATM(ATM&) = delete;
+    MainWindow& mainW;
     /* State of ATM*/
     ATMState* state;
-
     /* Class variables */ 
     Card* card;
 
+
 public:
-
-
-    /* Singleton can't be copied */
-    ATM& operator=(ATM&) = delete;
-    ATM(ATM&) = delete;
+    ATM(MainWindow& subject);
     ~ATM();
     /* State transition */
     void transitionTo(ATMState *state);
 
-    static ATM* getInstance();
 
     bool insertCard(Card);
 
