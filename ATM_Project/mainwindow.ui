@@ -685,7 +685,7 @@ border-style:solid;
 </string>
        </property>
        <property name="currentIndex">
-        <number>9</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="welcome_p">
         <widget class="QPushButton" name="inputCard">
@@ -1299,7 +1299,7 @@ margin: 1px;</string>
             </property>
             <property name="styleSheet">
              <string notr="true">margin-right: 5px;
-border-width:0px;
+
 
 </string>
             </property>
@@ -1495,9 +1495,40 @@ margin: 1px;</string>
            <height>341</height>
           </rect>
          </property>
-         <layout class="QGridLayout" name="gridLayout_6" rowstretch="1,1,1,1" columnstretch="1,1" columnminimumwidth="0,0">
-          <item row="3" column="1">
-           <widget class="QLabel" name="label_32">
+         <layout class="QGridLayout" name="gridLayout_6" rowstretch="1,1,1,1" columnstretch="1,1">
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="pinField_3">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>18</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+              <underline>false</underline>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: white;
+border-color: black;
+margin-right: 7px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_47">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -1509,17 +1540,55 @@ margin: 1px;</string>
               <pointsize>12</pointsize>
              </font>
             </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
             <property name="styleSheet">
-             <string notr="true">margin-right: 2px;</string>
+             <string notr="true"/>
             </property>
             <property name="text">
-             <string>Назад до гловного меню</string>
+             <string>Confirm</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_20">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string>Введіть номер телефону:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_24">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string>Введіть суму:</string>
             </property>
            </widget>
           </item>
@@ -1554,39 +1623,30 @@ margin-left: 3px;</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLineEdit" name="pinField_3">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_48">
+            <property name="maximumSize">
              <size>
-              <width>0</width>
+              <width>16777215</width>
               <height>80</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <italic>false</italic>
-              <bold>true</bold>
-              <underline>false</underline>
-              <strikeout>false</strikeout>
+              <pointsize>12</pointsize>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: white;
-border-color: black;
-margin-left: 3px;</string>
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
             </property>
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_20">
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_32">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -1598,34 +1658,17 @@ margin-left: 3px;</string>
               <pointsize>12</pointsize>
              </font>
             </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Введіть номер телефону:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_24">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
             </property>
             <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
+             <string notr="true">margin-right: 4px;</string>
             </property>
             <property name="text">
-             <string>Введіть суму:</string>
+             <string>Назад до гловного меню</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>

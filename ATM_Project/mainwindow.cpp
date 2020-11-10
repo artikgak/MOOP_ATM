@@ -3,7 +3,11 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QTime>
-
+#include <QMovie>
+//#include <QFuture>
+//#include <QtCore>
+//#include <QtConcurrent/QtConcurrent>
+//#include <Task>
 
 const int MAINWINW = 680;
 const int MAINWINH = 550;
@@ -12,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , state(0)
     , ui(new Ui::MainWindow)
+    , atm(nullptr)
 {
     ui->setupUi(this);
     attachListeners();
@@ -23,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    //delete movie;
+    //delete lbl;
     delete ui;
 }
 
@@ -131,10 +138,57 @@ void MainWindow::handleInputCard()
 // else message box wrong card number
 }
 
+void MainWindow::test()
+{
+    ui->label_4->setText("Changed");
+    for(int i=0; i<30000000; ++i)
+    for(int l=0; l<30000000; ++l);
+}
+
 void MainWindow::handleNothing()
 {
-
+    //showLoader();
+    //QFuture<void> future = QtConcurrent::run(this, &MainWindow::test);
+    //QThread thr;
+    //Task
+    //connect(task, QOverload<int, const QString &>::of(&Task::error),
+    //    [=](int code, const QString &errorText){ /* ... */ });
+    //auto r = std::async(std::launch::async, MainWindow::test));
+    //while(r.wait_for(std::chrono::seconds(0))!=std::future_status::ready);
+    //r.get();
+    //moveToThread(&thr);
+    //connect(&thr, SIGNAL(started()), this, SLOT(test())); //cant have parameter sorry, when using connect
+    //thr.start();
+    //thr.wait(200);
+    //future.waitForFinished();
+    //hideLoader();
+    //future = QtConcurrent::run(this, &MainWindow::hideLoader);
 }
+
+/*
+void MainWindow::hideLoader()
+{
+    movie->stop();
+    lbl->hide();
+    delete movie;
+    delete lbl;
+    this->setEnabled(true);
+}*/
+/*
+void MainWindow::showLoader()
+{
+    this->setEnabled(false);
+    lbl = new QLabel(ui->stackedWidget);
+    movie = new QMovie(":/images/loader.gif");
+    lbl->setMovie(movie);
+    lbl->setAlignment(Qt::AlignCenter);
+    lbl->setAttribute( Qt::WA_TranslucentBackground, true );
+    QRect p = ui->stackedWidget->geometry();
+    lbl->setGeometry(p.x()-50,p.y()-50,p.width(),p.height());
+    lbl->setWindowFlags(Qt::WindowStaysOnTopHint);
+    movie->start();
+    lbl->show();
+}*/
 
 void MainWindow::handleZero()
 {
@@ -283,6 +337,12 @@ void MainWindow::handleButtonR4()
 }
 
 // update front:
+
+void MainWindow::subscribeATM(ATM* atm)
+{
+this->atm=atm;
+}
+
 void callMessageBox(const QString& info)
 {
     QMessageBox msgBox;

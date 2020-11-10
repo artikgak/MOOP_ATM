@@ -6,5 +6,8 @@
         <file>images/ICON-08.jpg</file>
         <file>images/phone.jpg</file>
         <file>images/transfer.png</file>
+        <file>images/loader.gif</file>
+        <file>images/200.gif</file>
+        <file>Loader.qml</file>
     </qresource>
 </RCC>

@@ -1,23 +1,18 @@
 #include "ATM.h"
-ATM* ATM::singletonInstance = nullptr;
+#include "mainwindow.h"
 
-ATM::ATM():
+ATM::ATM(MainWindow& subject):
+    mainW(subject),
     state(nullptr),
     card(nullptr)
 {
-     
+    mainW.subscribeATM(this);
 }
 
 
 ATM::~ATM() {
     delete state;
     delete card;
-}
-
-ATM* ATM::getInstance() {
-    if (singletonInstance == nullptr)
-        singletonInstance = new ATM();
-    return singletonInstance;
 }
 
 bool ATM::insertCard(Card c) {
