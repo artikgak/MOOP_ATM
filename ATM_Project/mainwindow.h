@@ -26,22 +26,10 @@ public:
     //void hideLoader();
 
     void callMessageBox(const QString& info);
-
     void goToPage(const ScreenPage);
 //TODO: success/fail creen
 //f - feedback
 // to find these functions much easier
-
-
-
-
-
-
-
-
-
-
-
 
 // 0 welcome
     void fDisplayWrongCardNum();
@@ -54,26 +42,20 @@ public:
 
 // 2 Menu ???
 
+// 3 balance
+    void fDisplayBalance(const int);
 
 // 4 transaction data
     //??select
 
-    void fAddCardNumChar();
-    void fDeleteCardNumChar();
-    void fClearCardNumField();
+    /*void fAddTrasfCardNumChar(char c);
+    void fDeleteTrasfCardNumChar();
+    void fClearTrasfCardNumField();
 
-    void fAddTransferSumChar();
+    void fAddTransferSumChar(char c);
     void fDeleteTransferSumChar();
     void fClearTransferSumField();
-
-
-// 3 balance
-    void fDisplayBalance(const int);
-
-
-// 4 transaction data
-
-
+*/
 // 5 phone data
     void fDisplayWrongPhone();
     void fDisplayWrongGameID();
@@ -87,17 +69,17 @@ public:
     void fClearField(const InputField);
 
 // 7 select charity
-    void fDisplaySelectedFond();
+    //list of fonds
 
 
 // 8 charity data
-
+    void fDisplaySelectedFond(const QString& str);
 
 // 9 select game
-
+//list of games
 
 // 10 game data
-    void fDisplaySelectedGame();
+    void fDisplaySelectedGame(const QString& str);
 
 
 
@@ -145,6 +127,8 @@ private:
     Ui::MainWindow *ui;
     void attachListeners();
     ATM* atm;
+    ScreenPage _currentScreen;
+    void clearCurrentPage();
     //void changeAvailable();
     //QMovie *movie;
     //QLabel *lbl;

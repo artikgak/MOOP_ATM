@@ -676,6 +676,9 @@ border-style:solid;
      </item>
      <item row="1" column="1">
       <widget class="QStackedWidget" name="stackedWidget">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(233, 255, 245);
 border-width: 1px;
@@ -685,7 +688,7 @@ border-style:solid;
 </string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>6</number>
        </property>
        <widget class="QWidget" name="welcome_p">
         <widget class="QPushButton" name="inputCard">
@@ -732,6 +735,34 @@ color: rgb(0, 25, 255)</string>
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
+        <widget class="QLabel" name="wrongCardNumLabel">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>190</x>
+           <y>200</y>
+           <width>171</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-width: 0px;
+color: red;</string>
+         </property>
+         <property name="text">
+          <string>CardID not found</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="PIN_p">
         <widget class="QWidget" name="gridLayoutWidget">
@@ -762,7 +793,7 @@ color: rgb(0, 25, 255)</string>
 margin: 1px;</string>
             </property>
             <property name="text">
-             <string>  Введіть пін-код:</string>
+             <string>Enter your PIN</string>
             </property>
            </widget>
           </item>
@@ -817,24 +848,26 @@ margin-left: 3px;</string>
              <string notr="true">margin-right: 4px;</string>
             </property>
             <property name="text">
-             <string>Відміна</string>
+             <string>Cancel</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QWidget" name="widget_4" native="true">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>80</height>
-             </size>
+          <item row="2" column="0">
+           <widget class="QLabel" name="wrongPINLabel">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
             </property>
             <property name="styleSheet">
              <string notr="true">border-width: 0px;
-margin-left: 4px;</string>
+color: red;</string>
+            </property>
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
@@ -1245,7 +1278,7 @@ margin: 1px;</string>
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
-        <widget class="QLabel" name="label_11">
+        <widget class="QLabel" name="cashBalanceLabel">
          <property name="geometry">
           <rect>
            <x>50</x>
@@ -1263,7 +1296,7 @@ margin: 1px;</string>
           <string notr="true">border-width: 0px;</string>
          </property>
          <property name="text">
-          <string>мільйон долялрів</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1312,7 +1345,7 @@ margin: 1px;</string>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLineEdit" name="pinField_13">
+           <widget class="QLineEdit" name="transactionSumField">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -1434,7 +1467,7 @@ margin: 1px;</string>
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QLineEdit" name="pinField_14">
+           <widget class="QLineEdit" name="targetCardField">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -1497,7 +1530,7 @@ margin: 1px;</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_6" rowstretch="1,1,1,1" columnstretch="1,1">
           <item row="1" column="1">
-           <widget class="QLineEdit" name="pinField_3">
+           <widget class="QLineEdit" name="phoneSumField">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -1593,7 +1626,7 @@ margin: 1px;</string>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLineEdit" name="pinField_2">
+           <widget class="QLineEdit" name="phoneNumField">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -1732,7 +1765,7 @@ margin: 1px;</string>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLineEdit" name="pinField_4">
+           <widget class="QLineEdit" name="cashSumField">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -1807,7 +1840,7 @@ margin: 1px;</string>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLabel" name="label_27">
+           <widget class="QLabel" name="availBanknotesLabel">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -2085,7 +2118,7 @@ margin: 1px;</string>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLineEdit" name="pinField_5">
+           <widget class="QLineEdit" name="charitySumField">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -2160,7 +2193,7 @@ margin: 1px;</string>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLabel" name="label_30">
+           <widget class="QLabel" name="selectedFondLabel">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -2440,7 +2473,7 @@ border-width:0px;
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLineEdit" name="pinField_11">
+           <widget class="QLineEdit" name="gameSumField">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -2515,7 +2548,7 @@ margin: 1px;</string>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLabel" name="label_98">
+           <widget class="QLabel" name="selectedGameLabel">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -2563,7 +2596,7 @@ margin: 1px;</string>
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QLineEdit" name="pinField_12">
+           <widget class="QLineEdit" name="gameIDField">
             <property name="enabled">
              <bool>true</bool>
             </property>
