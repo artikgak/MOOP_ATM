@@ -26,7 +26,6 @@ public:
     //void hideLoader();
 
     void callMessageBox(const QString& info);
-
     void goToPage(const ScreenPage);
 //TODO: success/fail creen
 //f - feedback
@@ -129,6 +128,7 @@ private:
     void attachListeners();
     ATM* atm;
     ScreenPage _currentScreen;
+    void clearCurrentPage();
     //void changeAvailable();
     //QMovie *movie;
     //QLabel *lbl;
