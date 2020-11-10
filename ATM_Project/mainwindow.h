@@ -56,9 +56,15 @@ public:
 
 
 // 4 transaction data
-    void fAddPinChar();
-    void fDeletePinChar();
-    void fClearPinField();
+    //??select
+
+    void fAddCardNumChar();
+    void fDeleteCardNumChar();
+    void fClearCardNumField();
+
+    void fAddTransferSumChar();
+    void fDeleteTransferSumChar();
+    void fClearTransferSumField();
 
 
 // 3 balance
