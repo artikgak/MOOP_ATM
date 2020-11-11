@@ -688,7 +688,7 @@ border-style:solid;
 </string>
        </property>
        <property name="currentIndex">
-        <number>6</number>
+        <number>11</number>
        </property>
        <widget class="QWidget" name="welcome_p">
         <widget class="QPushButton" name="inputCard">
@@ -741,9 +741,9 @@ color: rgb(0, 25, 255)</string>
          </property>
          <property name="geometry">
           <rect>
-           <x>190</x>
+           <x>180</x>
            <y>200</y>
-           <width>171</width>
+           <width>191</width>
            <height>20</height>
           </rect>
          </property>
@@ -775,59 +775,6 @@ color: red;</string>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,0,0,0,0" columnstretch="1,1">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Enter your PIN</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLineEdit" name="pinField">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>26</pointsize>
-              <weight>75</weight>
-              <italic>false</italic>
-              <bold>true</bold>
-              <underline>false</underline>
-              <strikeout>false</strikeout>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: white;
-border-color: black;
-margin-left: 3px;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="1">
            <widget class="QLabel" name="label_18">
             <property name="maximumSize">
@@ -855,7 +802,67 @@ margin-left: 3px;</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="label_2">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string>Enter your PIN</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QLineEdit" name="pinField">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>26</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+              <underline>false</underline>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: white;
+border-color: black;
+margin-left: 3px;
+margin-right: 10px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
            <widget class="QLabel" name="wrongPINLabel">
             <property name="font">
              <font>
@@ -1313,68 +1320,7 @@ margin: 1px;</string>
            <height>341</height>
           </rect>
          </property>
-         <layout class="QGridLayout" name="gridLayout_18" rowstretch="1,1,1,1" columnstretch="1,1" columnminimumwidth="0,0">
-          <item row="3" column="1">
-           <widget class="QLabel" name="label_101">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">margin-right: 5px;
-
-
-</string>
-            </property>
-            <property name="text">
-             <string>Назад до гловного меню</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLineEdit" name="transactionSumField">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>26</pointsize>
-              <weight>75</weight>
-              <italic>false</italic>
-              <bold>true</bold>
-              <underline>false</underline>
-              <strikeout>false</strikeout>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: white;
-border-color: black;
-margin-left: 3px;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
+         <layout class="QGridLayout" name="gridLayout_18" rowstretch="1,0,0,0" columnstretch="1,1">
           <item row="0" column="0">
            <widget class="QLabel" name="label_102">
             <property name="maximumSize">
@@ -1397,8 +1343,38 @@ margin: 1px;</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="label_103">
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_101">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">margin-right: 10px;
+
+
+</string>
+            </property>
+            <property name="text">
+             <string>Назад до гловного меню</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_105">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -1415,11 +1391,11 @@ margin: 1px;</string>
 margin: 1px;</string>
             </property>
             <property name="text">
-             <string/>
+             <string>Карта отримувача:</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
+          <item row="1" column="1">
            <widget class="QLabel" name="label_104">
             <property name="maximumSize">
              <size>
@@ -1444,29 +1420,38 @@ margin: 1px;</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_105">
-            <property name="maximumSize">
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="transactionSumField">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="minimumSize">
              <size>
-              <width>16777215</width>
+              <width>0</width>
               <height>80</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <pointsize>26</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+              <underline>false</underline>
+              <strikeout>false</strikeout>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
+             <string notr="true">background-color: white;
+border-color: black;
+margin-right: 10px;</string>
             </property>
             <property name="text">
-             <string>taget card</string>
+             <string/>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="2" column="1">
            <widget class="QLineEdit" name="targetCardField">
             <property name="enabled">
              <bool>true</bool>
@@ -1490,11 +1475,32 @@ margin: 1px;</string>
             <property name="styleSheet">
              <string notr="true">background-color: white;
 border-color: black;
-margin-left: 3px;
+margin-right: 10px;
 </string>
             </property>
             <property name="text">
              <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_103">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>Підтвердити</string>
             </property>
            </widget>
           </item>
@@ -1529,37 +1535,6 @@ margin: 1px;</string>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_6" rowstretch="1,1,1,1" columnstretch="1,1">
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="phoneSumField">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <italic>false</italic>
-              <bold>true</bold>
-              <underline>false</underline>
-              <strikeout>false</strikeout>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: white;
-border-color: black;
-margin-right: 7px;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_47">
             <property name="maximumSize">
@@ -1578,103 +1553,6 @@ margin-right: 7px;</string>
             </property>
             <property name="text">
              <string>Confirm</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_20">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Введіть номер телефону:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_24">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Введіть суму:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLineEdit" name="phoneNumField">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>26</pointsize>
-              <weight>75</weight>
-              <italic>false</italic>
-              <bold>true</bold>
-              <underline>false</underline>
-              <strikeout>false</strikeout>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: white;
-border-color: black;
-margin-left: 3px;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="label_48">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string/>
             </property>
            </widget>
           </item>
@@ -1702,6 +1580,197 @@ margin: 1px;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget_4" native="true">
+            <widget class="QLabel" name="label_20">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>101</width>
+               <height>80</height>
+              </rect>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>80</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border-width: 0px;
+margin: 1px;</string>
+             </property>
+             <property name="text">
+              <string>Введіть номер телефону:</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="phoneNumField">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="geometry">
+              <rect>
+               <x>100</x>
+               <y>10</y>
+               <width>160</width>
+               <height>60</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>24</pointsize>
+               <weight>75</weight>
+               <italic>false</italic>
+               <bold>true</bold>
+               <underline>false</underline>
+               <strikeout>false</strikeout>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: white;
+border-color: black;
+</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QWidget" name="widget_13" native="true">
+            <widget class="QLabel" name="label_24">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>20</y>
+               <width>91</width>
+               <height>41</height>
+              </rect>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>80</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border-width: 0px;
+margin: 1px;</string>
+             </property>
+             <property name="text">
+              <string>Введіть суму:</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="phoneSumField">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="geometry">
+              <rect>
+               <x>100</x>
+               <y>10</y>
+               <width>160</width>
+               <height>60</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>18</pointsize>
+               <weight>75</weight>
+               <italic>false</italic>
+               <bold>true</bold>
+               <underline>false</underline>
+               <strikeout>false</strikeout>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: white;
+border-color: black;
+</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="wrongPhoneNumLabel">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QWidget" name="widget_14" native="true"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="wrongWhoneSumLabel">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
@@ -1764,7 +1833,29 @@ margin: 1px;</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_22">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string>Ведіть суму:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
            <widget class="QLineEdit" name="cashSumField">
             <property name="enabled">
              <bool>true</bool>
@@ -1788,58 +1879,14 @@ margin: 1px;</string>
             <property name="styleSheet">
              <string notr="true">background-color: white;
 border-color: black;
-margin-left: 3px;</string>
+margin-right: 10px;</string>
             </property>
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_22">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Ведіть суму:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="label_25">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
+          <item row="1" column="0">
            <widget class="QLabel" name="availBanknotesLabel">
             <property name="maximumSize">
              <size>
@@ -1862,6 +1909,52 @@ margin: 1px;</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_48">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Не кратна сума</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_25">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_27">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Недосатньо грошей</string>
             </property>
            </widget>
           </item>
@@ -2089,87 +2182,6 @@ margin: 1px;</string>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_8" rowstretch="1,1,1,1" columnstretch="1,1" columnminimumwidth="0,0">
-          <item row="3" column="1">
-           <widget class="QLabel" name="label_34">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">margin-right: 2px;
-</string>
-            </property>
-            <property name="text">
-             <string>Назад до гловного меню</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLineEdit" name="charitySumField">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>26</pointsize>
-              <weight>75</weight>
-              <italic>false</italic>
-              <bold>true</bold>
-              <underline>false</underline>
-              <strikeout>false</strikeout>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: white;
-border-color: black;
-margin-left: 3px;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_28">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Ведіть суму:</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="1">
            <widget class="QLabel" name="label_29">
             <property name="maximumSize">
@@ -2215,6 +2227,87 @@ margin: 1px;</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_34">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">margin-right: 2px;
+</string>
+            </property>
+            <property name="text">
+             <string>Назад до гловного меню</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_28">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string>Ведіть суму:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLineEdit" name="charitySumField">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>26</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+              <underline>false</underline>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: white;
+border-color: black;
+margin-left: 3px;</string>
+            </property>
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
@@ -2441,9 +2534,9 @@ margin: 1px;</string>
            <height>341</height>
           </rect>
          </property>
-         <layout class="QGridLayout" name="gridLayout_17" rowstretch="1,1,1,1" columnstretch="1,1" columnminimumwidth="0,0">
-          <item row="3" column="1">
-           <widget class="QLabel" name="label_95">
+         <layout class="QGridLayout" name="gridLayout_17" rowstretch="1,0,0,0" columnstretch="1,1">
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_99">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -2455,20 +2548,12 @@ margin: 1px;</string>
               <pointsize>12</pointsize>
              </font>
             </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
             <property name="styleSheet">
-             <string notr="true">margin-right: 5px;
-border-width:0px;
-
-</string>
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
             </property>
             <property name="text">
-             <string>Назад до гловного меню</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <string>АДі профілю</string>
             </property>
            </widget>
           </item>
@@ -2500,98 +2585,6 @@ margin-left: 3px;</string>
             </property>
             <property name="text">
              <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_96">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Ведіть суму:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="label_97">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="selectedGameLabel">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Selected: 
-&quot;SomeGAME&quot;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_99">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>АДі профілю</string>
             </property>
            </widget>
           </item>
@@ -2627,6 +2620,113 @@ margin-left: 3px;
             </property>
            </widget>
           </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_96">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string>Ведіть суму:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="wrongGameId">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_95">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">margin-right: 5px;
+border-width:0px;
+
+</string>
+            </property>
+            <property name="text">
+             <string>Назад до гловного меню</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="selectedGameLabel">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-width: 0px;
+margin: 1px;</string>
+            </property>
+            <property name="text">
+             <string>Selected: 
+&quot;SomeGAME&quot;</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="wrongSum">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
         <widget class="QLabel" name="label_100">
@@ -2644,6 +2744,68 @@ margin: 1px;</string>
          </property>
          <property name="text">
           <string>Поповнення гри</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="page">
+        <widget class="QLabel" name="label_11">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>300</y>
+           <width>281</width>
+           <height>81</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Назад до меню</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="succFailLab">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>60</y>
+           <width>541</width>
+           <height>71</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Успіх невдача</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_30">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>300</y>
+           <width>261</width>
+           <height>81</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Спробувати ще раз</string>
          </property>
         </widget>
        </widget>

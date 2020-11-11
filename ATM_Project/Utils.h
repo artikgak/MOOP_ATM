@@ -29,7 +29,7 @@ enum InputField{
 enum ScreenPage{
     Welcome, EnterPIN, Menu, Balance,
     TransactionData, PhoneData, GetCash, SelectCharity,
-    CharityData, SelectGame, GameData
+    CharityData, SelectGame, GameData, SuccessFail
 };
 
 

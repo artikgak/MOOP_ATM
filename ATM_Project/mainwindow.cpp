@@ -434,6 +434,11 @@ void MainWindow::clearCurrentPage()
         ui->gameSumField->clear();
         break;
     }
+    case SuccessFail:
+    {
+        ui->succFailLab->clear();
+        break;
+    }
     }
 }
 
@@ -483,12 +488,12 @@ void MainWindow::fDisplayBalance(const int money)
 // 5 phone data
 void MainWindow::fDisplayWrongPhone()
 {
-
+ui->wrongPhoneNumLabel->setText("Невірний номер телефону");
 }
 
 void MainWindow::fDisplayWrongGameID()
 {
-
+ui->wrongGameId->setText("Невірнt id профілю");
 }
 
 
@@ -677,3 +682,7 @@ void MainWindow::fDisplaySelectedGame(const QString& str)
 ui-> selectedGameLabel->setText(str);
 }
 
+void MainWindow::fDisplaySuccessFail(const QString& str)
+{
+    ui->succFailLab->setText(str);
+}
