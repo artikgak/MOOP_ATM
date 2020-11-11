@@ -81,7 +81,7 @@ public:
 // 10 game data
     void fDisplaySelectedGame(const QString& str);
 
-
+void fDisplaySuccessFail(const QString& str);
 
 
 
