@@ -3,6 +3,7 @@
 
 #include <QtSql>
 #include <string>
+#include <Card.h>
 
 class DataBase
 {
@@ -19,7 +20,7 @@ public:
     bool isTableExists(const char *);
     bool addCortege(const QString, const QString, const double);
     bool deleteCortege(const QString);
-    bool getDataByCardNo(const QString);
+    Card* getDataByCardNo(const QString);
     bool checkPin(const QString, const QString);
     double getMoney(const QString);
     bool addMoney(const QString, const double);

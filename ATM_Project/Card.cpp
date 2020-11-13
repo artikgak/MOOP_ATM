@@ -1,6 +1,6 @@
 #include "Card.h"
 
-Card::Card(const uint64 num):
+Card::Card(const std::string& num):
     cardNumber(num)
 {}
 
@@ -13,7 +13,10 @@ Card& Card::operator=(const Card& card) {
     return *this;
 }
 
+std::string Card::getPin() const {
+    return "1234"; // TODO CHANGR!!!!!
+}
 
-uint64 Card::getNumber() const {
+std::string Card::getNumber() const {
     return cardNumber;
 }

@@ -1,41 +1,41 @@
 #pragma once
 
 #include "Card.h"
-#include "ATMState.h"
 #include "Utils.h"
+#include "DataBase.h"
+#include "QObject"
 
 class MainWindow;
 
-class ATM
+class ATM : public QObject
 {
+    Q_OBJECT
 private:
+    /* Class variables */
+    MainWindow* mainW;
+
+    DataBase& db;
+    Card* card;
+    ATMState state;
+
+
     ATM& operator=(ATM&) = delete;
     ATM(ATM&) = delete;
-    MainWindow& mainW;
-    /* State of ATM*/
-    ATMState* state;
-    /* Class variables */ 
-    Card* card;
-
 
 public:
-    ATM(MainWindow& subject);
+    ATM();
     ~ATM();
-    /* State transition */
-    void transitionTo(ATMState *state);
-
 
     bool insertCard(Card);
 
-    friend class ATMState; // TODO: see if needed 
+    void pushButton(const Button button);
 
-    void pushScreenButton(const ScreenButton button) {
-        state->pushScreenButton(button);
-    }
+public slots:
+    void validateCard(std::string cardNum);
+    void validatePin(std::string pin);
 
-    void pushPinButton(const PinButton button) {
-        state->pushPinButton(button);
-    }
-
+signals:
+    void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
+    void goToPage(const ScreenPage);
 };
 

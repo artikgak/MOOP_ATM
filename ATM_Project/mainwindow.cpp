@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QTime>
 #include <QMovie>
+#include "ATM.h"
 //#include <QFuture>
 //#include <QtCore>
 //#include <QtConcurrent/QtConcurrent>
@@ -12,13 +13,14 @@
 const int MAINWINW = 680;
 const int MAINWINH = 550;
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(ATM* atm, QWidget *parent)
     : QMainWindow(parent)
     , state(0)
     , ui(new Ui::MainWindow)
-    , atm(nullptr)
+    , atm(atm)
     ,_currentScreen(Welcome)
 {
+    // UI CODE
     ui->setupUi(this);
     attachListeners();
     MainWindow::setGeometry(330,200,MAINWINW,MAINWINH);
@@ -27,6 +29,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->setCurrentIndex(_currentScreen);
     startTimer(1000);   // 1-second timer
     ui->wrongCardNumLabel->setVisible(false);
+
+    // Tying signals to slots TODO extract into a function
+    QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
+    QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
+
+    QObject::connect(this, &MainWindow::validatePin,
+                                 atm, &ATM::validatePin);
+    QObject::connect(this, &MainWindow::validateCard,
+                                 atm, &ATM::validateCard);
 }
 
 MainWindow::~MainWindow()
@@ -129,22 +140,30 @@ void MainWindow::attachListeners()
 
 void MainWindow::handleInputCard()
 {
-    QString text = QInputDialog::getText(this, tr("Input card"),
-                                            tr("Enter card ID:"), QLineEdit::Normal);
-    //send text to back-end
-    //end remove code under
-    if(text.length()>5)
-    {
-        state=1;
-        ui->stackedWidget->setCurrentIndex(1);
-        //changeAvailable();
-    }
+    bool ok;
+    QString num = QInputDialog::getText(this, tr("Input card"),
+                                            tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
+    if(!ok) return;
+    blockInput();
 
-
-
-// if ok nomer-> set availbale inteface
-// else message box wrong card number
+    num = num.replace(" ", "");
+    emit validateCard(num.toStdString());
 }
+
+void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
+    unblockInput();
+    QMessageBox::critical(this,"Error",errorMsg, QMessageBox::Ok); // IF artem you want it rework with SuccessFail window :^)))))))))))))))))))))))))))))))))))))))) x-DDdd
+    goToPage(whereToGo);
+}
+
+void MainWindow::goToPage(const ScreenPage sp)
+{
+    unblockInput();
+    ui->stackedWidget->setCurrentIndex(sp);
+    clearCurrentPage();
+    _currentScreen=sp;
+}
+
 /*
 void MainWindow::test()
 {
@@ -348,10 +367,10 @@ void MainWindow::handleButtonR4()
 
 // update front:
 
-void MainWindow::subscribeATM(ATM* atm)
-{
-this->atm=atm;
-}
+//void MainWindow::subscribeATM(ATM* atm)
+//{
+//this->atm=atm;
+//}
 
 void callMessageBox(const QString& info)
 {
@@ -361,12 +380,7 @@ void callMessageBox(const QString& info)
 }
 
 // ************************************ FeedBackFrom back-end ***************************************************
-void MainWindow::goToPage(const ScreenPage sp)
-{
-ui->stackedWidget->setCurrentIndex(sp);
-clearCurrentPage();
-_currentScreen=sp;
-}
+
 /*
     Welcome, EnterPIN, Menu, Balance,
     TransactionData, PhoneData, GetCash, SelectCharity,

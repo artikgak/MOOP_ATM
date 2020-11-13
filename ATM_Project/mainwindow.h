@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include "Utils.h"
+#include "Card.h"
 #include <QLabel>
+#include <QThread>
 
 class ATM;
 
@@ -14,11 +16,11 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
+    QThread workerThread;
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(ATM* atm, QWidget *parent = nullptr);
     ~MainWindow();
-    void subscribeATM(ATM*);
+//    void subscribeATM(ATM*);
 
 
 
@@ -26,7 +28,6 @@ public:
     //void hideLoader();
 
     void callMessageBox(const QString& info);
-    void goToPage(const ScreenPage);
 //TODO: success/fail creen
 //f - feedback
 // to find these functions much easier
@@ -89,9 +90,16 @@ void fDisplaySuccessFail(const QString& str);
 
 
 void test();
+
+signals:
+    void validateCard(std::string cardNum);
+    void validatePin(std::string pin);
+
+public slots:
+    void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
+    void goToPage(const ScreenPage);
+
 private slots:
-
-
 
     void handleInputCard();
 
@@ -132,5 +140,7 @@ private:
     //void changeAvailable();
     //QMovie *movie;
     //QLabel *lbl;
+    void blockInput() {};
+    void unblockInput() {};
 };
 #endif // MAINWINDOW_H

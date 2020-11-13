@@ -1,18 +1,21 @@
 #pragma once
-#define uint64 unsigned long long
+
+#include <string>
+
 class Card {
     
 private:
-uint64 cardNumber;
+std::string cardNumber;
 
 public:
     Card(const Card&);
-    Card(const uint64);
+    Card(const std::string&);
     
     Card() = delete;
     Card& operator=(const Card&);
 
     ~Card() {};
 
-    uint64 getNumber() const;
+    std::string getPin() const;
+    std::string getNumber() const;
 };
