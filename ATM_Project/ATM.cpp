@@ -3,7 +3,6 @@
 
 ATM::ATM(MainWindow& subject):
     mainW(subject),
-    state(nullptr),
     card(nullptr)
 {
     mainW.subscribeATM(this);
@@ -11,7 +10,6 @@ ATM::ATM(MainWindow& subject):
 
 
 ATM::~ATM() {
-    delete state;
     delete card;
 }
 
@@ -23,9 +21,21 @@ bool ATM::insertCard(Card c) {
     return true;
 }
 
-void ATM::transitionTo(ATMState *newState) {
-    if (state != nullptr)
-      delete state;
-    state = newState;
-    state -> set_context(this);
+void ATM::pushButton(const Button button) {
+    switch (state) {
+    case Idle:
+    case S1:
+    case S2:
+    case S3:
+    case Fin:
+    case Mntnc:
+
+        break;
+
+
+
+//    default:
+        ;
+    }
+
 }

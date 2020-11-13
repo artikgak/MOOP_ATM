@@ -27,7 +27,6 @@ SOURCES += \
 
 HEADERS += \
     ATM.h \
-    ATMState.h \
     AccountMenu.h \
     Card.h \
     Menu.h \
