@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QTime>
 #include <QMovie>
+#include "ATM.h"
 //#include <QFuture>
 //#include <QtCore>
 //#include <QtConcurrent/QtConcurrent>
@@ -12,13 +13,14 @@
 const int MAINWINW = 680;
 const int MAINWINH = 550;
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(ATM* atm, QWidget *parent)
     : QMainWindow(parent)
     , state(0)
     , ui(new Ui::MainWindow)
-    , atm(nullptr)
+    , atm(atm)
     ,_currentScreen(Welcome)
 {
+    // UI CODE
     ui->setupUi(this);
     attachListeners();
     MainWindow::setGeometry(330,200,MAINWINW,MAINWINH);
@@ -27,6 +29,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->setCurrentIndex(_currentScreen);
     startTimer(1000);   // 1-second timer
     ui->wrongCardNumLabel->setVisible(false);
+
+    // Tying signals to slots TODO extract into a function
+    QObject::connect(this, &MainWindow::validateCard,
+                                 atm, &ATM::validateCard);
+    QObject::connect(this, &MainWindow::cardConfirmation,
+                                 atm, &ATM::cardConfirmation);
+    QObject::connect(this, &MainWindow::errorMsg,
+                                 atm, &ATM::errorMsg);
+
 }
 
 MainWindow::~MainWindow()
@@ -129,22 +140,31 @@ void MainWindow::attachListeners()
 
 void MainWindow::handleInputCard()
 {
-    QString text = QInputDialog::getText(this, tr("Input card"),
-                                            tr("Enter card ID:"), QLineEdit::Normal);
-    //send text to back-end
-    //end remove code under
-    if(text.length()>5)
-    {
-        state=1;
-        ui->stackedWidget->setCurrentIndex(1);
-        //changeAvailable();
-    }
+    QString num;
+    do {
+        QMessageBox().information(this,"Information", "Card numbers must be 16 digits.");
+        bool ok;
+        num = QInputDialog::getText(this, tr("Input card"),
+                                            tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
+        if(!ok) break;
+        num = num.replace(" ", "");
+    } while (!QRegExp("\\d{16}").exactMatch(num));
 
-
-
-// if ok nomer-> set availbale inteface
-// else message box wrong card number
+    blockInput();
+    Card card(num.toStdString());
+    emit validateCard(card);
 }
+
+void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
+    QMessageBox::critical(this,"Error",errorMsg, QMessageBox::Ok); // IF artem you want it rework with SuccessFail window :^)))))))))))))))))))))))))))))))))))))))) x-DDdd
+    goToPage(whereToGo);
+}
+
+void MainWindow::cardConfirmation(const Card& card) {
+    goToPage(EnterPIN); // we need to keep in mind card
+}
+
+
 /*
 void MainWindow::test()
 {
@@ -348,10 +368,10 @@ void MainWindow::handleButtonR4()
 
 // update front:
 
-void MainWindow::subscribeATM(ATM* atm)
-{
-this->atm=atm;
-}
+//void MainWindow::subscribeATM(ATM* atm)
+//{
+//this->atm=atm;
+//}
 
 void callMessageBox(const QString& info)
 {

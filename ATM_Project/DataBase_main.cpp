@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
     qDebug() << "start";
 
-    DataBase my_db = DataBase("db");
+    DataBase my_db ("db");
     my_db.addCortege("1234123412341234", "1234", 0);
     my_db.addCortege("1234123412341235", "4321", 11231.12321);
 
