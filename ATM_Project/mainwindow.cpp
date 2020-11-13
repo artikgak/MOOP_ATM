@@ -31,13 +31,13 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     ui->wrongCardNumLabel->setVisible(false);
 
     // Tying signals to slots TODO extract into a function
+    QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
+    QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
+
+    QObject::connect(this, &MainWindow::validatePin,
+                                 atm, &ATM::validatePin);
     QObject::connect(this, &MainWindow::validateCard,
                                  atm, &ATM::validateCard);
-    QObject::connect(this, &MainWindow::cardConfirmation,
-                                 atm, &ATM::cardConfirmation);
-    QObject::connect(this, &MainWindow::errorMsg,
-                                 atm, &ATM::errorMsg);
-
 }
 
 MainWindow::~MainWindow()
@@ -140,30 +140,29 @@ void MainWindow::attachListeners()
 
 void MainWindow::handleInputCard()
 {
-    QString num;
-    do {
-        QMessageBox().information(this,"Information", "Card numbers must be 16 digits.");
-        bool ok;
-        num = QInputDialog::getText(this, tr("Input card"),
+    bool ok;
+    QString num = QInputDialog::getText(this, tr("Input card"),
                                             tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
-        if(!ok) break;
-        num = num.replace(" ", "");
-    } while (!QRegExp("\\d{16}").exactMatch(num));
-
+    if(!ok) return;
     blockInput();
-    Card card(num.toStdString());
-    emit validateCard(card);
+
+    num = num.replace(" ", "");
+    emit validateCard(num.toStdString());
 }
 
 void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
+    unblockInput();
     QMessageBox::critical(this,"Error",errorMsg, QMessageBox::Ok); // IF artem you want it rework with SuccessFail window :^)))))))))))))))))))))))))))))))))))))))) x-DDdd
     goToPage(whereToGo);
 }
 
-void MainWindow::cardConfirmation(const Card& card) {
-    goToPage(EnterPIN); // we need to keep in mind card
+void MainWindow::goToPage(const ScreenPage sp)
+{
+    unblockInput();
+    ui->stackedWidget->setCurrentIndex(sp);
+    clearCurrentPage();
+    _currentScreen=sp;
 }
-
 
 /*
 void MainWindow::test()
@@ -381,12 +380,7 @@ void callMessageBox(const QString& info)
 }
 
 // ************************************ FeedBackFrom back-end ***************************************************
-void MainWindow::goToPage(const ScreenPage sp)
-{
-ui->stackedWidget->setCurrentIndex(sp);
-clearCurrentPage();
-_currentScreen=sp;
-}
+
 /*
     Welcome, EnterPIN, Menu, Balance,
     TransactionData, PhoneData, GetCash, SelectCharity,

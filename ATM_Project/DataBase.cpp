@@ -74,7 +74,7 @@ bool DataBase::deleteCortege(const QString cardNumber)
     return true; // cortege wasn't deleted
 }
 
-bool DataBase::getDataByCardNo(const QString cardNumber)
+Card* DataBase::getDataByCardNo(const QString cardNumber)
 {
     QSqlQuery qry;
     std::string query("SELECT * FROM card WHERE cardNo='" + cardNumber.toStdString() + "';");
@@ -82,7 +82,7 @@ bool DataBase::getDataByCardNo(const QString cardNumber)
 
     if (!qry.exec()) {
         qDebug() << "error: getting data from a database";
-        return false; // there is some error while executing query
+        return nullptr; // there is some error while executing query
     }
 
     if (qry.next()) {
@@ -98,9 +98,9 @@ bool DataBase::getDataByCardNo(const QString cardNumber)
         // qDebug() << cardNo << pin << balance;
     }
     else {
-        return false; // There is no data
+        return nullptr; // There is no data
     }
-    return true; // There is data
+    return new Card(cardNumber.toStdString()); // There is data
 }
 
 bool DataBase::checkPin(const QString cardNumber, const QString pin_code)

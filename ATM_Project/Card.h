@@ -16,5 +16,6 @@ public:
 
     ~Card() {};
 
+    std::string getPin() const;
     std::string getNumber() const;
 };

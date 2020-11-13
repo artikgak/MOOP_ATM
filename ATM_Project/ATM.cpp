@@ -43,17 +43,29 @@ void ATM::pushButton(const Button button) {
 
 }
 
-void ATM::validateCard(Card card) {
-    std::cout << "Validating card " << card.getNumber() << std::endl; // DEBUG INFo
-    bool present = db.getDataByCardNo(QString::fromStdString(card.getNumber()));
+void ATM::validateCard(std::string cardNum) {
+    assert(card==nullptr); // Card-reader should be empty
 
-    if (present) {
+    std::cout << "Validating card " << cardNum << std::endl; // DEBUG INFo
+    Card* retrieved = db.getDataByCardNo(QString::fromStdString(cardNum));
+
+    if (retrieved) {
         std::cout << "yes" << std::endl; // DEBUG INFo
-        emit cardConfirmation();
+        card = retrieved;
+        emit goToPage(EnterPIN);
     } else {
         std::cout << "no" << std::endl; // DEBUG INFo
         emit errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
     }
 
 }
+void ATM::validatePin(std::string pin) {
+    assert(card!=nullptr); // There should be a card in card-reader
 
+    if (pin == card->getPin()) { //change to card pin
+        emit goToPage(Menu);
+    } else {
+        emit errorMsg("Wrong pin code, try again", EnterPIN);
+    }
+
+}

@@ -13,6 +13,9 @@ Card& Card::operator=(const Card& card) {
     return *this;
 }
 
+std::string Card::getPin() const {
+    return "1234"; // TODO CHANGR!!!!!
+}
 
 std::string Card::getNumber() const {
     return cardNumber;

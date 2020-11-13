@@ -31,10 +31,11 @@ public:
     void pushButton(const Button button);
 
 public slots:
-    void validateCard(Card card);
+    void validateCard(std::string cardNum);
+    void validatePin(std::string pin);
 
 signals:
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
-    void cardConfirmation();
+    void goToPage(const ScreenPage);
 };
 

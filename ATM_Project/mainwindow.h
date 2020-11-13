@@ -28,7 +28,6 @@ public:
     //void hideLoader();
 
     void callMessageBox(const QString& info);
-    void goToPage(const ScreenPage);
 //TODO: success/fail creen
 //f - feedback
 // to find these functions much easier
@@ -93,11 +92,12 @@ void fDisplaySuccessFail(const QString& str);
 void test();
 
 signals:
-    void validateCard(Card card);
+    void validateCard(std::string cardNum);
+    void validatePin(std::string pin);
 
 public slots:
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
-    void cardConfirmation();
+    void goToPage(const ScreenPage);
 
 private slots:
 
