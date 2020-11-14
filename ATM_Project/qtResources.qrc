@@ -8,6 +8,5 @@
         <file>images/transfer.png</file>
         <file>images/loader.gif</file>
         <file>images/200.gif</file>
-        <file>Loader.qml</file>
     </qresource>
 </RCC>

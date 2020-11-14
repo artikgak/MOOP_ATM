@@ -5,7 +5,7 @@
 #include "DataBase.h"
 #include "QObject"
 
-
+class Test_Front;
 class MainWindow;
 
 class ATM : public QObject
@@ -26,6 +26,7 @@ private:
     void validatePinAndEmit(const std::string& pin, voidFunc toEmit);
 
 public:
+    friend Test_Front;
     ATM();
     ~ATM();
 
