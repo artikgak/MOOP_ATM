@@ -91,13 +91,18 @@ void fDisplaySuccessFail(const QString& str);
 void test();
 
 signals:
-    void validateCard(std::string cardNum);
-    void validatePin(std::string pin);
+    void validateCard(const std::string& cardNum);
+    void validateLogin(const std::string& pin);
+    void validateBalance(const std::string& pin);
     void ejectCard();
 
 public slots:
+    //more generic ones
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);
+
+    //more specific ones
+    void displayBalance(const std::string& pin);
 
 private slots:
 
@@ -133,12 +138,15 @@ private slots:
 
 private:
     void enterNum(char);
+    void endSession();
 
     void timerEvent(QTimerEvent *event);
     Ui::MainWindow *ui;
     void attachListeners();
     ATM* atm;
     ScreenPage _currentScreen;
+
+    ScreenPage destination;//LATER TO BE EXTRACTED TO STATE
     void clearCurrentPage();
     //void changeAvailable();
     //QMovie *movie;

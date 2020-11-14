@@ -19,6 +19,7 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     , ui(new Ui::MainWindow)
     , atm(atm)
     ,_currentScreen(Welcome)
+    , destination(Menu)
 {
     // UI CODE
     ui->setupUi(this);
@@ -33,13 +34,14 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     // Tying signals to slots TODO extract into a function
     QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
     QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
+    QObject::connect(atm, &ATM::displayBalance, this, &MainWindow::displayBalance);
 
-    QObject::connect(this, &MainWindow::validatePin,
-                                 atm, &ATM::validatePin);
-    QObject::connect(this, &MainWindow::validateCard,
-                                 atm, &ATM::validateCard);
-    QObject::connect(this, &MainWindow::ejectCard,
-                                 atm, &ATM::ejectCard);
+    QObject::connect(this, &MainWindow::validateLogin, atm, &ATM::validateLogin);
+    QObject::connect(this, &MainWindow::validateBalance, atm, &ATM::validateBalance);
+    QObject::connect(this, &MainWindow::validateCard, atm, &ATM::validateCard);
+    QObject::connect(this, &MainWindow::ejectCard, atm, &ATM::ejectCard);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -49,7 +51,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::timerEvent(QTimerEvent * event)
+void MainWindow::timerEvent(QTimerEvent*)
 {
     ui->timeLab->setText(QTime::currentTime().toString("hh:mm:ss"));
 }
@@ -107,24 +109,8 @@ void MainWindow::timerEvent(QTimerEvent * event)
     }
 }*/
 
-void MainWindow::attachListeners()
-{
-//    connect(ui->button0,   SIGNAL (clicked()), this, SLOT (handleZero()));
-//    connect(ui->button1,   SIGNAL (clicked()), this, SLOT (handleOne()));
-//    connect(ui->button2,   SIGNAL (clicked()), this, SLOT (handleTwo()));
-//    connect(ui->button3,   SIGNAL (clicked()), this, SLOT (handleTree()));
-//    connect(ui->button4,   SIGNAL (clicked()), this, SLOT (handleFour()));
-//    connect(ui->button5,   SIGNAL (clicked()), this, SLOT (handleFive()));
-//    connect(ui->button6,   SIGNAL (clicked()), this, SLOT (handleSix()));
-//    connect(ui->button7,   SIGNAL (clicked()), this, SLOT (handleSeven()));
-//    connect(ui->button8,   SIGNAL (clicked()), this, SLOT (handleEight()));
-//    connect(ui->button9,   SIGNAL (clicked()), this, SLOT (handleNine()));
-//    connect(ui->buttonMinus,   SIGNAL (clicked()), this, SLOT (handleMinus()));
-//    connect(ui->buttonPlus,    SIGNAL (clicked()), this, SLOT (handlePlus()));
+void MainWindow::attachListeners() {
     connect(ui->inputCard, SIGNAL (clicked()), this, SLOT (handleInputCard()));
-
-//    connect(ui->buttonDelete, SIGNAL (clicked()), this, SLOT (handleDelete()));
-//    connect(ui->buttonEnter, SIGNAL (clicked()), this, SLOT (handleEnter()));
 
     connect(ui->buttonL1, SIGNAL (clicked()), this, SLOT (handleButtonL1()));
     connect(ui->buttonL2, SIGNAL (clicked()), this, SLOT (handleButtonL2()));
@@ -135,9 +121,6 @@ void MainWindow::attachListeners()
     connect(ui->buttonR2, SIGNAL (clicked()), this, SLOT (handleButtonR2()));
     connect(ui->buttonR3, SIGNAL (clicked()), this, SLOT (handleButtonR3()));
     connect(ui->buttonR4, SIGNAL (clicked()), this, SLOT (handleButtonR4()));
-
-
-//    connect(ui->nothingB, SIGNAL (clicked()), this, SLOT (handleNothing()));
 }
 
 // PUBLIC SLOTS (generally messages FROM ATM - thus unblocking)
@@ -154,6 +137,12 @@ void MainWindow::goToPage(const ScreenPage sp)
     ui->stackedWidget->setCurrentIndex(sp);
     clearCurrentPage();
     _currentScreen=sp;
+}
+
+void MainWindow::displayBalance(const std::string& money) {
+    unblockInput();
+    ui->cashBalanceLabel->setText(QString::fromStdString(money) + "₴");
+    goToPage(Balance);
 }
 
 // PRIVATE SLOTS (generally messages TO ATM - thus blocking)
@@ -263,7 +252,11 @@ void MainWindow::on_buttonPlus_clicked() {}
 void MainWindow::on_buttonEnter_clicked() {
     switch (_currentScreen) {
     case EnterPIN:
-        emit validatePin(ui->pinField->text().toStdString());
+        if (destination == Menu) {
+            emit validateLogin(ui->pinField->text().toStdString());
+        } else if (destination == Balance) {
+            emit validateBalance(ui->pinField->text().toStdString());
+        }
         break;
     default:
         break;
@@ -317,12 +310,25 @@ ui->pinField->setText("");
 
 void MainWindow::handleButtonL1()
 {
-
+    switch (_currentScreen) {
+    case Menu:
+        destination = Balance;
+        goToPage(EnterPIN);
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::handleButtonL2()
 {
-
+    switch (_currentScreen) {
+    case Menu:
+        goToPage(GetCash);
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::handleButtonL3()
@@ -330,13 +336,16 @@ void MainWindow::handleButtonL3()
 
 }
 
-void MainWindow::handleButtonL4()
-{
+void MainWindow::handleButtonL4() {
     switch (_currentScreen) {
-    case Menu:
     case EnterPIN:
-        emit ejectCard();
+        if (destination == Menu) {
+            emit validateLogin(ui->pinField->text().toStdString());
+        } else if (destination == Balance) {
+            emit validateBalance(ui->pinField->text().toStdString());
+        }
         break;
+
     default:
         break;
     }
@@ -357,14 +366,24 @@ void MainWindow::handleButtonR3()
 
 }
 
-void MainWindow::handleButtonR4()
-{
+void MainWindow::handleButtonR4() {
     switch (_currentScreen) {
+    case Menu:
     case EnterPIN:
-        emit validatePin(ui->pinField->text().toStdString());
+        endSession();
+        break;
+    case Balance:
+        goToPage(Menu);
         break;
     default:
         break;
+    }
+}
+
+void MainWindow::endSession() {
+    QMessageBox::information(this, "Card", "Please take out your card");
+    emit ejectCard();
+    destination = Menu;
 }
 
 //if(not valid)
@@ -382,7 +401,7 @@ void MainWindow::handleButtonR4()
 
     }*/
 //changeAvailable();
-}
+//}
 
 // update front:
 
@@ -486,11 +505,6 @@ ui->wrongPINLabel->setText("Wrong pin, left " + QString(triesLeft) + " tries");
 // 2 Menu ???
 
 // 3 balance
-void MainWindow::fDisplayBalance(const int money)
-{
-    ui->cashBalanceLabel->setText(QString(money)+ "₴");
-}
-
 
 // 4 transaction data
     //??select

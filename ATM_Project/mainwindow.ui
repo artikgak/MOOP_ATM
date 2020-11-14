@@ -701,7 +701,7 @@ border-style:solid;
 </string>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="welcome_p">
         <widget class="QPushButton" name="inputCard">
@@ -787,7 +787,7 @@ color: red;</string>
            <height>341</height>
           </rect>
          </property>
-         <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,0,0,0,0" columnstretch="1,1">
+         <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,0,0,0" columnstretch="1,1">
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label_2">
             <property name="maximumSize">
@@ -887,7 +887,7 @@ color: red;</string>
              <string notr="true">margin-right: 4px;</string>
             </property>
             <property name="text">
-             <string>Cancel</string>
+             <string>Enter</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -914,7 +914,7 @@ color: red;</string>
              <string notr="true">margin-right: 4px;</string>
             </property>
             <property name="text">
-             <string>Enter</string>
+             <string>Quit</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
