@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 #include "Utils.h"
@@ -104,23 +103,6 @@ private slots:
 
     void handleInputCard();
 
-    void handleZero();
-    void handleOne();
-    void handleTwo();
-    void handleTree();
-    void handleFour();
-    void handleFive();
-    void handleSix();
-    void handleSeven();
-    void handleEight();
-    void handleNine();
-    void handleMinus();
-    void handlePlus();
-
-    void handleDelete();
-    void handleEnter();
-    void handleNothing();
-
     void handleButtonL1();
     void handleButtonL2();
     void handleButtonL3();
@@ -130,9 +112,29 @@ private slots:
     void handleButtonR3();
     void handleButtonR4();
 
+    void on_button0_clicked();
+    void on_button1_clicked();
+    void on_button2_clicked();
+    void on_button3_clicked();
+    void on_button4_clicked();
+    void on_button5_clicked();
+    void on_button6_clicked();
+    void on_button7_clicked();
+    void on_button8_clicked();
+    void on_button9_clicked();
+
+    void on_buttonMinus_clicked();
+    void on_buttonPlus_clicked();
+
+    void on_buttonEnter_clicked();
+    void on_buttonDelete_clicked();
+    void on_nothingB_clicked();
+    void on_buttonCorrect_clicked();
+
 private:
+    void enterNum(char);
+
     void timerEvent(QTimerEvent *event);
-    int state;
     Ui::MainWindow *ui;
     void attachListeners();
     ATM* atm;
@@ -144,4 +146,3 @@ private:
     void blockInput() {};
     void unblockInput() {};
 };
-#endif // MAINWINDOW_H

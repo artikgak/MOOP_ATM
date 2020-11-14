@@ -18,7 +18,6 @@ private:
     Card* card;
     ATMState state;
 
-
     ATM& operator=(ATM&) = delete;
     ATM(ATM&) = delete;
 
@@ -26,15 +25,13 @@ public:
     ATM();
     ~ATM();
 
-    bool insertCard(Card);
-
-    void pushButton(const Button button);
-
+// Signals received from UI
 public slots:
     void validateCard(std::string cardNum);
     void validatePin(std::string pin);
     void ejectCard();
 
+// Signals sent to UI
 signals:
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);

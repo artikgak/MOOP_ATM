@@ -18,12 +18,12 @@ public:
     ~DataBase();
 
     bool isTableExists(const char *);
-    bool addCortege(const QString, const QString, const double);
-    bool deleteCortege(const QString);
-    Card* getDataByCardNo(const QString);
-    bool checkPin(const QString, const QString);
-    double getMoney(const QString);
-    bool addMoney(const QString, const double);
+    bool addCortege(const std::string, const std::string, const double);
+    bool deleteCortege(const std::string);
+    bool getDataByCardNo(const std::string);
+    bool checkPin(const std::string, const std::string);
+    double getMoney(const std::string);
+    bool addMoney(const std::string, const double);
 
     bool getAllData();
     bool deleteAllData();
