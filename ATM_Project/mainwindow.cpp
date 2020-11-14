@@ -15,10 +15,11 @@ const int MAINWINH = 550;
 
 MainWindow::MainWindow(ATM* atm, QWidget *parent)
     : QMainWindow(parent)
-    , state(0)
+//    , state(0)
     , ui(new Ui::MainWindow)
     , atm(atm)
     ,_currentScreen(Welcome)
+    , destination(Menu)
 {
     // UI CODE
     ui->setupUi(this);
@@ -33,11 +34,14 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     // Tying signals to slots TODO extract into a function
     QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
     QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
+    QObject::connect(atm, &ATM::displayBalance, this, &MainWindow::displayBalance);
 
-    QObject::connect(this, &MainWindow::validatePin,
-                                 atm, &ATM::validatePin);
-    QObject::connect(this, &MainWindow::validateCard,
-                                 atm, &ATM::validateCard);
+    QObject::connect(this, &MainWindow::validateLogin, atm, &ATM::validateLogin);
+    QObject::connect(this, &MainWindow::validateBalance, atm, &ATM::validateBalance);
+    QObject::connect(this, &MainWindow::validateCard, atm, &ATM::validateCard);
+    QObject::connect(this, &MainWindow::ejectCard, atm, &ATM::ejectCard);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -47,7 +51,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::timerEvent(QTimerEvent * event)
+void MainWindow::timerEvent(QTimerEvent*)
 {
     ui->timeLab->setText(QTime::currentTime().toString("hh:mm:ss"));
 }
@@ -105,24 +109,8 @@ void MainWindow::timerEvent(QTimerEvent * event)
     }
 }*/
 
-void MainWindow::attachListeners()
-{
-    connect(ui->button0,   SIGNAL (clicked()), this, SLOT (handleZero()));
-    connect(ui->button1,   SIGNAL (clicked()), this, SLOT (handleOne()));
-    connect(ui->button2,   SIGNAL (clicked()), this, SLOT (handleTwo()));
-    connect(ui->button3,   SIGNAL (clicked()), this, SLOT (handleTree()));
-    connect(ui->button4,   SIGNAL (clicked()), this, SLOT (handleFour()));
-    connect(ui->button5,   SIGNAL (clicked()), this, SLOT (handleFive()));
-    connect(ui->button6,   SIGNAL (clicked()), this, SLOT (handleSix()));
-    connect(ui->button7,   SIGNAL (clicked()), this, SLOT (handleSeven()));
-    connect(ui->button8,   SIGNAL (clicked()), this, SLOT (handleEight()));
-    connect(ui->button9,   SIGNAL (clicked()), this, SLOT (handleNine()));
-    connect(ui->buttonMinus,   SIGNAL (clicked()), this, SLOT (handleMinus()));
-    connect(ui->buttonPlus,    SIGNAL (clicked()), this, SLOT (handlePlus()));
+void MainWindow::attachListeners() {
     connect(ui->inputCard, SIGNAL (clicked()), this, SLOT (handleInputCard()));
-
-    connect(ui->buttonDelete, SIGNAL (clicked()), this, SLOT (handleDelete()));
-    connect(ui->buttonEnter, SIGNAL (clicked()), this, SLOT (handleEnter()));
 
     connect(ui->buttonL1, SIGNAL (clicked()), this, SLOT (handleButtonL1()));
     connect(ui->buttonL2, SIGNAL (clicked()), this, SLOT (handleButtonL2()));
@@ -133,22 +121,9 @@ void MainWindow::attachListeners()
     connect(ui->buttonR2, SIGNAL (clicked()), this, SLOT (handleButtonR2()));
     connect(ui->buttonR3, SIGNAL (clicked()), this, SLOT (handleButtonR3()));
     connect(ui->buttonR4, SIGNAL (clicked()), this, SLOT (handleButtonR4()));
-
-
-    connect(ui->nothingB, SIGNAL (clicked()), this, SLOT (handleNothing()));
 }
 
-void MainWindow::handleInputCard()
-{
-    bool ok;
-    QString num = QInputDialog::getText(this, tr("Input card"),
-                                            tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
-    if(!ok) return;
-    blockInput();
-
-    num = num.replace(" ", "");
-    emit validateCard(num.toStdString());
-}
+// PUBLIC SLOTS (generally messages FROM ATM - thus unblocking)
 
 void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
     unblockInput();
@@ -164,6 +139,26 @@ void MainWindow::goToPage(const ScreenPage sp)
     _currentScreen=sp;
 }
 
+void MainWindow::displayBalance(const std::string& money) {
+    unblockInput();
+    ui->cashBalanceLabel->setText(QString::fromStdString(money) + "₴");
+    goToPage(Balance);
+}
+
+// PRIVATE SLOTS (generally messages TO ATM - thus blocking)
+
+void MainWindow::handleInputCard()
+{
+    bool ok;
+    QString num = QInputDialog::getText(this, tr("Input card"),
+                                            tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
+    if(!ok) return;
+    blockInput();
+
+    num = num.replace(" ", "");
+    emit validateCard(num.toStdString());
+}
+
 /*
 void MainWindow::test()
 {
@@ -172,8 +167,8 @@ void MainWindow::test()
     for(int l=0; l<30000000; ++l);
 }*/
 
-void MainWindow::handleNothing()
-{
+//void MainWindow::handleNothing()
+//{
     //showLoader();
     //QFuture<void> future = QtConcurrent::run(this, &MainWindow::test);
     //QThread thr;
@@ -190,7 +185,7 @@ void MainWindow::handleNothing()
     //future.waitForFinished();
     //hideLoader();
     //future = QtConcurrent::run(this, &MainWindow::hideLoader);
-}
+//}
 
 /*
 void MainWindow::hideLoader()
@@ -217,83 +212,85 @@ void MainWindow::showLoader()
     lbl->show();
 }*/
 
-void MainWindow::handleZero()
-{
-ui->pinField->setText(ui->pinField->text()+'*');
+void MainWindow::enterNum(char num) {
+    switch (_currentScreen) {
+    case EnterPIN:
+        ui->pinField->setText(ui->pinField->text()+num);
+        break;
+    default:
+        break;
+    }
 }
 
-void MainWindow::handleOne()
-{
-// if state == enter pin
-  if(state==1)
-  ui->pinField->setText(ui->pinField->text()+'*');
+void   MainWindow::on_button0_clicked() {
+    enterNum('0');
+} void MainWindow::on_button1_clicked() {
+    enterNum('1');
+} void MainWindow::on_button2_clicked() {
+    enterNum('2');
+} void MainWindow::on_button3_clicked() {
+    enterNum('3');
+} void MainWindow::on_button4_clicked() {
+    enterNum('4');
+} void MainWindow::on_button5_clicked() {
+    enterNum('5');
+} void MainWindow::on_button6_clicked() {
+    enterNum('6');
+} void MainWindow::on_button7_clicked() {
+    enterNum('7');
+} void MainWindow::on_button8_clicked() {
+    enterNum('8');
+} void MainWindow::on_button9_clicked() {
+    enterNum('9');
 }
 
-void MainWindow::handleTwo()
-{
-      if(state==1)
-ui->pinField->setText(ui->pinField->text()+'*');
-//add number in ATM
-}
-
-void MainWindow::handleTree()
-{
-      if(state==1)
-ui->pinField->setText(ui->pinField->text()+'*');
-}
-
-void MainWindow::handleFour()
-{
-      if(state==1)
-ui->pinField->setText(ui->pinField->text()+'*');
-}
-
-void MainWindow::handleFive()
-{
-      if(state==1)
-ui->pinField->setText(ui->pinField->text()+'*');
-}
-
-void MainWindow::handleSix()
-{
-      if(state==1)
-ui->pinField->setText(ui->pinField->text()+'*');
-}
-
-void MainWindow::handleSeven()
-{
-ui->pinField->setText(ui->pinField->text()+'*');
-}
-
-void MainWindow::handleEight()
-{
-ui->pinField->setText(ui->pinField->text()+'*');
-}
-
-void MainWindow::handleNine()
-{
-ui->pinField->setText(ui->pinField->text()+'*');
-}
-
-void MainWindow::handleMinus()
-{
+void MainWindow::on_buttonMinus_clicked() {
 
 }
+void MainWindow::on_buttonPlus_clicked() {}
 
-void MainWindow::handlePlus()
-{
-
+void MainWindow::on_buttonEnter_clicked() {
+    switch (_currentScreen) {
+    case EnterPIN:
+        if (destination == Menu) {
+            emit validateLogin(ui->pinField->text().toStdString());
+        } else if (destination == Balance) {
+            emit validateBalance(ui->pinField->text().toStdString());
+        }
+        break;
+    default:
+        break;
+    }
 }
 
-void MainWindow::handleDelete()
+void MainWindow::on_buttonDelete_clicked() {
+    switch (_currentScreen) {
+    case EnterPIN:
+        ui->pinField->setText("");
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::on_buttonCorrect_clicked() {
+    switch (_currentScreen) {
+    case EnterPIN:
+        ui->pinField->setText(ui->pinField->text().chopped(1));
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::on_nothingB_clicked()
 {
-   /* QString st(ui->pinField->text());
-    ui->pinField->setText(st.left(st.length()-1));*/
 
 }
 
-void MainWindow::handleEnter()
-{
+
+//void MainWindow::handleEnter()
+//{
     /*
 //if(not valid)
 // if(tries) -> you left n-1 ties
@@ -309,16 +306,29 @@ else
 }
 ui->pinField->setText("");
 }*/
-}
+//}
 
 void MainWindow::handleButtonL1()
 {
-
+    switch (_currentScreen) {
+    case Menu:
+        destination = Balance;
+        goToPage(EnterPIN);
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::handleButtonL2()
 {
-
+    switch (_currentScreen) {
+    case Menu:
+        goToPage(GetCash);
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::handleButtonL3()
@@ -326,9 +336,19 @@ void MainWindow::handleButtonL3()
 
 }
 
-void MainWindow::handleButtonL4()
-{
+void MainWindow::handleButtonL4() {
+    switch (_currentScreen) {
+    case EnterPIN:
+        if (destination == Menu) {
+            emit validateLogin(ui->pinField->text().toStdString());
+        } else if (destination == Balance) {
+            emit validateBalance(ui->pinField->text().toStdString());
+        }
+        break;
 
+    default:
+        break;
+    }
 }
 
 void MainWindow::handleButtonR1()
@@ -346,8 +366,26 @@ void MainWindow::handleButtonR3()
 
 }
 
-void MainWindow::handleButtonR4()
-{
+void MainWindow::handleButtonR4() {
+    switch (_currentScreen) {
+    case Menu:
+    case EnterPIN:
+        endSession();
+        break;
+    case Balance:
+        goToPage(Menu);
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::endSession() {
+    QMessageBox::information(this, "Card", "Please take out your card");
+    emit ejectCard();
+    destination = Menu;
+}
+
 //if(not valid)
 // if(tries) -> you left n-1 ties
 //else card blocked
@@ -363,7 +401,7 @@ void MainWindow::handleButtonR4()
 
     }*/
 //changeAvailable();
-}
+//}
 
 // update front:
 
@@ -388,71 +426,48 @@ void callMessageBox(const QString& info)
  */
 void MainWindow::clearCurrentPage()
 {
-    switch (_currentScreen)
-    {
+    switch (_currentScreen) {
+
     case Welcome:
-    {
         ui->wrongCardNumLabel->clear();
         break;
-    }
     case EnterPIN:
-    {
         ui->pinField->clear();
+        ui->pinField->setFocus();
         ui->wrongPINLabel->clear();
         break;
-    }
     case Menu:
-    {
         break;
-    }
     case Balance:
-    {
         ui->cashBalanceLabel->clear();
         break;
-    }
     case TransactionData:
-    {
         ui->targetCardField->clear();
         ui->transactionSumField->clear();
         break;
-    }
     case PhoneData:
-    {
         ui->phoneNumField->clear();
         ui->phoneSumField->clear();
         break;
-    }
     case GetCash:
-    {
         ui->cashSumField->clear();
         break;
-    }
     case SelectCharity:
-    {
         break;
-    }
     case CharityData:
-    {
         ui->selectedFondLabel->clear();
         ui->charitySumField->clear();
         break;
-    }
     case SelectGame:
-    {
         break;
-    }
     case GameData:
-    {
         ui->selectedGameLabel->clear();
         ui->gameIDField->clear();
         ui->gameSumField->clear();
         break;
-    }
     case SuccessFail:
-    {
         ui->succFailLab->clear();
         break;
-    }
     }
 }
 
@@ -490,11 +505,6 @@ ui->wrongPINLabel->setText("Wrong pin, left " + QString(triesLeft) + " tries");
 // 2 Menu ???
 
 // 3 balance
-void MainWindow::fDisplayBalance(const int money)
-{
-    ui->cashBalanceLabel->setText(QString(money)+ "₴");
-}
-
 
 // 4 transaction data
     //??select
@@ -683,7 +693,7 @@ void MainWindow::fClearField(const InputField inf)
 // 8 charity data
 void MainWindow::fDisplaySelectedFond(const QString& str)
 {
-ui-> selectedFondLabel->setText(str);
+    ui-> selectedFondLabel->setText(str);
 }
 
 
@@ -693,7 +703,7 @@ ui-> selectedFondLabel->setText(str);
 // 10 game data
 void MainWindow::fDisplaySelectedGame(const QString& str)
 {
-ui-> selectedGameLabel->setText(str);
+    ui-> selectedGameLabel->setText(str);
 }
 
 void MainWindow::fDisplaySuccessFail(const QString& str)

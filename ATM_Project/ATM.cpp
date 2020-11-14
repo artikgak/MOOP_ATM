@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <QString>
+#include <functional>
+
+using namespace std;
 
 ATM::ATM():
     mainW(nullptr),
@@ -16,56 +19,50 @@ ATM::~ATM() {
     delete card;
 }
 
-bool ATM::insertCard(Card c) {
-    if (card == nullptr)
-        return false;
-
-    card = &c;
-    return true;
-}
-
-void ATM::pushButton(const Button button) {
-    switch (state) {
-    case Idle:
-    case S1:
-    case S2:
-    case S3:
-    case Fin:
-    case Mntnc:
-
-        break;
-
-
-
-//    default:
-        ;
-    }
-
-}
-
-void ATM::validateCard(std::string cardNum) {
+void ATM::validateCard(const string& cardNum) {
     assert(card==nullptr); // Card-reader should be empty
 
-    std::cout << "Validating card " << cardNum << std::endl; // DEBUG INFo
-    Card* retrieved = db.getDataByCardNo(QString::fromStdString(cardNum));
-
+    cout << "Validating card " << cardNum << endl; // DEBUG INFO
+    bool retrieved = db.getDataByCardNo(cardNum);
+    retrieved =true; // DELETE LATER
     if (retrieved) {
-        std::cout << "yes" << std::endl; // DEBUG INFo
-        card = retrieved;
+        card = new Card("1234567812345678");  //DELETE LATER;
         emit goToPage(EnterPIN);
     } else {
-        std::cout << "no" << std::endl; // DEBUG INFo
         emit errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
     }
 
 }
-void ATM::validatePin(std::string pin) {
+void ATM::validateLogin(const string& pin) {
+    auto f = bind(&ATM::goToPage,this,Menu);
+    validatePinAndEmit(pin,f);
+}
+
+void ATM::validateBalance(const string& pin) {
+    string money = to_string(db.getMoney(card->getNumber()));
+    auto f = bind(&ATM::displayBalance,this, money);
+    validatePinAndEmit(pin, f);
+}
+
+template<class voidFunc>
+void ATM::validatePinAndEmit(const string& pin, voidFunc toEmit) {
     assert(card!=nullptr); // There should be a card in card-reader
 
-    if (pin == card->getPin()) { //change to card pin
-        emit goToPage(Menu);
+    bool correct = db.checkPin(card->getNumber(), pin);
+    correct =true; // DELETE LATER
+
+    if (correct) { //change to card pin
+        emit toEmit();
     } else {
         emit errorMsg("Wrong pin code, try again", EnterPIN);
     }
+}
 
+
+
+void ATM::ejectCard() {
+    assert(card!=nullptr); // There should be a card in card-reader
+    delete card;
+    card = nullptr;
+    emit goToPage(Welcome);
 }
