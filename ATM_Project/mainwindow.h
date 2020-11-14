@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QThread>
 
+class Test_Front;
 class ATM;
 
 QT_BEGIN_NAMESPACE
@@ -17,6 +18,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     QThread workerThread;
 public:
+    friend Test_Front;
     MainWindow(ATM* atm, QWidget *parent = nullptr);
     ~MainWindow();
 //    void subscribeATM(ATM*);

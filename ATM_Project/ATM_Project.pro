@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,7 +21,8 @@ SOURCES += \
     Card.cpp \
     main.cpp \
     mainwindow.cpp \
-    DataBase.cpp
+    DataBase.cpp \
+    testfront.cpp
 
 HEADERS += \
     ATM.h \
@@ -29,7 +30,8 @@ HEADERS += \
     Card.h \
     Utils.h \
     mainwindow.h \
-    DataBase.h
+    DataBase.h \
+    testfront.h
 
 FORMS += \
     mainwindow.ui
