@@ -38,6 +38,8 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
                                  atm, &ATM::validatePin);
     QObject::connect(this, &MainWindow::validateCard,
                                  atm, &ATM::validateCard);
+    QObject::connect(this, &MainWindow::ejectCard,
+                                 atm, &ATM::ejectCard);
 }
 
 MainWindow::~MainWindow()
@@ -138,17 +140,7 @@ void MainWindow::attachListeners()
     connect(ui->nothingB, SIGNAL (clicked()), this, SLOT (handleNothing()));
 }
 
-void MainWindow::handleInputCard()
-{
-    bool ok;
-    QString num = QInputDialog::getText(this, tr("Input card"),
-                                            tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
-    if(!ok) return;
-    blockInput();
-
-    num = num.replace(" ", "");
-    emit validateCard(num.toStdString());
-}
+// PUBLIC SLOTS (generally messages FROM ATM - thus unblocking)
 
 void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
     unblockInput();
@@ -162,6 +154,30 @@ void MainWindow::goToPage(const ScreenPage sp)
     ui->stackedWidget->setCurrentIndex(sp);
     clearCurrentPage();
     _currentScreen=sp;
+}
+
+// PRIVATE SLOTS (generally messages TO ATM - thus blocking)
+
+void MainWindow::handleInputCard()
+{
+    bool ok;
+    QString num = QInputDialog::getText(this, tr("Input card"),
+                                            tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
+    if(!ok) return;
+    blockInput();
+
+    num = num.replace(" ", "");
+    emit validateCard(num.toStdString());
+}
+
+void MainWindow::handleEnter() {
+    switch (_currentScreen) {
+    case EnterPIN:
+        emit validatePin(ui->pinField->text().toStdString());
+        break;
+    default:
+        break;
+    }
 }
 
 /*
@@ -292,8 +308,8 @@ void MainWindow::handleDelete()
 
 }
 
-void MainWindow::handleEnter()
-{
+//void MainWindow::handleEnter()
+//{
     /*
 //if(not valid)
 // if(tries) -> you left n-1 ties
@@ -309,7 +325,7 @@ else
 }
 ui->pinField->setText("");
 }*/
-}
+//}
 
 void MainWindow::handleButtonL1()
 {
@@ -328,7 +344,13 @@ void MainWindow::handleButtonL3()
 
 void MainWindow::handleButtonL4()
 {
-
+    switch (_currentScreen) {
+    case EnterPIN:
+        emit ejectCard();
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::handleButtonR1()
@@ -348,6 +370,14 @@ void MainWindow::handleButtonR3()
 
 void MainWindow::handleButtonR4()
 {
+    switch (_currentScreen) {
+    case EnterPIN:
+        emit validatePin(ui->pinField->text().toStdString());
+        break;
+    default:
+        break;
+    }
+
 //if(not valid)
 // if(tries) -> you left n-1 ties
 //else card blocked

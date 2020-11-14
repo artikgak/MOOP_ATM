@@ -33,6 +33,7 @@ public:
 public slots:
     void validateCard(std::string cardNum);
     void validatePin(std::string pin);
+    void ejectCard();
 
 signals:
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);

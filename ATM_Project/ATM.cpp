@@ -34,11 +34,6 @@ void ATM::pushButton(const Button button) {
     case Mntnc:
 
         break;
-
-
-
-//    default:
-        ;
     }
 
 }
@@ -46,15 +41,17 @@ void ATM::pushButton(const Button button) {
 void ATM::validateCard(std::string cardNum) {
     assert(card==nullptr); // Card-reader should be empty
 
-    std::cout << "Validating card " << cardNum << std::endl; // DEBUG INFo
+    std::cout << "Validating card " << cardNum << std::endl; // DEBUG INFO
     Card* retrieved = db.getDataByCardNo(QString::fromStdString(cardNum));
 
+    delete retrieved; //DELETE LATER
+    retrieved = new Card("1234567812345678");  //DELETE LATER
+    std::cout << retrieved << std::endl;  //DELETE LATER
+
     if (retrieved) {
-        std::cout << "yes" << std::endl; // DEBUG INFo
         card = retrieved;
         emit goToPage(EnterPIN);
     } else {
-        std::cout << "no" << std::endl; // DEBUG INFo
         emit errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
     }
 
@@ -68,4 +65,10 @@ void ATM::validatePin(std::string pin) {
         emit errorMsg("Wrong pin code, try again", EnterPIN);
     }
 
+}
+
+void ATM::ejectCard() {
+    assert(card!=nullptr); // There should be a card in card-reader
+    delete card;
+    card = nullptr;
 }

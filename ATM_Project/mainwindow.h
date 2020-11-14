@@ -94,6 +94,7 @@ void test();
 signals:
     void validateCard(std::string cardNum);
     void validatePin(std::string pin);
+    void ejectCard();
 
 public slots:
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
