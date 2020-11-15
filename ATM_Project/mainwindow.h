@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QThread>
 
+class WindowState;
 class Test_Front;
 class ATM;
 
@@ -28,7 +29,7 @@ public:
     //void showLoader();
     //void hideLoader();
 
-    void callMessageBox(const QString& info);
+//    void callMessageBox(const QString& info);
 //TODO: success/fail creen
 //f - feedback
 // to find these functions much easier
@@ -95,7 +96,8 @@ void test();
 signals:
     void validateCard(const std::string& cardNum);
     void validateLogin(const std::string& pin);
-    void validateBalance(const std::string& pin);
+
+    void getBalance();
     void ejectCard();
 
 public slots:
@@ -135,24 +137,32 @@ private slots:
 
     void on_buttonEnter_clicked();
     void on_buttonDelete_clicked();
-    void on_nothingB_clicked();
     void on_buttonCorrect_clicked();
+    void on_buttonNothing_clicked();
 
 private:
+    Ui::MainWindow *ui;
+    ATM* atm;
+
+    /* Internal state that will help us better incapsulate the code
+     * that goes with every screen (remedy for walls of switch())   */
+
+    WindowState *state;
+    friend class WindowState;
+    void changeState(WindowState *state);
+
+    ScreenPage _currentScreen;
+    ScreenPage destination;//LATER TO BE EXTRACTED TO STATE
+
     void enterNum(char);
     void endSession();
-
     void timerEvent(QTimerEvent *event);
-    Ui::MainWindow *ui;
     void attachListeners();
-    ATM* atm;
-    ScreenPage _currentScreen;
 
-    ScreenPage destination;//LATER TO BE EXTRACTED TO STATE
+    //Clears current page of previous content before switching to it
     void clearCurrentPage();
-    //void changeAvailable();
-    //QMovie *movie;
-    //QLabel *lbl;
+
+    //Block and unblock input before/after sending signals to the ATM
     void blockInput() {};
     void unblockInput() {};
 };

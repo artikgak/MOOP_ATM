@@ -17,13 +17,14 @@ private:
 
     DataBase& db;
     Card* card;
+    std::string* pin;
     ATMState state;
 
     ATM& operator=(ATM&) = delete;
     ATM(ATM&) = delete;
 
-    template<class voidFunc>
-    void validatePinAndEmit(const std::string& pin, voidFunc toEmit);
+//    template<class voidFunc>
+//    void validatePinAndEmit(const std::string& pin, voidFunc toEmit);
 
 public:
     friend Test_Front;
@@ -34,7 +35,7 @@ public:
 public slots:
     void validateCard(const std::string& cardNum);
     void validateLogin(const std::string& pin);
-    void validateBalance(const std::string& pin);
+    void getBalance();
 
     void ejectCard();
 
