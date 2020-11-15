@@ -5,6 +5,10 @@
 
 class MenuState : public WindowState {
 
+    const QString screenName() override {
+        return "Меню вибору";
+    }
+
     void clearCurrentPage() override {
         return;
     }

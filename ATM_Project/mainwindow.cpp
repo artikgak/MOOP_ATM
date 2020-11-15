@@ -43,6 +43,7 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
     QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
     QObject::connect(atm, &ATM::displayBalance, this, &MainWindow::displayBalance);
+    QObject::connect(atm, &ATM::wrongPin, this, &MainWindow::wrongPin);
 
     QObject::connect(this, &MainWindow::validateLogin, atm, &ATM::validateLogin);
     QObject::connect(this, &MainWindow::getBalance, atm, &ATM::getBalance);
@@ -164,6 +165,7 @@ void MainWindow::goToPage(const ScreenPage sp)
     state->set_context(this);
 
     clearCurrentPage();
+    ui->screenLabel->setText(state->screenName());
 
     _currentScreen=sp; // TODO delete when ready
 }
@@ -172,6 +174,10 @@ void MainWindow::displayBalance(const std::string& money) {
     unblockInput();
     goToPage(Balance);
     ui->cashBalanceLabel->setText(QString::fromStdString(money) + "₴");
+}
+
+void MainWindow::wrongPin(const uint triesLeft) {
+    ui->wrongPINLabel->setText("Wrong pin, " + QString(triesLeft) + " tries left");
 }
 
 // PRIVATE SLOTS (generally messages TO ATM - thus blocking)
@@ -342,59 +348,7 @@ void MainWindow::endSession() {
 
 // ************************************ FeedBackFrom back-end ***************************************************
 
-/*
-    Welcome, EnterPIN, Menu, Balance,
-    TransactionData, PhoneData, GetCash, SelectCharity,
-    CharityData, SelectGame, GameData
- */
-void MainWindow::clearCurrentPage()
-{
-    state->clearCurrentPage();
-    return; //while replacing with states
-    switch (_currentScreen) {
-
-    case Welcome:
-        ui->wrongCardNumLabel->clear();
-        break;
-    case EnterPIN:
-        ui->pinField->clear();
-        ui->pinField->setFocus();
-        ui->wrongPINLabel->clear();
-        break;
-    case Menu:
-        break;
-    case Balance:
-        ui->cashBalanceLabel->clear();
-        break;
-    case TransactionData:
-        ui->targetCardField->clear();
-        ui->transactionSumField->clear();
-        break;
-    case PhoneData:
-        ui->phoneNumField->clear();
-        ui->phoneSumField->clear();
-        break;
-    case GetCash:
-        ui->cashSumField->clear();
-        break;
-    case SelectCharity:
-        break;
-    case CharityData:
-        ui->selectedFondLabel->clear();
-        ui->charitySumField->clear();
-        break;
-    case SelectGame:
-        break;
-    case GameData:
-        ui->selectedGameLabel->clear();
-        ui->gameIDField->clear();
-        ui->gameSumField->clear();
-        break;
-    case SuccessFail:
-        ui->succFailLab->clear();
-        break;
-    }
-}
+void MainWindow::clearCurrentPage(){state->clearCurrentPage();}
 
 //f - feedback
 // to find these functions much easier
@@ -422,10 +376,6 @@ void MainWindow::fClearPinField()
 ui->pinField->clear();
 }
 
-void MainWindow::fDisplayWrongPIN(const int triesLeft)
-{
-ui->wrongPINLabel->setText("Wrong pin, left " + QString(triesLeft) + " tries");
-}
 
 // 2 Menu ???
 

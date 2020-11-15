@@ -107,6 +107,7 @@ public slots:
 
     //more specific ones
     void displayBalance(const std::string& pin);
+    void wrongPin(const uint);
 
 private slots:
 

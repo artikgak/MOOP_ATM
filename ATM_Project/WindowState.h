@@ -18,7 +18,7 @@ public:
     }
 
     virtual void clearCurrentPage() = 0;
-
+    virtual const QString screenName() = 0;
 
 
 

@@ -5,6 +5,10 @@
 
 class BalanceState : public WindowState {
 
+    const QString screenName() override {
+        return "Ваш баланс";
+    }
+
     void clearCurrentPage() override {
         getUi()->cashBalanceLabel->clear();
     }

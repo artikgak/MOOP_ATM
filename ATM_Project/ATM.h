@@ -44,5 +44,6 @@ signals:
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);
     void displayBalance(const std::string&);
+    void wrongPin(const uint triesLeft);
 };
 

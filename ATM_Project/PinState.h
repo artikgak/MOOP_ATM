@@ -9,6 +9,10 @@ private:
 
 public:
 
+    const QString screenName() override {
+        return "Введіть пін-код";
+    }
+
     PinState(ScreenPage prev) {
         this->prev = prev;
     }
@@ -16,7 +20,7 @@ public:
     void clearCurrentPage() override {
         getUi()->pinField->clear();
         getUi()->pinField->setFocus();
-        getUi()->wrongPINLabel->clear();
+        getUi()->wrongPINLabel->setText("");
     }
 
     void enterNum(char num) override {
