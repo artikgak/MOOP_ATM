@@ -177,7 +177,7 @@ void MainWindow::displayBalance(const std::string& money) {
 }
 
 void MainWindow::wrongPin(const uint triesLeft) {
-    ui->wrongPINLabel->setText("Wrong pin, " + QString(triesLeft) + " tries left");
+    ui->wrongPINLabel->setText("Wrong pin, " + QString::number(triesLeft) + " tries left");
 }
 
 // PRIVATE SLOTS (generally messages TO ATM - thus blocking)

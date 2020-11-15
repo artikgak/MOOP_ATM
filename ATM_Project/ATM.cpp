@@ -43,7 +43,7 @@ void ATM::validateLogin(const string& entered) {
     cout  << "Validating pin: " << pin << endl;
                 ;
     bool correct = db.checkPin(card->getNumber(), entered);
-//    correct =true; // TODO DELETE LATER
+    correct =true; // TODO DELETE LATER
 
     if (correct) { //change to card pin
         this->pin = new string(entered);
