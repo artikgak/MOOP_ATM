@@ -16,8 +16,8 @@
 #include "BalanceState.h"
 #include "MenuState.h"
 
-const int MAINWINW = 680;
-const int MAINWINH = 550;
+const int MainWindow::MAINWINW = 680;
+const int MainWindow::MAINWINH = 550;
 
 MainWindow::MainWindow(ATM* atm, QWidget *parent)
     : QMainWindow(parent)

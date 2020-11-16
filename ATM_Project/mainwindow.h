@@ -142,6 +142,8 @@ private slots:
     void on_buttonNothing_clicked();
 
 private:
+    static const int MAINWINW;
+    static const int MAINWINH;
     Ui::MainWindow *ui;
     ATM* atm;
 
