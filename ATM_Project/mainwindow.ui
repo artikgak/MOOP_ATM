@@ -181,7 +181,7 @@ color: red;</string>
               <x>0</x>
               <y>0</y>
               <width>551</width>
-              <height>381</height>
+              <height>351</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -244,7 +244,7 @@ margin: 1px;</string>
                   <string notr="true">background-color: white;
 border-color: black;
 margin-left: 3px;
-margin-right: 10px;</string>
+margin-right: 7px;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -689,7 +689,7 @@ margin: 1px;</string>
             <property name="geometry">
              <rect>
               <x>350</x>
-              <y>310</y>
+              <y>290</y>
               <width>181</width>
               <height>31</height>
              </rect>
@@ -763,12 +763,15 @@ margin: 1px;</string>
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>30</y>
+              <y>0</y>
               <width>551</width>
-              <height>381</height>
+              <height>351</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_18" rowstretch="1,0,0,0" columnstretch="1,0">
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item row="1" column="1">
               <widget class="QLabel" name="label_104">
                <property name="maximumSize">
@@ -954,32 +957,15 @@ margin: 1px;</string>
              </item>
             </layout>
            </widget>
-           <widget class="QLabel" name="label_106">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>151</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>transaction</string>
-            </property>
-           </widget>
           </widget>
           <widget class="QWidget" name="mobile_p">
            <widget class="QWidget" name="gridLayoutWidget_5">
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>30</y>
+              <y>0</y>
               <width>541</width>
-              <height>381</height>
+              <height>351</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_6" rowstretch="1,1,1,1" columnstretch="1,1">
@@ -1224,42 +1210,8 @@ margin: 1px;</string>
              </item>
             </layout>
            </widget>
-           <widget class="QLabel" name="label_21">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>151</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Поповнення мобільного</string>
-            </property>
-           </widget>
           </widget>
           <widget class="QWidget" name="cash_p">
-           <widget class="QLabel" name="label_26">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>151</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Зняття готівки</string>
-            </property>
-           </widget>
            <widget class="QLineEdit" name="cashSumField">
             <property name="enabled">
              <bool>true</bool>
@@ -1316,12 +1268,15 @@ margin-right: 10px;</string>
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>30</y>
+              <y>0</y>
               <width>551</width>
-              <height>381</height>
+              <height>341</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_9" rowstretch="1,1,1,1" columnstretch="1,1" columnminimumwidth="0,0">
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item row="1" column="0">
               <widget class="QWidget" name="widgCash_2" native="true">
                <widget class="QLabel" name="label_35">
@@ -1486,32 +1441,15 @@ margin-right: 10px;</string>
              </item>
             </layout>
            </widget>
-           <widget class="QLabel" name="label_39">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>181</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Благодійність, вибір фонду</string>
-            </property>
-           </widget>
           </widget>
           <widget class="QWidget" name="fondData_p">
            <widget class="QWidget" name="gridLayoutWidget_7">
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>30</y>
+              <y>0</y>
               <width>551</width>
-              <height>381</height>
+              <height>341</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_8" rowstretch="1,1,1,1" columnstretch="1,1" columnminimumwidth="0,0">
@@ -1646,32 +1584,15 @@ margin-left: 3px;</string>
              </item>
             </layout>
            </widget>
-           <widget class="QLabel" name="label_31">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>151</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Благодійність сума</string>
-            </property>
-           </widget>
           </widget>
           <widget class="QWidget" name="gameSelect_p">
            <widget class="QWidget" name="gridLayoutWidget_14">
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>30</y>
+              <y>0</y>
               <width>551</width>
-              <height>381</height>
+              <height>351</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_16" rowstretch="1,1,1,1" columnstretch="1,1" columnminimumwidth="0,0">
@@ -1839,32 +1760,15 @@ margin: 1px;</string>
              </item>
             </layout>
            </widget>
-           <widget class="QLabel" name="label_40">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>151</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Вибір гри</string>
-            </property>
-           </widget>
           </widget>
           <widget class="QWidget" name="gameData_p">
            <widget class="QWidget" name="gridLayoutWidget_15">
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>30</y>
+              <y>0</y>
               <width>551</width>
-              <height>311</height>
+              <height>351</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_17" rowstretch="1,0,0,0" columnstretch="1,1">
@@ -2062,32 +1966,15 @@ margin: 1px;</string>
              </item>
             </layout>
            </widget>
-           <widget class="QLabel" name="label_100">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>151</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-width: 0px;
-margin: 1px;</string>
-            </property>
-            <property name="text">
-             <string>Поповнення гри</string>
-            </property>
-           </widget>
           </widget>
           <widget class="QWidget" name="page">
            <widget class="QLabel" name="label_11">
             <property name="geometry">
              <rect>
-              <x>260</x>
-              <y>300</y>
+              <x>240</x>
+              <y>280</y>
               <width>281</width>
-              <height>81</height>
+              <height>51</height>
              </rect>
             </property>
             <property name="font">
@@ -2126,10 +2013,10 @@ margin: 1px;</string>
            <widget class="QLabel" name="label_30">
             <property name="geometry">
              <rect>
-              <x>0</x>
-              <y>300</y>
+              <x>10</x>
+              <y>290</y>
               <width>261</width>
-              <height>81</height>
+              <height>41</height>
              </rect>
             </property>
             <property name="font">
