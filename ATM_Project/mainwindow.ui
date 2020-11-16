@@ -98,7 +98,7 @@ background-color: rgb(233, 255, 245);
 </string>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>3</number>
           </property>
           <widget class="QWidget" name="welcome_p">
            <widget class="QPushButton" name="inputCard">
@@ -691,9 +691,9 @@ margin: 1px;</string>
            <widget class="QLabel" name="label">
             <property name="geometry">
              <rect>
-              <x>360</x>
+              <x>350</x>
               <y>310</y>
-              <width>171</width>
+              <width>181</width>
               <height>31</height>
              </rect>
             </property>
