@@ -99,8 +99,9 @@ signals:
 
     void getBalance();
     void ejectCard();
+    WithdrawResponse withdrawMoney(const uint sum);
 
-public slots:
+public slots: //TODO make slots and signals not voids but responses
     //more generic ones
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);
@@ -108,20 +109,9 @@ public slots:
     //more specific ones
     void displayBalance(const std::string& pin);
     void wrongPin(const uint);
+    void endSession();
 
 private slots:
-
-    void handleInputCard();
-
-    void handleButtonL1();
-    void handleButtonL2();
-    void handleButtonL3();
-    void handleButtonL4();
-    void handleButtonR1();
-    void handleButtonR2();
-    void handleButtonR3();
-    void handleButtonR4();
-
     void on_button0_clicked();
     void on_button1_clicked();
     void on_button2_clicked();
@@ -141,6 +131,18 @@ private slots:
     void on_buttonCorrect_clicked();
     void on_buttonNothing_clicked();
 
+    void on_buttonL1_clicked();
+    void on_buttonL2_clicked();
+    void on_buttonL3_clicked();
+    void on_buttonL4_clicked();
+
+    void on_buttonR1_clicked();
+    void on_buttonR2_clicked();
+    void on_buttonR3_clicked();
+    void on_buttonR4_clicked();
+
+    void on_inputCard_clicked();
+
 private:
     static const int MAINWINW;
     static const int MAINWINH;
@@ -158,9 +160,10 @@ private:
     ScreenPage destination;//LATER TO BE EXTRACTED TO STATE
 
     void enterNum(char);
-    void endSession();
     void timerEvent(QTimerEvent *event);
-    void attachListeners();
+
+    //Connect signals between MainWindow and ATM
+    void connectSignals();
 
     //Clears current page of previous content before switching to it
     void clearCurrentPage();

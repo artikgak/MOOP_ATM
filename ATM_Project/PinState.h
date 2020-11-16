@@ -4,17 +4,9 @@
 #include "mainwindow.h"
 
 class PinState : public WindowState {
-private:
-    ScreenPage prev;
-
-public:
 
     const QString screenName() override {
         return "Введіть пін-код";
-    }
-
-    PinState(ScreenPage prev) {
-        this->prev = prev;
     }
 
     void clearCurrentPage() override {
@@ -41,6 +33,10 @@ public:
 
     void handleButtonEnter() override {
         emit context->validateLogin(getUi()->pinField->text().toStdString());
+    }
+
+    void handleButtonR4() override {
+        context->endSession();
     }
 
     void handleButtonL4() override {
