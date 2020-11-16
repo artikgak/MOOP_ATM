@@ -11,7 +11,7 @@ class WithdrawState : public WindowState {
     }
 
     void clearCurrentPage() override {
-        getUi()->cashSumField->clear();
+        getUi()->cashSumField->setText("");
         getUi()->withdrawErrorMsg->setText("");
     }
 
@@ -39,7 +39,7 @@ class WithdrawState : public WindowState {
         case AtmNoMoney:
             getUi()->withdrawErrorMsg->setText("Недостатньо грошей у банкоматі");
             return;
-        case OK:
+        case WOK:
             QMessageBox::information(context,"Money", "Please take your bills");
             context->goToPage(Menu);
             break;

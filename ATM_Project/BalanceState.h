@@ -13,6 +13,10 @@ class BalanceState : public WindowState {
         getUi()->cashBalanceLabel->setText("");
     }
 
+    void handleButtonR4() override{
+        context->goToPage(Menu);
+    }
+
     void enterNum(char) override {
         return;
     }

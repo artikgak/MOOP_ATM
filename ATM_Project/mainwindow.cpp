@@ -16,6 +16,9 @@
 #include "BalanceState.h"
 #include "MenuState.h"
 #include "WithdrawState.h"
+#include "TransferState.h"
+#include "SuccessFailState.h"
+
 
 const int MainWindow::MAINWINW = 680;
 const int MainWindow::MAINWINH = 550;
@@ -119,14 +122,15 @@ void MainWindow::changeState(WindowState *state) {
 // PUBLIC SLOTS (generally messages FROM ATM - thus unblocking)
 
 void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
-    unblockInput();
     QMessageBox::critical(this,"Error",errorMsg, QMessageBox::Ok); // IF artem you want it rework with SuccessFail window :^)))))))))))))))))))))))))))))))))))))))) x-DDdd
     goToPage(whereToGo);
+    unblockInput();
 }
 
 void MainWindow::goToPage(const ScreenPage sp)
 {
-    unblockInput();
+    clearCurrentPage();
+    int prevSt = ui->stackedWidget->currentIndex();
     ui->stackedWidget->setCurrentIndex(sp);
 
     delete state;
@@ -138,25 +142,30 @@ void MainWindow::goToPage(const ScreenPage sp)
         state = new PinState();
     else if (sp == Menu)
         state = new MenuState();
-    else if (sp == Balance) {
+    else if (sp == Balance)
         state = new BalanceState();
-    } else if (sp == GetCash) {
+    else if (sp == GetCash)
         state = new WithdrawState();
-    }
+    else if (sp == TransactionData)
+        state = new TransferState();
+    else if(sp == SuccessFail)
+        state = new SuccessFailState(static_cast<ScreenPage>(prevSt));
+
     state->set_context(this);
 
 
 
-    clearCurrentPage();
+    //clearCurrentPage();
     ui->screenLabel->setText(state->screenName());
 
     _currentScreen=sp; // TODO delete when ready
+    unblockInput();
 }
 
 void MainWindow::displayBalance(const std::string& money) {
-    unblockInput();
     goToPage(Balance);
     ui->cashBalanceLabel->setText(QString::fromStdString(money) + "₴");
+    unblockInput();
 }
 
 void MainWindow::wrongPin(const uint triesLeft) {
@@ -167,11 +176,11 @@ void MainWindow::wrongPin(const uint triesLeft) {
 
 void MainWindow::on_inputCard_clicked()
 {
+    blockInput();
     bool ok;
     QString num = QInputDialog::getText(this, tr("Input card"),
                                             tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
-    if(!ok) return;
-    blockInput();
+    if(!ok){ unblockInput(); return;}
 
     num = num.replace(" ", "");
     emit validateCard(num.toStdString());
@@ -582,5 +591,5 @@ void MainWindow::connectSignals() {
     QObject::connect(this, &MainWindow::validateCard, atm, &ATM::validateCard);
     QObject::connect(this, &MainWindow::ejectCard, atm, &ATM::ejectCard);
     QObject::connect(this, &MainWindow::withdrawMoney, atm, &ATM::withdrawMoney);
-
+    QObject::connect(this, &MainWindow::transferMoney, atm, &ATM::transferMoney);
 }

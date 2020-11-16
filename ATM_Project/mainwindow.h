@@ -86,11 +86,6 @@ public:
 
 void fDisplaySuccessFail(const QString& str);
 
-
-
-
-
-
 void test();
 
 signals:
@@ -100,6 +95,8 @@ signals:
     void getBalance();
     void ejectCard();
     WithdrawResponse withdrawMoney(const uint sum);
+
+    TransferResponse transferMoney(const uint sum, const std::string& cardNum);
 
 public slots: //TODO make slots and signals not voids but responses
     //more generic ones

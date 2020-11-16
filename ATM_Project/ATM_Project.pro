@@ -33,6 +33,8 @@ HEADERS += \
     IdleState.h \
     MenuState.h \
     PinState.h \
+    SuccessFailState.h \
+    TransferState.h \
     Utils.h \
     WindowState.h \
     WithdrawState.h \
