@@ -34,6 +34,7 @@ public:
 // Signals received from UI
 public slots:
     WithdrawResponse withdrawMoney(const uint sum);
+    TransferResponse transferMoney(const uint sum, const std::string& cardNum);
     void validateCard(const std::string& cardNum);
     void validateLogin(const std::string& pin);
     void getBalance();

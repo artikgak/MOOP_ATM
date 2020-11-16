@@ -2,6 +2,7 @@
 
 #include "WindowState.h"
 #include "mainwindow.h"
+#include <QMessageBox>
 
 class MenuState : public WindowState {
 
@@ -19,6 +20,28 @@ class MenuState : public WindowState {
 
     void handleButtonL2() override {
         context->goToPage(GetCash);
+    }
+
+    void handleButtonL3() override{
+        context->goToPage(TransactionData);
+    }
+
+    void handleButtonL4() override{
+    QMessageBox msgBox;
+    msgBox.setText("Has not been implemented yed.");
+    msgBox.exec();
+    }
+
+    void handleButtonR1() override{
+    QMessageBox msgBox;
+    msgBox.setText("Has not been implemented yed.");
+    msgBox.exec();
+    }
+
+    void handleButtonR2() override{
+    QMessageBox msgBox;
+    msgBox.setText("Has not been implemented yed.");
+    msgBox.exec();
     }
 
     void handleButtonR4() override {

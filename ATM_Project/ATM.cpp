@@ -70,7 +70,14 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
 
     double withdraw = db.getMoney(card->getNumber());
     //TOOD WRITE PROPER CODE HERE
-    return OK;
+    return WOK;
+}
+
+TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
+    assert(card!=nullptr);
+    assert(pin!=nullptr);
+    //TRANSFER
+    return TOK;
 }
 
 void ATM::ejectCard() {
