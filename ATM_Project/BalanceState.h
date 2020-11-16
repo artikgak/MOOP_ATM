@@ -10,7 +10,7 @@ class BalanceState : public WindowState {
     }
 
     void clearCurrentPage() override {
-        getUi()->cashBalanceLabel->clear();
+        getUi()->cashBalanceLabel->setText("");
     }
 
     void enterNum(char) override {
