@@ -11,14 +11,22 @@ class Test_Front : public QObject
 {
     Q_OBJECT
 public:
-    explicit Test_Front(MainWindow& mw, ATM& atm);
+    explicit Test_Front();
+
+private:
+    void enterValidCardNum();
 
 private slots:
+    void initTestCase(); //will be called before the first test function is executed.
+    //void initTestCase_data() will be called to create a global test data table.
+    void cleanupTestCase(); //will be called after the last test function was executed.
+    void init(); //will be called before each test function is executed.
+    void clean(); //will be called after every test function.
     void testInputPIN();
 
 private:
-MainWindow& mw;
-ATM& atm;
+ATM* atm;
+MainWindow* mw;
 };
 
 #endif // TEST_FRONT_H
