@@ -9,13 +9,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>675</width>
+    <width>1263</width>
     <height>550</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
-    <width>675</width>
+    <width>1500</width>
     <height>550</height>
    </size>
   </property>
@@ -98,7 +98,7 @@ background-color: rgb(233, 255, 245);
 </string>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="welcome_p">
            <widget class="QPushButton" name="inputCard">
@@ -391,66 +391,16 @@ margin: 1px;</string>
            </widget>
           </widget>
           <widget class="QWidget" name="menu_p">
-           <widget class="QWidget" name="gridLayoutWidget_4">
+           <widget class="QWidget" name="gridLayoutWidget">
             <property name="geometry">
              <rect>
-              <x>-1</x>
-              <y>-1</y>
+              <x>0</x>
+              <y>0</y>
               <width>551</width>
-              <height>381</height>
+              <height>351</height>
              </rect>
             </property>
-            <layout class="QGridLayout" name="gridLayout_5" rowstretch="1,0,0" columnstretch="1,0">
-             <property name="horizontalSpacing">
-              <number>6</number>
-             </property>
-             <item row="1" column="1">
-              <widget class="QWidget" name="widget" native="true">
-               <widget class="QLabel" name="label_5">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>10</y>
-                  <width>81</width>
-                  <height>61</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap resource="qtResources.qrc">:/images/games.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-               <widget class="QLabel" name="label_8">
-                <property name="geometry">
-                 <rect>
-                  <x>200</x>
-                  <y>20</y>
-                  <width>51</width>
-                  <height>31</height>
-                 </rect>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border-width: 0px;</string>
-                </property>
-                <property name="text">
-                 <string>ігри</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </widget>
-             </item>
+            <layout class="QGridLayout" name="gridLayout_2" rowstretch="1,1,1,1" columnstretch="1,1">
              <item row="0" column="1">
               <widget class="QWidget" name="widget_6" native="true">
                <widget class="QLabel" name="label_15">
@@ -495,100 +445,6 @@ margin: 1px;</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QWidget" name="widget_2" native="true">
-               <widget class="QLabel" name="label_9">
-                <property name="geometry">
-                 <rect>
-                  <x>150</x>
-                  <y>10</y>
-                  <width>101</width>
-                  <height>61</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap resource="qtResources.qrc">:/images/phone.jpg</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-               <widget class="QLabel" name="label_10">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>10</y>
-                  <width>111</width>
-                  <height>51</height>
-                 </rect>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border-width: 0px;</string>
-                </property>
-                <property name="text">
-                 <string>поповнити телефон</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QWidget" name="widget_3" native="true">
-               <widget class="QLabel" name="label_7">
-                <property name="geometry">
-                 <rect>
-                  <x>150</x>
-                  <y>10</y>
-                  <width>111</width>
-                  <height>61</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap resource="qtResources.qrc">:/images/ICON-08.jpg</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-               <widget class="QLabel" name="label_23">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>20</y>
-                  <width>131</width>
-                  <height>41</height>
-                 </rect>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border-width: 0px;</string>
-                </property>
-                <property name="text">
-                 <string>переглянути баланс</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
                 </property>
                </widget>
               </widget>
@@ -640,6 +496,100 @@ margin: 1px;</string>
                </widget>
               </widget>
              </item>
+             <item row="1" column="1">
+              <widget class="QWidget" name="widget" native="true">
+               <widget class="QLabel" name="label_5">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>10</y>
+                  <width>81</width>
+                  <height>61</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="qtResources.qrc">:/images/games.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+               <widget class="QLabel" name="label_8">
+                <property name="geometry">
+                 <rect>
+                  <x>200</x>
+                  <y>20</y>
+                  <width>51</width>
+                  <height>31</height>
+                 </rect>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-width: 0px;</string>
+                </property>
+                <property name="text">
+                 <string>ігри</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QWidget" name="widget_3" native="true">
+               <widget class="QLabel" name="label_7">
+                <property name="geometry">
+                 <rect>
+                  <x>150</x>
+                  <y>10</y>
+                  <width>111</width>
+                  <height>61</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="qtResources.qrc">:/images/ICON-08.jpg</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+               <widget class="QLabel" name="label_23">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>20</y>
+                  <width>131</width>
+                  <height>41</height>
+                 </rect>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-width: 0px;</string>
+                </property>
+                <property name="text">
+                 <string>переглянути баланс</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </widget>
+             </item>
              <item row="2" column="0">
               <widget class="QWidget" name="widget_5" native="true">
                <widget class="QLabel" name="label_13">
@@ -684,6 +634,53 @@ margin: 1px;</string>
                </widget>
               </widget>
              </item>
+             <item row="3" column="0">
+              <widget class="QWidget" name="widget_2" native="true">
+               <widget class="QLabel" name="label_9">
+                <property name="geometry">
+                 <rect>
+                  <x>150</x>
+                  <y>10</y>
+                  <width>101</width>
+                  <height>61</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="qtResources.qrc">:/images/phone.jpg</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+               <widget class="QLabel" name="label_10">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>10</y>
+                  <width>111</width>
+                  <height>51</height>
+                 </rect>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-width: 0px;</string>
+                </property>
+                <property name="text">
+                 <string>поповнити телефон</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </widget>
+             </item>
             </layout>
            </widget>
           </widget>
@@ -691,9 +688,9 @@ margin: 1px;</string>
            <widget class="QLabel" name="label">
             <property name="geometry">
              <rect>
-              <x>360</x>
+              <x>350</x>
               <y>310</y>
-              <width>171</width>
+              <width>181</width>
               <height>31</height>
              </rect>
             </property>
@@ -1114,7 +1111,7 @@ border-color: black;
                   <x>10</x>
                   <y>20</y>
                   <width>91</width>
-                  <height>41</height>
+                  <height>51</height>
                  </rect>
                 </property>
                 <property name="maximumSize">
@@ -1867,7 +1864,7 @@ margin: 1px;</string>
               <x>0</x>
               <y>30</y>
               <width>551</width>
-              <height>381</height>
+              <height>311</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_17" rowstretch="1,0,0,0" columnstretch="1,1">
