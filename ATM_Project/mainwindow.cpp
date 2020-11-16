@@ -15,6 +15,7 @@
 #include "PinState.h"
 #include "BalanceState.h"
 #include "MenuState.h"
+#include "WithdrawState.h"
 
 const int MainWindow::MAINWINW = 680;
 const int MainWindow::MAINWINH = 550;
@@ -31,25 +32,13 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     state->set_context(this);
     // UI CODE
     ui->setupUi(this);
-    attachListeners();
     MainWindow::setGeometry(330,200,MAINWINW,MAINWINH);
-    ui->pinField->setReadOnly(true);
-    ui->pinField->setMaxLength(8);
     ui->stackedWidget->setCurrentIndex(_currentScreen);
     startTimer(1000);   // 1-second timer
     ui->wrongCardNumLabel->setVisible(false);
 
     // Tying signals to slots TODO extract into a function
-    QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
-    QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
-    QObject::connect(atm, &ATM::displayBalance, this, &MainWindow::displayBalance);
-    QObject::connect(atm, &ATM::wrongPin, this, &MainWindow::wrongPin);
-
-    QObject::connect(this, &MainWindow::validateLogin, atm, &ATM::validateLogin);
-    QObject::connect(this, &MainWindow::getBalance, atm, &ATM::getBalance);
-    QObject::connect(this, &MainWindow::validateCard, atm, &ATM::validateCard);
-    QObject::connect(this, &MainWindow::ejectCard, atm, &ATM::ejectCard);
-
+    connectSignals();
 
 }
 
@@ -58,6 +47,7 @@ MainWindow::~MainWindow()
     //delete movie;
     //delete lbl;
     delete ui;
+    delete state;
 }
 
 void MainWindow::timerEvent(QTimerEvent*)
@@ -126,20 +116,6 @@ void MainWindow::changeState(WindowState *state) {
   this->state->set_context(this);
 }
 
-void MainWindow::attachListeners() {
-    connect(ui->inputCard, SIGNAL (clicked()), this, SLOT (handleInputCard()));
-
-    connect(ui->buttonL1, SIGNAL (clicked()), this, SLOT (handleButtonL1()));
-    connect(ui->buttonL2, SIGNAL (clicked()), this, SLOT (handleButtonL2()));
-    connect(ui->buttonL3, SIGNAL (clicked()), this, SLOT (handleButtonL3()));
-    connect(ui->buttonL4, SIGNAL (clicked()), this, SLOT (handleButtonL4()));
-
-    connect(ui->buttonR1, SIGNAL (clicked()), this, SLOT (handleButtonR1()));
-    connect(ui->buttonR2, SIGNAL (clicked()), this, SLOT (handleButtonR2()));
-    connect(ui->buttonR3, SIGNAL (clicked()), this, SLOT (handleButtonR3()));
-    connect(ui->buttonR4, SIGNAL (clicked()), this, SLOT (handleButtonR4()));
-}
-
 // PUBLIC SLOTS (generally messages FROM ATM - thus unblocking)
 
 void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
@@ -153,16 +129,23 @@ void MainWindow::goToPage(const ScreenPage sp)
     unblockInput();
     ui->stackedWidget->setCurrentIndex(sp);
 
+    delete state;
+    state = nullptr;
+
     if (sp == Welcome)
         state = new IdleState();
     else if (sp == EnterPIN)
-        state = new PinState(_currentScreen);
+        state = new PinState();
     else if (sp == Menu)
         state = new MenuState();
     else if (sp == Balance) {
         state = new BalanceState();
+    } else if (sp == GetCash) {
+        state = new WithdrawState();
     }
     state->set_context(this);
+
+
 
     clearCurrentPage();
     ui->screenLabel->setText(state->screenName());
@@ -182,7 +165,7 @@ void MainWindow::wrongPin(const uint triesLeft) {
 
 // PRIVATE SLOTS (generally messages TO ATM - thus blocking)
 
-void MainWindow::handleInputCard()
+void MainWindow::on_inputCard_clicked()
 {
     bool ok;
     QString num = QInputDialog::getText(this, tr("Input card"),
@@ -286,16 +269,18 @@ ui->pinField->setText("");
 }*/
 //}
 
-void MainWindow::handleButtonL1(){state->handleButtonL1();}
-void MainWindow::handleButtonL2(){state->handleButtonL2();}
-void MainWindow::handleButtonL3(){state->handleButtonL3();}
-void MainWindow::handleButtonL4(){state->handleButtonL4();}
+void MainWindow::on_buttonL1_clicked(){state->handleButtonL1();}
+void MainWindow::on_buttonL2_clicked(){state->handleButtonL2();}
+void MainWindow::on_buttonL3_clicked(){state->handleButtonL3();}
+void MainWindow::on_buttonL4_clicked(){state->handleButtonL4();}
 
-void MainWindow::handleButtonR1(){state->handleButtonR1();}
-void MainWindow::handleButtonR2(){state->handleButtonR2();}
-void MainWindow::handleButtonR3(){state->handleButtonR3();}
+void MainWindow::on_buttonR1_clicked(){state->handleButtonR1();}
+void MainWindow::on_buttonR2_clicked(){state->handleButtonR2();}
+void MainWindow::on_buttonR3_clicked(){state->handleButtonR3();}
 
-void MainWindow::handleButtonR4() {
+void MainWindow::on_buttonR4_clicked() {
+    state->handleButtonR4();
+    return;
     switch (_currentScreen) {
     case Menu:
     case EnterPIN:
@@ -586,3 +571,16 @@ void MainWindow::fDisplaySuccessFail(const QString& str)
     ui->succFailLab->setText(str);
 }
 
+void MainWindow::connectSignals() {
+    QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
+    QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
+    QObject::connect(atm, &ATM::displayBalance, this, &MainWindow::displayBalance);
+    QObject::connect(atm, &ATM::wrongPin, this, &MainWindow::wrongPin);
+
+    QObject::connect(this, &MainWindow::validateLogin, atm, &ATM::validateLogin);
+    QObject::connect(this, &MainWindow::getBalance, atm, &ATM::getBalance);
+    QObject::connect(this, &MainWindow::validateCard, atm, &ATM::validateCard);
+    QObject::connect(this, &MainWindow::ejectCard, atm, &ATM::ejectCard);
+    QObject::connect(this, &MainWindow::withdrawMoney, atm, &ATM::withdrawMoney);
+
+}

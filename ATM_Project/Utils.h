@@ -16,6 +16,10 @@ enum InputField{
     CashSum, GameAccountID, GameSum, CharitySum, PhoneNum, PhoneSum, TransactionCard, TransactionSum
 };
 
+enum WithdrawResponse {
+    AtmNoMoney, UserNoMoney, AtmNoBills, OK
+};
+
 // widget pages indexes
 // 0 welcome
 // 1 PIN

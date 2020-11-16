@@ -21,4 +21,8 @@ class MenuState : public WindowState {
         context->goToPage(GetCash);
     }
 
+    void handleButtonR4() override {
+        context->endSession();
+    }
+
 };

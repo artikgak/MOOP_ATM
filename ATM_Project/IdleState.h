@@ -10,7 +10,7 @@ class IdleState : public WindowState {
     }
 
     void clearCurrentPage() override {
-        getUi()->wrongCardNumLabel->clear();
+        getUi()->wrongCardNumLabel->setText("");
     }
 
     void enterNum(char) override {

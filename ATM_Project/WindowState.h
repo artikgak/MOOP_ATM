@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Utils.h"
 #include <ui_mainwindow.h>
 
 class MainWindow;
@@ -19,8 +20,6 @@ public:
 
     virtual void clearCurrentPage() = 0;
     virtual const QString screenName() = 0;
-
-
 
     virtual void enterNum(char) {}
 

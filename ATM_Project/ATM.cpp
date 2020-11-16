@@ -51,9 +51,6 @@ void ATM::validateLogin(const string& entered) {
     } else {
         emit wrongPin(0); //TODO add tries left
     }
-
-//    auto f = bind(&ATM::goToPage,this,Menu);
-//    validatePinAndEmit(pin,f);
 }
 
 void ATM::getBalance() {
@@ -67,20 +64,14 @@ void ATM::getBalance() {
     emit displayBalance(to_string(money));
 }
 
-//template<class voidFunc>
-//void ATM::validatePinAndEmit(const string& pin, voidFunc toEmit) {
-//    assert(card!=nullptr); // There should be a card in card-reader
+WithdrawResponse ATM::withdrawMoney(const uint sum) {
+    assert(card!=nullptr); // Card should be present
+    assert(pin!=nullptr); // Pin should be entered
 
-
-//    bool correct = db.checkPin(card->getNumber(), pin);
-//    correct =true; // DELETE LATER
-
-//    if (correct) { //change to card pin
-//        emit toEmit();
-//    } else {
-//        emit errorMsg("Wrong pin code, try again", EnterPIN);
-//    }
-//}
+    double withdraw = db.getMoney(card->getNumber());
+    //TOOD WRITE PROPER CODE HERE
+    return OK;
+}
 
 void ATM::ejectCard() {
     assert(card!=nullptr); // There should be a card in card-reader
