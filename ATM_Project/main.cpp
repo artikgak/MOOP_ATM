@@ -5,6 +5,8 @@
 #include <QApplication>
 #include <QtTest/QtTest>
 
+#define QT_NO_DEGUB
+
 int main(int argc, char *argv[])
 {
     ATM atm;
@@ -12,7 +14,7 @@ int main(int argc, char *argv[])
     MainWindow w(&atm);
     w.show();
 #ifndef QT_NO_DEBUG
-    //QTest::qExec(new Test_Front(w,atm));
+    QTest::qExec(new Test_Front());
 #endif
     return a.exec();
 }
