@@ -19,6 +19,7 @@ SOURCES += \
     ATM.cpp \
     AccountMenu.cpp \
     Card.cpp \
+    WindowState.cpp \
     main.cpp \
     mainwindow.cpp \
     DataBase.cpp \
@@ -27,8 +28,14 @@ SOURCES += \
 HEADERS += \
     ATM.h \
     AccountMenu.h \
+    BalanceState.h \
     Card.h \
+    IdleState.h \
+    MenuState.h \
+    PinState.h \
     Utils.h \
+    WindowState.h \
+    WithdrawState.h \
     mainwindow.h \
     DataBase.h \
     testfront.h
