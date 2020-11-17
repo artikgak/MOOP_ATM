@@ -156,6 +156,9 @@ private:
     ScreenPage _currentScreen;
     ScreenPage destination;//LATER TO BE EXTRACTED TO STATE
 
+    QMovie* _loaderGif;
+    QLabel* _loaderLbl;
+
     void enterNum(char);
     void timerEvent(QTimerEvent *event);
 
@@ -166,6 +169,6 @@ private:
     void clearCurrentPage();
 
     //Block and unblock input before/after sending signals to the ATM
-    void blockInput() {};
-    void unblockInput() {};
+    void blockInput();
+    void unblockInput();
 };

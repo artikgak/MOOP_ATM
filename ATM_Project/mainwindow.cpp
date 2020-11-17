@@ -5,10 +5,6 @@
 #include <QTime>
 #include <QMovie>
 #include "ATM.h"
-//#include <QFuture>
-//#include <QtCore>
-//#include <QtConcurrent/QtConcurrent>
-//#include <Task>
 
 //STATES
 #include "IdleState.h"
@@ -31,6 +27,7 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     , state(new IdleState())
     ,_currentScreen(Welcome)
     , destination(Menu)
+    , _loaderGif(new QMovie(":images/loader.gif"))
 {
     state->set_context(this);
     // UI CODE
@@ -39,6 +36,13 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     ui->stackedWidget->setCurrentIndex(_currentScreen);
     startTimer(1000);   // 1-second timer
     ui->wrongCardNumLabel->setVisible(false);
+    _loaderLbl = new QLabel(ui->stackedWidget);
+    _loaderLbl->setMovie(_loaderGif);
+    _loaderLbl->setAlignment(Qt::AlignCenter);
+    _loaderLbl->setAttribute(Qt::WA_TranslucentBackground);
+    QRect p =ui->stackedWidget->geometry();
+    _loaderLbl->setGeometry(p.x()-50,p.y()-50,p.width(),p.height());
+    _loaderLbl->setWindowFlags(Qt::WindowStaysOnTopHint);
 
     // Tying signals to slots TODO extract into a function
     connectSignals();
@@ -97,19 +101,6 @@ void MainWindow::timerEvent(QTimerEvent*)
 // 8 charity data
 // 9 select game
 // 10 game data
-
-/*void MainWindow::changeAvailable()
-{
-    if(state==0)
-    {
-        ui->inputCard->setEnabled(true);
-    }
-    else if(state==1)
-    {
-        ui->inputCard->setEnabled(false);
-        ui->buttonR1->setEnabled(true);
-    }
-}*/
 
 void MainWindow::changeState(WindowState *state) {
   qDebug() << "Context: Transition to " << typeid(*state).name() << ".\n";
@@ -187,34 +178,6 @@ void MainWindow::on_inputCard_clicked()
 }
 
 /*
-void MainWindow::test()
-{
-    ui->label_4->setText("Changed");
-    for(int i=0; i<30000000; ++i)
-    for(int l=0; l<30000000; ++l);
-}*/
-
-//void MainWindow::handleNothing()
-//{
-    //showLoader();
-    //QFuture<void> future = QtConcurrent::run(this, &MainWindow::test);
-    //QThread thr;
-    //Task
-    //connect(task, QOverload<int, const QString &>::of(&Task::error),
-    //    [=](int code, const QString &errorText){ /* ... */ });
-    //auto r = std::async(std::launch::async, MainWindow::test));
-    //while(r.wait_for(std::chrono::seconds(0))!=std::future_status::ready);
-    //r.get();
-    //moveToThread(&thr);
-    //connect(&thr, SIGNAL(started()), this, SLOT(test())); //cant have parameter sorry, when using connect
-    //thr.start();
-    //thr.wait(200);
-    //future.waitForFinished();
-    //hideLoader();
-    //future = QtConcurrent::run(this, &MainWindow::hideLoader);
-//}
-
-/*
 void MainWindow::hideLoader()
 {
     movie->stop();
@@ -259,29 +222,13 @@ void MainWindow::on_buttonDelete_clicked() {state->handleButtonDelete();}
 void MainWindow::on_buttonCorrect_clicked() {state->handleButtonCorrect();}
 void MainWindow::on_buttonNothing_clicked(){state->handleButtonNothing();}
 
-//void MainWindow::handleEnter()
-//{
-    /*
-//if(not valid)
-// if(tries) -> you left n-1 ties
-//else card blocked
-//else go to menu
-if(state==1)
-{
-if(true) // if correct pin
-ui->stackedWidget->setCurrentIndex(2);
-else
-{
-// tries -1
-}
-ui->pinField->setText("");
-}*/
-//}
-
 void MainWindow::on_buttonL1_clicked(){state->handleButtonL1();}
 void MainWindow::on_buttonL2_clicked(){state->handleButtonL2();}
 void MainWindow::on_buttonL3_clicked(){state->handleButtonL3();}
-void MainWindow::on_buttonL4_clicked(){state->handleButtonL4();}
+void MainWindow::on_buttonL4_clicked(){
+    blockInput();
+    state->handleButtonL4();
+}
 
 void MainWindow::on_buttonR1_clicked(){state->handleButtonR1();}
 void MainWindow::on_buttonR2_clicked(){state->handleButtonR2();}
@@ -309,276 +256,21 @@ void MainWindow::endSession() {
     destination = Menu; //TODO DELETE WHEN STATES ARE DONE
 }
 
-//if(not valid)
-// if(tries) -> you left n-1 ties
-//else card blocked
-//else go to menu
-/*    if(state==1)
-    {
-        state=0;
-        ui->stackedWidget->setCurrentIndex(0);
-        ui->pinField->setText("");
-        QMessageBox msgBox;
-        msgBox.setText("The card has been ejected. Have a nice day.");
-        msgBox.exec();
+void MainWindow::blockInput()
+{
+//_loaderGif->start();
+//_loaderLbl->show();
+}
 
-    }*/
-//changeAvailable();
-//}
-
-// update front:
-
-//void MainWindow::subscribeATM(ATM* atm)
-//{
-//this->atm=atm;
-//}
-
-//void callMessageBox(const QString& info)
-//{
-//    QMessageBox msgBox;
-//    msgBox.setText("The card has been ejected. Have a nice day.");
-//    msgBox.exec();
-//}
+void MainWindow::unblockInput()
+{
+//_loaderGif->stop();
+//_loaderLbl->hide();
+}
 
 // ************************************ FeedBackFrom back-end ***************************************************
 
 void MainWindow::clearCurrentPage(){state->clearCurrentPage();}
-
-//f - feedback
-// to find these functions much easier
-
-// 0 welcome
-void MainWindow::fDisplayWrongCardNum()
-{
- ui->wrongCardNumLabel->setVisible(true);
-}
-
-// 1 PIN
-void MainWindow::fAddPinChar()
-{
-ui->pinField->setText(ui->pinField->text()+'*');
-}
-
-void MainWindow::fDeletePinChar()
-{
-QString st = ui->pinField->text();
-ui->pinField->setText(st.length()>0 ? st.left(st.length()-1) : "" );
-}
-
-void MainWindow::fClearPinField()
-{
-ui->pinField->clear();
-}
-
-
-// 2 Menu ???
-
-// 3 balance
-
-// 4 transaction data
-    //??select
-
-// 5 phone data
-void MainWindow::fDisplayWrongPhone()
-{
-ui->wrongPhoneNumLabel->setText("Невірний номер телефону");
-}
-
-void MainWindow::fDisplayWrongGameID()
-{
-ui->wrongGameId->setText("Невірнt id профілю");
-}
-
-
-// 6 get cash
-void MainWindow::fDisplayBadBanknotesAmount(const QString& st) // available banktotes
-{
-ui->availBanknotesLabel->setText(st);
-}
-
-// all input fields
-void MainWindow::fInputFieldAddChar(const InputField inf, const char c)
-{
-    switch (inf)
-    {
-    case CashSum:
-    {
-        QString st = ui->cashSumField->text();
-        ui->cashSumField->setText(st+c);
-             break;
-    }
-    case GameAccountID:
-    {
-        QString st = ui->gameIDField->text();
-        ui->gameIDField->setText(st+c);
-             break;
-    }
-    case GameSum:
-    {
-        QString st = ui->gameSumField->text();
-        ui->gameSumField->setText(st+c);
-             break;
-    }
-    case CharitySum:
-    {
-        QString st = ui->charitySumField->text();
-        ui->charitySumField->setText(st+c);
-             break;
-    }
-    case PhoneNum:
-    {
-        QString st = ui->phoneNumField->text();
-        ui->phoneNumField->setText(st+c);
-             break;
-    }
-    case PhoneSum:
-    {
-        QString st = ui->phoneSumField->text();
-        ui->phoneSumField->setText(st+c);
-             break;
-    }
-    case TransactionCard:
-    {
-        QString st = ui->targetCardField->text();
-        ui->targetCardField->setText(st+c);
-             break;
-    }
-    case TransactionSum:
-    {
-        QString st = ui->transactionSumField->text();
-        ui->transactionSumField->setText(st+c);
-             break;
-    }
-    }
-}
-
-void MainWindow::fDeleteFiledChar(const InputField inf)
-{
-    switch (inf)
-    {
-    case CashSum:
-    {
-        QString st = ui->cashSumField->text();
-        ui->cashSumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
-             break;
-    }
-    case GameAccountID:
-    {
-        QString st = ui->gameIDField->text();
-        ui->gameIDField->setText(st.length()>0 ? st.left(st.length()-1) : "");
-             break;
-    }
-    case GameSum:
-    {
-        QString st = ui->gameSumField->text();
-        ui->gameSumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
-             break;
-    }
-    case CharitySum:
-    {
-        QString st = ui->charitySumField->text();
-        ui->charitySumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
-             break;
-    }
-    case PhoneNum:
-    {
-        QString st = ui->phoneNumField->text();
-        ui->phoneNumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
-             break;
-    }
-    case PhoneSum:
-    {
-        QString st = ui->phoneSumField->text();
-        ui->phoneSumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
-             break;
-    }
-    case TransactionCard:
-    {
-        QString st = ui->targetCardField->text();
-        ui->targetCardField->setText(st.length()>0 ? st.left(st.length()-1) : "");
-             break;
-    }
-    case TransactionSum:
-    {
-        QString st = ui->transactionSumField->text();
-        ui->transactionSumField->setText(st.length()>0 ? st.left(st.length()-1) : "");
-             break;
-    }
-    }
-}
-
-void MainWindow::fClearField(const InputField inf)
-{
-    switch (inf)
-    {
-    case CashSum:
-    {
-        ui->cashSumField->clear();
-             break;
-    }
-    case GameAccountID:
-    {
-        ui->gameIDField->clear();
-             break;
-    }
-    case GameSum:
-    {
-        ui->gameSumField->clear();
-             break;
-    }
-    case CharitySum:
-    {
-        ui->charitySumField->clear();
-             break;
-    }
-    case PhoneNum:
-    {
-        ui->phoneNumField->clear();
-             break;
-    }
-    case PhoneSum:
-    {
-        ui->phoneSumField->clear();
-             break;
-    }
-    case TransactionCard:
-    {
-        ui->targetCardField->clear();
-             break;
-    }
-    case TransactionSum:
-    {
-        ui->transactionSumField->clear();
-             break;
-    }
-    }
-}
-
-
-// 7 select charity
-    //list of fonds
-
-
-// 8 charity data
-void MainWindow::fDisplaySelectedFond(const QString& str)
-{
-    ui-> selectedFondLabel->setText(str);
-}
-
-
-// 9 select game
-//list of games
-
-// 10 game data
-void MainWindow::fDisplaySelectedGame(const QString& str)
-{
-    ui-> selectedGameLabel->setText(str);
-}
-
-void MainWindow::fDisplaySuccessFail(const QString& str)
-{
-    ui->succFailLab->setText(str);
-}
 
 void MainWindow::connectSignals() {
     QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);

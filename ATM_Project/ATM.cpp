@@ -54,6 +54,7 @@ void ATM::validateLogin(const string& entered) {
 }
 
 void ATM::getBalance() {
+    //QThread::sleep(1500);
     assert(card!=nullptr); // Card should be present
     assert(pin!=nullptr); // Pin should be entered
 
