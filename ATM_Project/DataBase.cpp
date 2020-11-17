@@ -1,9 +1,11 @@
 #include "DataBase.h"
+#include <filesystem>
+#include <iostream>
 
 DataBase::DataBase(std::string name)
 {
-    //std::string path("E:/Workspace/");
-    std::string path("/Users/akreidun/Desktop/");
+    qDebug() << "CHECK\n\n\n";
+    std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project";
     std::string extention(".sqlite");
     std::string full_name = path + name + extention;
 
@@ -26,6 +28,8 @@ DataBase::DataBase(std::string name)
                 qDebug() << "error: creating table";
             }
         }
+        this->addCortege("1234123412341236", "1234", 0);
+        this->addCortege("1234123412341237", "4321", 11231.12321);
     }
 }
 

@@ -54,4 +54,5 @@ DISTFILES += \
     images/loader.gif
 
 RESOURCES += \
-    qtResources.qrc
+    qtResources.qrc \
+    db.sqlite
