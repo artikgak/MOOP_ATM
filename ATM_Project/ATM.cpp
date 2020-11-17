@@ -27,9 +27,9 @@ void ATM::validateCard(const string& cardNum) {
     cout  << "Validating card: " << cardNum << endl;
 
     bool retrieved = db.getDataByCardNo(cardNum);
-    retrieved =true; //TODO DELETE LATER
+    //retrieved =true; //TODO DELETE LATER
     if (retrieved) {
-        card = new Card("1234567812345678");  // TODO DELETE LATER;
+        card = new Card("1234123412341231");  // TODO DELETE LATER;
         emit goToPage(EnterPIN);
     } else {
         emit errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
@@ -41,9 +41,8 @@ void ATM::validateLogin(const string& entered) {
     assert(pin==nullptr); // Should be no pin at this point
 
     cout  << "Validating pin: " << pin << endl;
-                ;
     bool correct = db.checkPin(card->getNumber(), entered);
-    correct =true; // TODO DELETE LATER
+    //correct =true; // TODO DELETE LATER
 
     if (correct) { //change to card pin
         this->pin = new string(entered);
@@ -59,7 +58,7 @@ void ATM::getBalance() {
     assert(pin!=nullptr); // Pin should be entered
 
     double money = db.getMoney(card->getNumber());
-    money = 322;
+    //money = 322;
     assert(money!=-1); //If card is present, should be ok
 
     emit displayBalance(to_string(money));

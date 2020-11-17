@@ -2,7 +2,8 @@
 
 DataBase::DataBase(std::string name)
 {
-    std::string path("E:/Workspace/");
+    //std::string path("E:/Workspace/");
+    std::string path("/Users/akreidun/Desktop/");
     std::string extention(".sqlite");
     std::string full_name = path + name + extention;
 
@@ -86,19 +87,6 @@ bool DataBase::getDataByCardNo(const std::string cardNumber)
     }
 
     return qry.next();
-
-    if (qry.next()) {
-
-    // Here we need change Card object to save this data
-//        QString cardNo = qry.value(0).toString();
-//        QString pin = qry.value(1).toString();
-//        double balance = qry.value(2).toDouble();
-        // qDebug() << cardNo << pin << balance;
-    }
-    else {
-        return false; // There is no data
-    }
-    return true; // There is data
 }
 
 bool DataBase::checkPin(const std::string cardNumber, const std::string pin_code)
