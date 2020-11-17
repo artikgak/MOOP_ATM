@@ -8,5 +8,6 @@
         <file>images/transfer.png</file>
         <file>images/loader.gif</file>
         <file>images/200.gif</file>
+        <file>bankNotes</file>
     </qresource>
 </RCC>
