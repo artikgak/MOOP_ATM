@@ -9,5 +9,6 @@
         <file>images/loader.gif</file>
         <file>images/200.gif</file>
         <file>bankNotes</file>
+        <file>db.sqlite</file>
     </qresource>
 </RCC>
