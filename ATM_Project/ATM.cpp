@@ -13,13 +13,13 @@ ATM::ATM():
     card(nullptr),
     pin(nullptr)
 {
-/*QFile file("bankNotes.txt");
+QFile file(":/bankNotes.txt");
+file.open(QIODevice::ReadOnly);
 QString line = file.readLine();
 file.close();
 QStringList list = line.split(' ');
-for(int i=0; i<5; ++i)
+for(int i=0; i<list.length(); ++i)
 bankNotes[i] = list.at(i).toInt();
-qDebug() << bankNotes[3]<<"!!!!!!!!!!!!!!!!!";*/
 }
 
 

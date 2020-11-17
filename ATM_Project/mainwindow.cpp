@@ -44,6 +44,12 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     _loaderLbl->setGeometry(p.x()-50,p.y()-50,p.width(),p.height());
     _loaderLbl->setWindowFlags(Qt::WindowStaysOnTopHint);
 
+    ui->spinBox->setValue(atm->bankNotes[0]);
+    ui->spinBox_1->setValue(atm->bankNotes[1]);
+    ui->spinBox_2->setValue(atm->bankNotes[2]);
+    ui->spinBox_3->setValue(atm->bankNotes[3]);
+    ui->spinBox_4->setValue(atm->bankNotes[4]);
+
     // Tying signals to slots TODO extract into a function
     connectSignals();
 
