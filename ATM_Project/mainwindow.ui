@@ -2348,6 +2348,9 @@ margin: 1px;</string>
                  <pointsize>10</pointsize>
                 </font>
                </property>
+               <property name="maximum">
+                <number>300</number>
+               </property>
               </widget>
              </item>
              <item row="1" column="1">
@@ -2356,6 +2359,9 @@ margin: 1px;</string>
                 <font>
                  <pointsize>10</pointsize>
                 </font>
+               </property>
+               <property name="maximum">
+                <number>300</number>
                </property>
               </widget>
              </item>
@@ -2366,6 +2372,9 @@ margin: 1px;</string>
                  <pointsize>10</pointsize>
                 </font>
                </property>
+               <property name="maximum">
+                <number>300</number>
+               </property>
               </widget>
              </item>
              <item row="1" column="3">
@@ -2375,6 +2384,9 @@ margin: 1px;</string>
                  <pointsize>10</pointsize>
                 </font>
                </property>
+               <property name="maximum">
+                <number>300</number>
+               </property>
               </widget>
              </item>
              <item row="1" column="4">
@@ -2383,6 +2395,9 @@ margin: 1px;</string>
                 <font>
                  <pointsize>10</pointsize>
                 </font>
+               </property>
+               <property name="maximum">
+                <number>300</number>
                </property>
               </widget>
              </item>

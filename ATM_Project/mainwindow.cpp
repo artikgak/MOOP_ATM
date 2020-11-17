@@ -5,6 +5,7 @@
 #include <QTime>
 #include <QMovie>
 #include "ATM.h"
+#include <QCloseEvent>
 
 //STATES
 #include "IdleState.h"
@@ -61,6 +62,13 @@ MainWindow::~MainWindow()
     //delete lbl;
     delete ui;
     delete state;
+}
+
+
+void MainWindow::closeEvent (QCloseEvent *event)
+{
+    atm->saveBankNotesToFile();
+    event->accept();
 }
 
 void MainWindow::timerEvent(QTimerEvent*)

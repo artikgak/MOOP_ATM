@@ -11,15 +11,16 @@ ATM::ATM():
     mainW(nullptr),
     db(*new DataBase("db")),
     card(nullptr),
-    pin(nullptr)
+    pin(nullptr),
+    file("bankNotes.txt")
 {
-QFile file(":/bankNotes.txt");
 file.open(QIODevice::ReadOnly);
 QString line = file.readLine();
 file.close();
 QStringList list = line.split(' ');
 for(int i=0; i<list.length(); ++i)
 bankNotes[i] = list.at(i).toInt();
+bankNotes[3]+=122;
 }
 
 
@@ -95,4 +96,23 @@ void ATM::ejectCard() {
     pin = nullptr;
 
     emit goToPage(Welcome);
+}
+
+void ATM::saveBankNotesToFile()
+{
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream outStream(&file);
+    QString toWrite = QString::number(bankNotes[0]) + ' ' +
+                      QString::number(bankNotes[1]) + ' ' +
+                      QString::number(bankNotes[2]) + ' ' +
+                      QString::number(bankNotes[3]) + ' ' +
+                      QString::number(bankNotes[4]);
+    outStream << "112";
+    //outStream << toWrite;
+    outStream.flush();
+    file.write(toWrite.toLocal8Bit());
+    file.flush();
+    //file.write("12");
+    //file.flush();
+    file.close();
 }
