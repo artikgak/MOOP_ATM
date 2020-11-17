@@ -9,10 +9,17 @@ using namespace std;
 
 ATM::ATM():
     mainW(nullptr),
-    db(*new DataBase()),
+    db(*new DataBase("db")),
     card(nullptr),
     pin(nullptr)
 {
+/*QFile file("bankNotes.txt");
+QString line = file.readLine();
+file.close();
+QStringList list = line.split(' ');
+for(int i=0; i<5; ++i)
+bankNotes[i] = list.at(i).toInt();
+qDebug() << bankNotes[3]<<"!!!!!!!!!!!!!!!!!";*/
 }
 
 
@@ -53,7 +60,6 @@ void ATM::validateLogin(const string& entered) {
 }
 
 void ATM::getBalance() {
-    //QThread::sleep(1500);
     assert(card!=nullptr); // Card should be present
     assert(pin!=nullptr); // Pin should be entered
 

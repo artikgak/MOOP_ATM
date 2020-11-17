@@ -2,8 +2,7 @@
 
 DataBase::DataBase(std::string name)
 {
-    //std::string path("E:/Workspace/");
-    std::string path("/Users/akreidun/Desktop/");
+    std::string path("");
     std::string extention(".sqlite");
     std::string full_name = path + name + extention;
 

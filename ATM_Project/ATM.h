@@ -23,6 +23,7 @@ private:
     ATM& operator=(ATM&) = delete;
     ATM(ATM&) = delete;
 
+    int bankNotes[5];
 //    template<class voidFunc>
 //    void validatePinAndEmit(const std::string& pin, voidFunc toEmit);
 
