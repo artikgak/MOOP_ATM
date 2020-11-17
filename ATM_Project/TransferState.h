@@ -45,6 +45,8 @@ public:
     }
 
     void handleButtonL4() override{
+
+
         QString num = getUi()->transactionSumField->text();
         if(num.length() == 0){
             getUi()->transError->setText("Порожня сума");
