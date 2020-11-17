@@ -23,7 +23,8 @@ DataBase::DataBase(std::string name)
                                          "tries INT NOT NULL,"
                                          "PRIMARY KEY (cardNo));";
             QSqlQuery create_table_qry;
-
+            addCortege("1234123412341234", "1234", 0);
+            addCortege("1234123412341235", "4321", 11231.12321);
             if (!create_table_qry.exec(create_table_query)) {
                 qDebug() << "error: creating table";
             }
