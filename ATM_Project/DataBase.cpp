@@ -2,6 +2,7 @@
 
 DataBase::DataBase(std::string name)
 {
+    //std::string path("E:/Workspace/");
     std::string path("");
     std::string extention(".sqlite");
     std::string full_name = path + name + extention;
@@ -17,9 +18,11 @@ DataBase::DataBase(std::string name)
                                          "cardNo VARCHAR(16) NOT NULL,"
                                          "pin VARCHAR(4) NOT NULL,"
                                          "balance double NOT NULL,"
+                                         "tries INT NOT NULL,"
                                          "PRIMARY KEY (cardNo));";
             QSqlQuery create_table_qry;
-
+            addCortege("1234123412341234", "1234", 0);
+            addCortege("1234123412341235", "4321", 11231.12321);
             if (!create_table_qry.exec(create_table_query)) {
                 qDebug() << "error: creating table";
             }
@@ -47,12 +50,14 @@ bool DataBase::addCortege(const std::string cardNo, const std::string pin, const
     qry.prepare("INSERT INTO card ("
                 "cardNo,"
                 "pin,"
-                "balance)"
-                "VALUES (?,?,?);");
+                "balance,"
+                "tries)"
+                "VALUES (?,?,?,?);");
 
     qry.addBindValue(QString::fromStdString(cardNo));
     qry.addBindValue(QString::fromStdString(pin));
     qry.addBindValue(balance);
+    qry.addBindValue(3);
 
     if (!qry.exec()) {
         qDebug() << "error: adding cortege to a database";
@@ -74,7 +79,7 @@ bool DataBase::deleteCortege(const std::string cardNumber)
     return true; // cortege wasn't deleted
 }
 
-bool DataBase::getDataByCardNo(const std::string cardNumber)
+bool DataBase::cardExists(const std::string cardNumber)
 {
     QSqlQuery qry;
     std::string query("SELECT * FROM card WHERE cardNo='" + cardNumber + "';");
@@ -88,8 +93,12 @@ bool DataBase::getDataByCardNo(const std::string cardNumber)
     return qry.next();
 }
 
-bool DataBase::checkPin(const std::string cardNumber, const std::string pin_code)
+bool DataBase::checkTries(const std::string cardNumber)
 {
+    if (!cardExists(cardNumber)) {
+        qDebug() << "There is no card with this number";
+        return false;
+    }
     QSqlQuery qry;
     std::string query("SELECT * FROM card WHERE cardNo='" + cardNumber + "';");
     qry.prepare(query.c_str());
@@ -98,22 +107,70 @@ bool DataBase::checkPin(const std::string cardNumber, const std::string pin_code
         qDebug() << "error: getting data from a database";
         return false; // there is some error while executing query
     }
+    if (qry.next()) {
+        int tries = qry.value(3).toInt();
+        if (tries < 1)
+            return false;
+    }
+    return true;
+}
 
+bool DataBase::checkPin(const std::string cardNumber, const std::string pin_code)
+{
+    if (!cardExists(cardNumber)) {
+        qDebug() << "There is no card with this number";
+        return false;
+    }
+    if (!checkTries(cardNumber)) {
+        qDebug() << "There is no tries left! Please contact your administrator!";
+        return false;
+    }
+    QSqlQuery qry;
+    std::string query("SELECT * FROM card WHERE cardNo='" + cardNumber + "';");
+    qry.prepare(query.c_str());
+
+    if (!qry.exec()) {
+        qDebug() << "error: getting data from a database";
+        return false; // there is some error while executing query
+    }
+    int tries = -1;
     if (qry.next()) {
         std::string pin = qry.value(1).toString().toStdString();
-
+        tries = qry.value(3).toInt();
         if (pin != pin_code) {
+            --tries;
+            if (tries < 0)
+                tries = 0;
+            QSqlQuery qry1;
+            std::string query1("UPDATE card SET tries = '" + QString("").arg(tries).toStdString() + "' WHERE cardNo='" + cardNumber + "';");
+            qry1.prepare(query.c_str());
+            if (!qry.exec()) {
+                qDebug() << "error: changing amount of tries to enter pin";
+                return false;
+            }
             return false; // pin code is wrong
         }
     }
     else {
         return false; // There is no data
     }
+    tries = 3;
+    QSqlQuery qry1;
+    std::string query1("UPDATE card SET tries = '" + QString("").arg(tries).toStdString() + "' WHERE cardNo='" + cardNumber + "';");
+    qry1.prepare(query.c_str());
+    if (!qry.exec()) {
+        qDebug() << "error: changing amount of tries to enter pin";
+        return false;
+    }
     return true; // There is data and it's ok
 }
 
 double DataBase::getMoney(const std::string cardNumber)
 {
+    if (!cardExists(cardNumber)) {
+        qDebug() << "There is no card with this number";
+        return false; // adding was not performed
+    }
     QSqlQuery qry;
     std::string query("SELECT * FROM card WHERE cardNo='" + cardNumber + "';");
     qry.prepare(query.c_str());
@@ -122,10 +179,8 @@ double DataBase::getMoney(const std::string cardNumber)
         qDebug() << "error: getting money from a database by provided cardNumber";
         return false; // there is some error while executing query
     }
-
     if (qry.next()) {
         double balance = qry.value(2).toDouble();
-
         return balance; // there is data
     }
     return -1; // There is no data
@@ -133,7 +188,7 @@ double DataBase::getMoney(const std::string cardNumber)
 
 bool DataBase::addMoney(const std::string cardNumber, const double amount)
 {
-    if (!getDataByCardNo(cardNumber)) {
+    if (!cardExists(cardNumber)) {
         qDebug() << "There is no card with this number";
         return false; // adding was not performed
     }

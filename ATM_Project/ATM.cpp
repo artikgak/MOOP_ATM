@@ -9,7 +9,7 @@ using namespace std;
 
 ATM::ATM():
     mainW(nullptr),
-    db(*new DataBase("db")),
+    db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
     card(nullptr),
     pin(nullptr),
     file("bankNotes.txt")
@@ -34,10 +34,9 @@ void ATM::validateCard(const string& cardNum) {
 
     cout  << "Validating card: " << cardNum << endl;
 
-    bool retrieved = db.getDataByCardNo(cardNum);
-    //retrieved =true; //TODO DELETE LATER
+    bool retrieved = db.cardExists(cardNum);
     if (retrieved) {
-        card = new Card("1234123412341231");  // TODO DELETE LATER;
+        card = new Card(cardNum);
         emit goToPage(EnterPIN);
     } else {
         emit errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
@@ -49,9 +48,8 @@ void ATM::validateLogin(const string& entered) {
     assert(pin==nullptr); // Should be no pin at this point
 
     cout  << "Validating pin: " << pin << endl;
-    bool correct = db.checkPin(card->getNumber(), entered);
-    //correct =true; // TODO DELETE LATER
 
+    bool correct = db.checkPin(card->getNumber(), entered);
     if (correct) { //change to card pin
         this->pin = new string(entered);
         emit goToPage(Menu);
@@ -65,7 +63,6 @@ void ATM::getBalance() {
     assert(pin!=nullptr); // Pin should be entered
 
     double money = db.getMoney(card->getNumber());
-    //money = 322;
     assert(money!=-1); //If card is present, should be ok
 
     emit displayBalance(to_string(money));

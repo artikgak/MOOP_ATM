@@ -20,7 +20,8 @@ public:
     bool isTableExists(const char *);
     bool addCortege(const std::string, const std::string, const double);
     bool deleteCortege(const std::string);
-    bool getDataByCardNo(const std::string);
+    bool cardExists(const std::string);
+    bool checkTries(const std::string);
     bool checkPin(const std::string, const std::string);
     double getMoney(const std::string);
     bool addMoney(const std::string, const double);
