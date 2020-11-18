@@ -299,3 +299,23 @@ void MainWindow::connectSignals() {
     QObject::connect(this, &MainWindow::withdrawMoney, atm, &ATM::withdrawMoney);
     QObject::connect(this, &MainWindow::transferMoney, atm, &ATM::transferMoney);
 }
+
+void MainWindow::on_adminButton_clicked()
+{
+}
+
+void MainWindow::on_helpServiceButton_clicked()
+{
+    bool ok;
+      QString text = QInputDialog::getText(this, tr("Допомога"),
+                                           tr("Для оформлення заявки на блокування карти"
+                                              "\nвведіть номер втраченої картки:"), QLineEdit::Normal,
+                                           "", &ok);
+      if (ok && !text.isEmpty())
+      {
+          QMessageBox msgBox;
+          msgBox.setText("Ваша заявка отримана, працівник банку скоро зв'яжеться з вами.");
+          msgBox.exec();
+      }
+
+}
