@@ -23,10 +23,14 @@ private:
     ATM& operator=(ATM&) = delete;
     ATM(ATM&) = delete;
 
+    QFile file;
 //    template<class voidFunc>
 //    void validatePinAndEmit(const std::string& pin, voidFunc toEmit);
 
 public:
+void saveBankNotesToFile();
+int bankNotes[5];
+
     friend Test_Front;
     ATM();
     ~ATM();

@@ -5,6 +5,7 @@
 #include <QTime>
 #include <QMovie>
 #include "ATM.h"
+#include <QCloseEvent>
 
 //STATES
 #include "IdleState.h"
@@ -44,6 +45,12 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     _loaderLbl->setGeometry(p.x()-50,p.y()-50,p.width(),p.height());
     _loaderLbl->setWindowFlags(Qt::WindowStaysOnTopHint);
 
+    ui->spinBox->setValue(atm->bankNotes[0]);
+    ui->spinBox_1->setValue(atm->bankNotes[1]);
+    ui->spinBox_2->setValue(atm->bankNotes[2]);
+    ui->spinBox_3->setValue(atm->bankNotes[3]);
+    ui->spinBox_4->setValue(atm->bankNotes[4]);
+
     // Tying signals to slots TODO extract into a function
     connectSignals();
 
@@ -55,6 +62,13 @@ MainWindow::~MainWindow()
     //delete lbl;
     delete ui;
     delete state;
+}
+
+
+void MainWindow::closeEvent (QCloseEvent *event)
+{
+    atm->saveBankNotesToFile();
+    event->accept();
 }
 
 void MainWindow::timerEvent(QTimerEvent*)
@@ -284,4 +298,24 @@ void MainWindow::connectSignals() {
     QObject::connect(this, &MainWindow::ejectCard, atm, &ATM::ejectCard);
     QObject::connect(this, &MainWindow::withdrawMoney, atm, &ATM::withdrawMoney);
     QObject::connect(this, &MainWindow::transferMoney, atm, &ATM::transferMoney);
+}
+
+void MainWindow::on_adminButton_clicked()
+{
+}
+
+void MainWindow::on_helpServiceButton_clicked()
+{
+    bool ok;
+      QString text = QInputDialog::getText(this, tr("Допомога"),
+                                           tr("Для оформлення заявки на блокування карти"
+                                              "\nвведіть номер втраченої картки:"), QLineEdit::Normal,
+                                           "", &ok);
+      if (ok && !text.isEmpty())
+      {
+          QMessageBox msgBox;
+          msgBox.setText("Ваша заявка отримана, працівник банку скоро зв'яжеться з вами.");
+          msgBox.exec();
+      }
+
 }

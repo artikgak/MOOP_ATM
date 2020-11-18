@@ -140,7 +140,12 @@ private slots:
 
     void on_inputCard_clicked();
 
+    void on_adminButton_clicked();
+
+    void on_helpServiceButton_clicked();
+
 private:
+    void closeEvent (QCloseEvent *event);
     static const int MAINWINW;
     static const int MAINWINH;
     Ui::MainWindow *ui;
