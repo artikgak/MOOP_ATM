@@ -41,8 +41,8 @@ void ATM::validateCard(const string& cardNum) {
     } else {
         emit errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
     }
-
 }
+
 void ATM::validateLogin(const string& entered) {
     assert(card!=nullptr); // There should be a card in card-reader
     assert(pin==nullptr); // Should be no pin at this point
