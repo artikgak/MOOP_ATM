@@ -92,6 +92,8 @@ signals:
     void validateCard(const std::string& cardNum);
     void validateLogin(const std::string& pin);
 
+    void validateAdmin(const std::string& id);
+
     void getBalance();
     void ejectCard();
     WithdrawResponse withdrawMoney(const uint sum);
@@ -107,6 +109,7 @@ public slots: //TODO make slots and signals not voids but responses
     void displayBalance(const std::string& pin);
     void wrongPin(const uint);
     void endSession();
+    void displayBankNotes(const int*);
 
 private slots:
     void on_button0_clicked();

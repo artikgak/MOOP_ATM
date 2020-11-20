@@ -15,7 +15,7 @@
 #include "WithdrawState.h"
 #include "TransferState.h"
 #include "SuccessFailState.h"
-
+#include "AdminState.h"
 
 const int MainWindow::MAINWINW = 680;
 const int MainWindow::MAINWINH = 550;
@@ -44,12 +44,6 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     QRect p =ui->stackedWidget->geometry();
     _loaderLbl->setGeometry(p.x()-50,p.y()-50,p.width(),p.height());
     _loaderLbl->setWindowFlags(Qt::WindowStaysOnTopHint);
-
-    ui->spinBox->setValue(atm->bankNotes[0]);
-    ui->spinBox_1->setValue(atm->bankNotes[1]);
-    ui->spinBox_2->setValue(atm->bankNotes[2]);
-    ui->spinBox_3->setValue(atm->bankNotes[3]);
-    ui->spinBox_4->setValue(atm->bankNotes[4]);
 
     // Tying signals to slots TODO extract into a function
     connectSignals();
@@ -155,6 +149,8 @@ void MainWindow::goToPage(const ScreenPage sp)
         state = new TransferState();
     else if(sp == SuccessFail)
         state = new SuccessFailState(static_cast<ScreenPage>(prevSt));
+    else if(sp == Admin)
+        state = new AdminState();
 
     state->set_context(this);
 
@@ -164,6 +160,16 @@ void MainWindow::goToPage(const ScreenPage sp)
     ui->screenLabel->setText(state->screenName());
 
     _currentScreen=sp; // TODO delete when ready
+    unblockInput();
+}
+
+void MainWindow::displayBankNotes(const int* arr){
+    goToPage(Admin);
+    ui->spinBox->setValue(arr[0]);
+    ui->spinBox_1->setValue(arr[1]);
+    ui->spinBox_2->setValue(arr[2]);
+    ui->spinBox_3->setValue(arr[3]);
+    ui->spinBox_4->setValue(arr[4]);
     unblockInput();
 }
 
@@ -291,6 +297,7 @@ void MainWindow::connectSignals() {
     QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
     QObject::connect(atm, &ATM::displayBalance, this, &MainWindow::displayBalance);
     QObject::connect(atm, &ATM::wrongPin, this, &MainWindow::wrongPin);
+    QObject::connect(atm, &ATM::displayBankNotes, this, &MainWindow::displayBankNotes);
 
     QObject::connect(this, &MainWindow::validateLogin, atm, &ATM::validateLogin);
     QObject::connect(this, &MainWindow::getBalance, atm, &ATM::getBalance);
@@ -298,10 +305,18 @@ void MainWindow::connectSignals() {
     QObject::connect(this, &MainWindow::ejectCard, atm, &ATM::ejectCard);
     QObject::connect(this, &MainWindow::withdrawMoney, atm, &ATM::withdrawMoney);
     QObject::connect(this, &MainWindow::transferMoney, atm, &ATM::transferMoney);
+
+    QObject::connect(this, &MainWindow::validateAdmin, atm, &ATM::validateAdmin);
 }
 
 void MainWindow::on_adminButton_clicked()
 {
+    bool ok;
+      QString text = QInputDialog::getText(this, tr("Адмін"),
+                        tr("Притисність нашу id карту о сканера:"), QLineEdit::Normal,
+                        "", &ok);
+    if(ok)
+        emit validateAdmin(text.toStdString());
 }
 
 void MainWindow::on_helpServiceButton_clicked()
@@ -317,5 +332,6 @@ void MainWindow::on_helpServiceButton_clicked()
           msgBox.setText("Ваша заявка отримана, працівник банку скоро зв'яжеться з вами.");
           msgBox.exec();
       }
+// if card valid bank phoning
 
 }

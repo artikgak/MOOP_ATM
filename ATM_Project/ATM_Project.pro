@@ -28,6 +28,7 @@ SOURCES += \
 HEADERS += \
     ATM.h \
     AccountMenu.h \
+    AdminState.h \
     BalanceState.h \
     Card.h \
     IdleState.h \
@@ -55,6 +56,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     qtResources.qrc
 
-DISTFILES += \
-    bankNotes.txt \
+#DISTFILES += \
+#    bnkNote.txt \
+#    db.sqlite
+
+OTHER_FILES += \
+    bnkNote.txt \
     db.sqlite

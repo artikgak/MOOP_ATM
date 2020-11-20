@@ -39,7 +39,7 @@ enum WithdrawResponse {
 enum ScreenPage{
     Welcome, EnterPIN, Menu, Balance,
     TransactionData, PhoneData, GetCash, SelectCharity,
-    CharityData, SelectGame, GameData, SuccessFail
+    CharityData, SelectGame, GameData, SuccessFail, Admin
 };
 
 
