@@ -13,13 +13,12 @@ ATM::ATM():
     db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
     card(nullptr),
     pin(nullptr),
-    file(QCoreApplication::applicationDirPath() + "bnkNote.txt"), //
+    file("../ATM_Project/bnkNote.txt"), //
     bankNotes(new int[5])
 {
 file.open(QIODevice::ReadOnly);
 if(!file.isOpen())
-    cout << "<CEYYYKA>" <<endl;
-cout << file.fileName().toStdString() << "|" << QCoreApplication::applicationDirPath().toStdString() << endl;
+    cout << "<banknotes not open>" <<endl;
 QString line = file.readLine();
 file.close();
 QStringList list = line.split(' ');
@@ -112,21 +111,16 @@ void ATM::ejectCard() {
     emit goToPage(Welcome);
 }
 
-void ATM::saveBankNotesToFile()
+void ATM::saveBankToFile()
 {
-    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    file.open(QIODevice::WriteOnly | QIODevice::Text |QFile::Truncate);
     QTextStream outStream(&file);
     QString toWrite = QString::number(bankNotes[0]) + ' ' +
                       QString::number(bankNotes[1]) + ' ' +
                       QString::number(bankNotes[2]) + ' ' +
                       QString::number(bankNotes[3]) + ' ' +
                       QString::number(bankNotes[4]);
-    outStream << "112";
-    //outStream << toWrite;
-    outStream.flush();
     file.write(toWrite.toLocal8Bit());
     file.flush();
-    //file.write("12");
-    //file.flush();
     file.close();
 }

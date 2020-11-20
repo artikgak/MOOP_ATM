@@ -6,9 +6,9 @@ DataBase::DataBase(std::string name)
 {
     //std::cout << QCoreApplication::applicationDirPath().toStdString() << '\n';
     //std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
-    //std::string path = ":/ATM_Project/";
-    //std::string extention(".sqlite");
-    std::string full_name = "db"; //path + name + extention;
+    std::string path = "../ATM_Project/";
+    std::string extention(".sqlite");
+    std::string full_name = path + name + extention;
 
     _db = QSqlDatabase::addDatabase("QSQLITE");
     _db.setDatabaseName(full_name.c_str());

@@ -61,7 +61,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent (QCloseEvent *event)
 {
-    atm->saveBankNotesToFile();
+    atm->saveBankToFile();
     event->accept();
 }
 
@@ -124,6 +124,16 @@ void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
     QMessageBox::critical(this,"Error",errorMsg, QMessageBox::Ok); // IF artem you want it rework with SuccessFail window :^)))))))))))))))))))))))))))))))))))))))) x-DDdd
     goToPage(whereToGo);
     unblockInput();
+}
+
+void MainWindow::saveBankNotes()
+{
+atm->bankNotes[0]=ui->spinBox->value();
+atm->bankNotes[1]=ui->spinBox_1->value();
+atm->bankNotes[2]=ui->spinBox_2->value();
+atm->bankNotes[3]=ui->spinBox_3->value();
+atm->bankNotes[4]=ui->spinBox_4->value();
+atm->saveBankToFile();
 }
 
 void MainWindow::goToPage(const ScreenPage sp)
