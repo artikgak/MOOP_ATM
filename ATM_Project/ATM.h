@@ -28,7 +28,7 @@ private:
 //    void validatePinAndEmit(const std::string& pin, voidFunc toEmit);
 
 public:
-void saveBankNotesToFile();
+void saveBankToFile();
 int* bankNotes;
 
     friend Test_Front;

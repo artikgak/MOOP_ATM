@@ -61,5 +61,5 @@ RESOURCES += \
 #    db.sqlite
 
 OTHER_FILES += \
-    bnkNote.txt \
-    db.sqlite
+   bnkNote.txt \
+   db.sqlite

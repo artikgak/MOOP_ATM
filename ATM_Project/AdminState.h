@@ -22,7 +22,7 @@ class AdminState : public WindowState {
     }
 
      void handleButtonL3() override {
-// save money
+        context->saveBankNotes();
      }
 
 };

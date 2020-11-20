@@ -24,7 +24,7 @@ public:
     ~MainWindow();
 //    void subscribeATM(ATM*);
 
-
+void saveBankNotes();
 
     //void showLoader();
     //void hideLoader();
