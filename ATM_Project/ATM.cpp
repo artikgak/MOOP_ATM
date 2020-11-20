@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QString>
 #include <functional>
+#include <fstream>
 
 using namespace std;
 
@@ -12,29 +13,43 @@ ATM::ATM():
     db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
     card(nullptr),
     pin(nullptr),
-    file("bankNotes.txt")
+    file(QCoreApplication::applicationDirPath() + "bnkNote.txt"), //
+    bankNotes(new int[5])
 {
 file.open(QIODevice::ReadOnly);
+if(!file.isOpen())
+    cout << "<CEYYYKA>" <<endl;
+cout << file.fileName().toStdString() << "|" << QCoreApplication::applicationDirPath().toStdString() << endl;
 QString line = file.readLine();
 file.close();
 QStringList list = line.split(' ');
 for(int i=0; i<list.length(); ++i)
 bankNotes[i] = list.at(i).toInt();
-bankNotes[3]+=122;
+cout << "<" << line.toStdString() << ">" <<endl;
 }
 
 
 ATM::~ATM() {
     delete card;
+    delete[] bankNotes;
+}
+
+void ATM::validateAdmin(const string& cardNum){
+    assert(card==nullptr); // Card-reader should be empty
+    assert(pin==nullptr); // Pin should be empty
+    cout  << "Validating admin " << cardNum << endl;
+    if (cardNum=="cisco")
+        emit displayBankNotes(bankNotes);
 }
 
 void ATM::validateCard(const string& cardNum) {
     assert(card==nullptr); // Card-reader should be empty
     assert(pin==nullptr); // Pin should be empty
-
     cout  << "Validating card: " << cardNum << endl;
 
     bool retrieved = db.cardExists(cardNum);
+    // ///////// TODO
+    //retrieved=true;
     if (retrieved) {
         card = new Card(cardNum);
         emit goToPage(EnterPIN);
@@ -50,6 +65,8 @@ void ATM::validateLogin(const string& entered) {
     cout  << "Validating pin: " << pin << endl;
 
     bool correct = db.checkPin(card->getNumber(), entered);
+    // ///////////// TODO
+    //correct=true;
     if (correct) { //change to card pin
         this->pin = new string(entered);
         emit goToPage(Menu);

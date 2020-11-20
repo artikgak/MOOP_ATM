@@ -460,7 +460,7 @@ background-color: rgb(233, 255, 245);
 </string>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>12</number>
           </property>
           <widget class="QWidget" name="welcome_p">
            <widget class="QPushButton" name="inputCard">
@@ -812,7 +812,7 @@ margin: 1px;</string>
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap>:/images/charity.png</pixmap>
+                 <pixmap resource="qtResources.qrc">:/images/charity.png</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -863,7 +863,7 @@ margin: 1px;</string>
                  <enum>QFrame::Raised</enum>
                 </property>
                 <property name="pixmap">
-                 <pixmap>:/images/cash.png</pixmap>
+                 <pixmap resource="qtResources.qrc">:/images/cash.png</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -910,7 +910,7 @@ margin: 1px;</string>
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap>:/images/games.png</pixmap>
+                 <pixmap resource="qtResources.qrc">:/images/games.png</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -957,7 +957,7 @@ margin: 1px;</string>
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap>:/images/ICON-08.jpg</pixmap>
+                 <pixmap resource="qtResources.qrc">:/images/ICON-08.jpg</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -1004,7 +1004,7 @@ margin: 1px;</string>
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap>:/images/transfer.png</pixmap>
+                 <pixmap resource="qtResources.qrc">:/images/transfer.png</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -1051,7 +1051,7 @@ margin: 1px;</string>
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap>:/images/phone.jpg</pixmap>
+                 <pixmap resource="qtResources.qrc">:/images/phone.jpg</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -2780,19 +2780,6 @@ margin: 1px;</string>
              </item>
             </layout>
            </widget>
-           <widget class="QPushButton" name="pushButton">
-            <property name="geometry">
-             <rect>
-              <x>400</x>
-              <y>130</y>
-              <width>93</width>
-              <height>28</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Зберегти</string>
-            </property>
-           </widget>
            <widget class="QLabel" name="label_33">
             <property name="geometry">
              <rect>
@@ -2809,6 +2796,24 @@ margin: 1px;</string>
             </property>
             <property name="text">
              <string>Вийти</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_39">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>200</y>
+              <width>101</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Зберегти</string>
             </property>
            </widget>
           </widget>
@@ -3029,6 +3034,8 @@ margin: 1px;</string>
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="qtResources.qrc"/>
+ </resources>
  <connections/>
 </ui>

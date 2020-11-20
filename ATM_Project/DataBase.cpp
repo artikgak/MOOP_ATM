@@ -1,14 +1,14 @@
 #include "DataBase.h"
-#include <filesystem>
+//#include <filesystem>
 #include <iostream>
 
 DataBase::DataBase(std::string name)
 {
     //std::cout << QCoreApplication::applicationDirPath().toStdString() << '\n';
     //std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
-    std::string path = ":/ATM_Project/";
-    std::string extention(".sqlite");
-    std::string full_name = path + name + extention;
+    //std::string path = ":/ATM_Project/";
+    //std::string extention(".sqlite");
+    std::string full_name = "db"; //path + name + extention;
 
     _db = QSqlDatabase::addDatabase("QSQLITE");
     _db.setDatabaseName(full_name.c_str());
@@ -28,8 +28,8 @@ DataBase::DataBase(std::string name)
                 qDebug() << "error: creating table";
             }
         }
-        this->addCortege("1234123412341240", "1234", 0);
-        this->addCortege("1234123412341241", "4321", 11231.12321);
+        //this->addCortege("1234123412341240", "1234", 0);
+        //this->addCortege("1234123412341241", "4321", 11231.12321);
     }
 }
 
