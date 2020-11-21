@@ -31,7 +31,8 @@ class WithdrawState : public WindowState {
 
         switch (response) {
         case AtmNoBills:
-            getUi()->withdrawErrorMsg->setText("Немає таких куп'юр");
+            context->displayAvailBankNotes();
+            //getUi()->withdrawErrorMsg->setText("Доступні копюри: ");
             return;
         case UserNoMoney:
             getUi()->withdrawErrorMsg->setText("Недостатньо грошей у користувача");

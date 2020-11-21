@@ -8,6 +8,8 @@
 
 using namespace std;
 
+const int ATM::bills[] = {20,50,100,200,500};
+
 ATM::ATM():
     mainW(nullptr),
     db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
@@ -88,16 +90,52 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     assert(card!=nullptr); // Card should be present
     assert(pin!=nullptr); // Pin should be entered
 
-    double withdraw = db.getMoney(card->getNumber());
-    //TOOD WRITE PROPER CODE HERE
+// find max dilnyk
+    int i =0;
+    while(sum%bills[i] && i<5)
+        i++;
+    if(i==5)
+        return AtmNoBills;
+
+    // work with banknotes
+int allMoney = 0;
+for(int i =0; i<5; ++i)
+    allMoney+= bankNotes[i]*bills[i];
+
+if(allMoney < sum)
+    return AtmNoMoney;
+
+double withdraw = db.getMoney(card->getNumber());
+// if bad credit limit
+if(withdraw<sum)
+    return UserNoMoney;
+// return UserNoMoney;
+
+
+//  cardMoney-=sum
     return WOK;
+}
+
+void ATM::recountBankNotes(const int sum, const int billsSize){
+    int rest = sum;
+    int i=billsSize;
+    while(rest)
+    {
+        while(!rest%bills[i])
+        {
+            rest-=bills[i];
+            bankNotes[i]--;
+        }
+        i--;
+    }
 }
 
 TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
     assert(card!=nullptr);
     assert(pin!=nullptr);
-    //TRANSFER
+    // if enought money -> transfer
     return TOK;
+    //else return NotEnoughMonet;
 }
 
 void ATM::ejectCard() {
