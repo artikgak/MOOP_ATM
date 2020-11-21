@@ -8,7 +8,7 @@ Test_Front::Test_Front(): atm(new ATM()), mw(new MainWindow(atm))
 
 void Test_Front::initTestCase() //will be called before the first test function is executed.
 {
-    atm->card = new Card("1234123412341234");
+    atm->card = new std::string("1234123412341234");
 }
 
 void Test_Front::cleanupTestCase() //will be called after the last test function was executed.

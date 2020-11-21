@@ -3,7 +3,6 @@
 
 #include <QtSql>
 #include <string>
-#include <Card.h>
 
 class DataBase
 {
@@ -28,6 +27,10 @@ public:
 
     bool getAllData();
     bool deleteAllData();
+
+    // unit tests
+    void cardExistsTest();
+    void addMoneyTest();
 };
 
 #endif // DATABASE_H

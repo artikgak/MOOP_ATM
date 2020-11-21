@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Card.h"
 #include "Utils.h"
 #include "DataBase.h"
 #include "QObject"
@@ -16,7 +15,7 @@ private:
     MainWindow* mainW;
 
     DataBase& db;
-    Card* card;
+    std::string* card;
     std::string* pin;
     ATMState state;
 

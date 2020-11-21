@@ -5,28 +5,30 @@
 #include <QString>
 #include <functional>
 #include <fstream>
+#include <cassert>
 
 using namespace std;
 
 const int ATM::bills[] = {20,50,100,200,500};
 
 ATM::ATM():
-    mainW(nullptr),
-    db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
-    card(nullptr),
-    pin(nullptr),
-    file("../ATM_Project/bnkNote.txt"), //
-    bankNotes(new int[5])
-{
-file.open(QIODevice::ReadOnly);
-if(!file.isOpen())
-    cout << "<banknotes not open>" <<endl;
-QString line = file.readLine();
-file.close();
-QStringList list = line.split(' ');
-for(int i=0; i<list.length(); ++i)
-bankNotes[i] = list.at(i).toInt();
-cout << "<" << line.toStdString() << ">" <<endl;
+        mainW(nullptr),
+        db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
+        card(nullptr),
+        pin(nullptr),
+        // file("../ATM_Project/bnkNote.txt"),
+        file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
+        bankNotes(new int[5]) {
+    file.open(QIODevice::ReadOnly);
+    if(!file.isOpen())
+        cout << "<banknotes not open>" <<endl;
+    QString line = file.readLine();
+    file.close();
+
+    QStringList list = line.split(' ');
+    for(int i=0; i<list.length(); ++i)
+        bankNotes[i] = list.at(i).toInt();
+    cout << "<" << line.toStdString() << ">" <<endl;
 }
 
 
@@ -36,23 +38,22 @@ ATM::~ATM() {
 }
 
 void ATM::validateAdmin(const string& cardNum){
-    assert(card==nullptr); // Card-reader should be empty
-    assert(pin==nullptr); // Pin should be empty
+    assert(card == nullptr); // Card-reader should be empty
+    assert(pin == nullptr); // Pin should be empty
+
     cout  << "Validating admin " << cardNum << endl;
-    if (cardNum=="cisco")
+    if (cardNum == "cisco")
         emit displayBankNotes(bankNotes);
 }
 
 void ATM::validateCard(const string& cardNum) {
-    assert(card==nullptr); // Card-reader should be empty
-    assert(pin==nullptr); // Pin should be empty
-    cout  << "Validating card: " << cardNum << endl;
+    assert(card == nullptr); // Card-reader should be empty
+    assert(pin == nullptr); // Pin should be empty
 
+    cout  << "Validating card: " << cardNum << endl;
     bool retrieved = db.cardExists(cardNum);
-    // ///////// TODO
-    //retrieved=true;
     if (retrieved) {
-        card = new Card(cardNum);
+        card = new std::string(cardNum);
         emit goToPage(EnterPIN);
     } else {
         emit errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
@@ -60,15 +61,12 @@ void ATM::validateCard(const string& cardNum) {
 }
 
 void ATM::validateLogin(const string& entered) {
-    assert(card!=nullptr); // There should be a card in card-reader
-    assert(pin==nullptr); // Should be no pin at this point
+    assert(card != nullptr); // There should be a card in card-reader
+    assert(pin == nullptr); // Should be no pin at this point
 
     cout  << "Validating pin: " << pin << endl;
-
-    bool correct = db.checkPin(card->getNumber(), entered);
-    // ///////////// TODO
-    //correct=true;
-    if (correct) { //change to card pin
+    bool correct = db.checkPin(*card, entered);
+    if (correct) { // change to card pin
         this->pin = new string(entered);
         emit goToPage(Menu);
     } else {
@@ -77,53 +75,51 @@ void ATM::validateLogin(const string& entered) {
 }
 
 void ATM::getBalance() {
-    assert(card!=nullptr); // Card should be present
-    assert(pin!=nullptr); // Pin should be entered
+    assert(card != nullptr); // Card should be present
+    assert(pin != nullptr); // Pin should be entered
 
-    double money = db.getMoney(card->getNumber());
-    assert(money!=-1); //If card is present, should be ok
+    double money = db.getMoney(*card);
+    assert(money != -1); //If card is present, should be ok
 
     emit displayBalance(to_string(money));
 }
 
 WithdrawResponse ATM::withdrawMoney(const uint sum) {
-    assert(card!=nullptr); // Card should be present
-    assert(pin!=nullptr); // Pin should be entered
+    assert(card != nullptr); // Card should be present
+    assert(pin != nullptr); // Pin should be entered
 
-// find max dilnyk
-    int i =0;
-    while(sum%bills[i] && i<5)
-        i++;
-    if(i==5)
+    // find max dilnyk
+    int i = 0;
+    while (sum % bills[i] && i < 5)
+        ++i;
+    if(i == 5)
         return AtmNoBills;
 
     // work with banknotes
-int allMoney = 0;
-for(int i =0; i<5; ++i)
-    allMoney+= bankNotes[i]*bills[i];
+    size_t allMoney = 0;
+    for (int i = 0; i<5; ++i)
+        allMoney += bankNotes[i] * bills[i];
 
-if(allMoney < sum)
-    return AtmNoMoney;
+    if(allMoney < sum)
+        return AtmNoMoney;
 
-double withdraw = db.getMoney(card->getNumber());
-// if bad credit limit
-if(withdraw<sum)
-    return UserNoMoney;
-// return UserNoMoney;
+    double withdraw = db.getMoney(*card);
+    // if bad credit limit
+    if(withdraw < sum)
+        return UserNoMoney;
 
-
-//  cardMoney-=sum
+    //  cardMoney-=sum
     return WOK;
 }
 
 void ATM::recountBankNotes(const int sum, const int billsSize){
     int rest = sum;
-    int i=billsSize;
+    int i = billsSize;
     while(rest)
     {
-        while(!rest%bills[i])
+        while(!(rest % bills[i]) && bankNotes[i])
         {
-            rest-=bills[i];
+            rest -= bills[i];
             bankNotes[i]--;
         }
         i--;
@@ -131,11 +127,14 @@ void ATM::recountBankNotes(const int sum, const int billsSize){
 }
 
 TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
-    assert(card!=nullptr);
-    assert(pin!=nullptr);
-    // if enought money -> transfer
+    assert(card != nullptr);
+    assert(pin != nullptr);
+
+    if (db.getMoney(*card) < sum)
+        return NotEnoughMonet;
+    db.addMoney(*card, -sum);
+    db.addMoney(cardNum, sum);
     return TOK;
-    //else return NotEnoughMonet;
 }
 
 void ATM::ejectCard() {

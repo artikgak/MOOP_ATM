@@ -2,7 +2,6 @@
 
 #include <QMainWindow>
 #include "Utils.h"
-#include "Card.h"
 #include <QLabel>
 #include <QThread>
 
