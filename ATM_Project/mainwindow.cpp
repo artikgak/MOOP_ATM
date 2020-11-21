@@ -302,11 +302,9 @@ void MainWindow::unblockInput()
 void MainWindow::displayAvailBankNotes()
 {
 QString str = "Доступні копюри: ";
-if(atm->bankNotes[0])
-str+= QString::number(atm->bills[0]);
-for(int i=1; i<5; i++)
+for(int i=0; i<5; i++)
     if(atm->bankNotes[i])
-    str+= ", " + QString::number(atm->bills[i]);
+    str+= "   " + QString::number(atm->bills[i]);
 ui->withdrawErrorMsg->setText(str);
 }
 
