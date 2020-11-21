@@ -27,7 +27,9 @@ private:
 //    template<class voidFunc>
 //    void validatePinAndEmit(const std::string& pin, voidFunc toEmit);
 
+    void recountBankNotes(const int sum, const int billsSize=5);
 public:
+static const int bills[5];
 void saveBankToFile();
 int* bankNotes;
 

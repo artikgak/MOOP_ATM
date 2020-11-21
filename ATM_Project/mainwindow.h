@@ -64,7 +64,7 @@ void saveBankNotes();
     void fDisplayWrongGameID();
 
 // 6 get cash
-    void fDisplayBadBanknotesAmount(const QString&); // available banktotes
+    void displayAvailBankNotes(); // available banktotes
 
 // all input fields
     void fInputFieldAddChar(const InputField, const char);
