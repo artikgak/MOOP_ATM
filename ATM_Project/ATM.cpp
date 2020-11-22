@@ -6,6 +6,8 @@
 #include <functional>
 #include <fstream>
 #include <cassert>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -80,8 +82,9 @@ void ATM::getBalance() {
 
     double money = db.getMoney(*card);
     assert(money != -1); //If card is present, should be ok
-
-    emit displayBalance(to_string(money));
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(2) << money;
+    emit displayBalance(stream.str());
 }
 
 WithdrawResponse ATM::withdrawMoney(const uint sum) {
