@@ -43,7 +43,7 @@ public slots:
     void validateAdmin(const std::string& adminID);
     void validateCard(const std::string& cardNum);
     void validateLogin(const std::string& pin);
-    void getBalance();
+    std::string getBalance();
 
     void ejectCard();
 
@@ -51,7 +51,6 @@ public slots:
 signals:
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);
-    void displayBalance(const std::string&);
     void wrongPin(const uint triesLeft);
     void displayBankNotes(const int*);
 };

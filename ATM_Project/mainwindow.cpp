@@ -314,7 +314,6 @@ void MainWindow::clearCurrentPage(){state->clearCurrentPage();}
 void MainWindow::connectSignals() {
     QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
     QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
-    QObject::connect(atm, &ATM::displayBalance, this, &MainWindow::displayBalance);
     QObject::connect(atm, &ATM::wrongPin, this, &MainWindow::wrongPin);
     QObject::connect(atm, &ATM::displayBankNotes, this, &MainWindow::displayBankNotes);
 

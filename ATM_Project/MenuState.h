@@ -15,7 +15,8 @@ class MenuState : public WindowState {
     }
 
     void handleButtonL1() override {
-        emit context->getBalance();
+        std::string money = emit context->getBalance();
+        context->displayBalance(money);
     }
 
     void handleButtonL2() override {

@@ -76,7 +76,7 @@ void ATM::validateLogin(const string& entered) {
     }
 }
 
-void ATM::getBalance() {
+std::string ATM::getBalance() {
     assert(card != nullptr); // Card should be present
     assert(pin != nullptr); // Pin should be entered
 
@@ -84,7 +84,7 @@ void ATM::getBalance() {
     assert(money != -1); //If card is present, should be ok
     std::stringstream stream;
     stream << std::fixed << std::setprecision(2) << money;
-    emit displayBalance(stream.str());
+    return stream.str();
 }
 
 WithdrawResponse ATM::withdrawMoney(const uint sum) {
