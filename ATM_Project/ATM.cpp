@@ -11,6 +11,7 @@ using namespace std;
 const int ATM::bills[] = {20,50,100,200,500};
 
 ATM::ATM():
+<<<<<<< Updated upstream
     mainW(nullptr),
     db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
     card(nullptr),
@@ -27,6 +28,25 @@ QStringList list = line.split(' ');
 for(int i=0; i<list.length(); ++i)
 bankNotes[i] = list.at(i).toInt();
 cout << "<" << line.toStdString() << ">" <<endl;
+=======
+        mainW(nullptr),
+        db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
+        card(nullptr),
+        pin(nullptr),
+        file("../ATM_Project/bnkNote.txt"),
+        //file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
+        bankNotes(new int[5]) {
+    file.open(QIODevice::ReadOnly);
+    if(!file.isOpen())
+        cout << "<banknotes not open>" <<endl;
+    QString line = file.readLine();
+    file.close();
+
+    QStringList list = line.split(' ');
+    for(int i=0; i<list.length(); ++i)
+        bankNotes[i] = list.at(i).toInt();
+    cout << "<" << line.toStdString() << ">" <<endl;
+>>>>>>> Stashed changes
 }
 
 

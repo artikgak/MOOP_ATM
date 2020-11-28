@@ -4,12 +4,12 @@
 #include "mainwindow.h"
 
 class AdminState : public WindowState {
-
-    const QString screenName() override {
+private:
+    const QString do_screenName() override {
         return "Admin";
     }
 
-    void clearCurrentPage() override {
+    void do_clearCurrentPage() override {
         getUi()->spinBox->setValue(0);
         getUi()->spinBox_1->setValue(0);
         getUi()->spinBox_2->setValue(0);
@@ -17,11 +17,11 @@ class AdminState : public WindowState {
         getUi()->spinBox_4->setValue(0);
     }
 
-    void handleButtonL4() override {
+    void do_handleButtonL4() override {
         context->goToPage(Welcome);
     }
 
-     void handleButtonL3() override {
+     void do_handleButtonL3() override {
         context->saveBankNotes();
      }
 

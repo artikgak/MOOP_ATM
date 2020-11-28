@@ -13,12 +13,18 @@ public:
       //  getUi()->transactionSumField->setStyleSheet("background: #E8FAD5;");
         // memory violation access ???
     }
+<<<<<<< Updated upstream
 
     const QString screenName() override {
         return "Переказ грошей";
+=======
+private:
+    const QString do_screenName() override {
+        return "Money transfer";
+>>>>>>> Stashed changes
     }
 
-    void clearCurrentPage() override {
+    void do_clearCurrentPage() override {
         getUi()->transactionSumField->setText("");
         getUi()->targetCardField->setText("");
         getUi()->transferCommision->setText("");
@@ -27,24 +33,24 @@ public:
         getUi()->targetCardField->setStyleSheet("");
     }
 
-    void handleButtonL1() override{
+    void do_handleButtonL1() override{
         sumActive=1;
         getUi()->transactionSumField->setStyleSheet("background: #E8FAD5;");
         getUi()->targetCardField->setStyleSheet("background: white;");
     }
-    void handleButtonR1() override{
+    void do_handleButtonR1() override{
         handleButtonL1();
     }
-    void handleButtonL2() override{
+    void do_handleButtonL2() override{
         sumActive=0;
         getUi()->transactionSumField->setStyleSheet("background: white;");
         getUi()->targetCardField->setStyleSheet("background: #E8FAD5;");
     }
-    void handleButtonR2() override{
+    void do_handleButtonR2() override{
         handleButtonL2();
     }
 
-    void handleButtonL4() override{
+    void do_handleButtonL4() override{
 
 
         QString num = getUi()->transactionSumField->text();
@@ -84,11 +90,11 @@ public:
         }
     }
 
-    void handleButtonR4() override{context->goToPage(Menu);}
+    void do_handleButtonR4() override{context->goToPage(Menu);}
 
 
     //CHARACTER HANDLING
-    void enterNum(char num) override {
+    void do_enterNum(char num) override {
         if(sumActive){
         QString prev = getUi()->transactionSumField->text();
         if (prev.length()==7) return; // how many money?
@@ -100,7 +106,7 @@ public:
         }
     }
 
-    void handleButtonCorrect() override {
+    void do_handleButtonCorrect() override {
         if(sumActive){
         QString prev = getUi()->transactionSumField->text();
         QString newText = prev.length() == 0 ? "" : prev.chopped(1);
@@ -113,7 +119,7 @@ public:
         }
     }
 
-    void handleButtonDelete() override {
+    void do_handleButtonDelete() override {
         sumActive ? getUi()->transactionSumField->setText("") : getUi()->targetCardField->setText("");
     }
 
