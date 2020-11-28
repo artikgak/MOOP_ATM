@@ -6,7 +6,7 @@
 class PinState : public WindowState {
 
     const QString screenName() override {
-        return "Введіть пін-код";
+        return "Enter the pin code";
     }
 
     void clearCurrentPage() override {
@@ -32,7 +32,13 @@ class PinState : public WindowState {
     }
 
     void handleButtonEnter() override {
-        emit context->validateLogin(getUi()->pinField->text().toStdString());
+        bool valid = emit context->validateLogin(getUi()->pinField->text().toStdString());
+
+        if (valid)
+            context->goToPage(Menu);
+        else
+            context->wrongPin(0); //TODO add tries left
+
     }
 
     void handleButtonR4() override {
@@ -40,6 +46,6 @@ class PinState : public WindowState {
     }
 
     void handleButtonL4() override {
-        emit context->validateLogin(getUi()->pinField->text().toStdString());
+        handleButtonEnter();
     }
 };

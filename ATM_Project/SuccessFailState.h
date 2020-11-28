@@ -15,7 +15,7 @@ public:
     SuccessFailState(const ScreenPage sp): _prevScreen(sp){}
 
     const QString screenName() override {
-        return "Результат запиту";
+        return "Query result";
     }
 
     void clearCurrentPage() override {

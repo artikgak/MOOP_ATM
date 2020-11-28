@@ -7,7 +7,7 @@
 class MenuState : public WindowState {
 
     const QString screenName() override {
-        return "Меню вибору";
+        return "Menu";
     }
 
     void clearCurrentPage() override {

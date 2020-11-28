@@ -40,9 +40,9 @@ int* bankNotes;
 public slots:
     WithdrawResponse withdrawMoney(const uint sum);
     TransferResponse transferMoney(const uint sum, const std::string& cardNum);
-    void validateAdmin(const std::string& adminID);
-    void validateCard(const std::string& cardNum);
-    void validateLogin(const std::string& pin);
+    bool validateAdmin(const std::string& adminID);
+    bool validateCard(const std::string& cardNum);
+    bool validateLogin(const std::string& pin);
     std::string getBalance();
 
     void ejectCard();

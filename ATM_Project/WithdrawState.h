@@ -7,7 +7,7 @@
 class WithdrawState : public WindowState {
 
     const QString screenName() override {
-        return "Зняти гроші";
+        return "Withdraw funds";
     }
 
     void clearCurrentPage() override {
@@ -35,10 +35,10 @@ class WithdrawState : public WindowState {
             //getUi()->withdrawErrorMsg->setText("Доступні копюри: ");
             return;
         case UserNoMoney:
-            getUi()->withdrawErrorMsg->setText("Недостатньо грошей у користувача");
+            getUi()->withdrawErrorMsg->setText("Not enough funds");
             return;
         case AtmNoMoney:
-            getUi()->withdrawErrorMsg->setText("Недостатньо грошей у банкоматі");
+            getUi()->withdrawErrorMsg->setText("Not enough money in ATM");
             return;
         case WOK:
             QMessageBox::information(context,"Money", "Please take your bills");
