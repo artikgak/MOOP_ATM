@@ -6,20 +6,21 @@
 
 class WithdrawState : public WindowState {
 
-    const QString screenName() override {
+private:
+    const QString do_screenName() override {
         return "Withdraw funds";
     }
 
-    void clearCurrentPage() override {
+    void do_clearCurrentPage() override {
         getUi()->cashSumField->setText("");
         getUi()->withdrawErrorMsg->setText("");
     }
 
-    void handleButtonR4() override {
+    void do_handleButtonR4() override {
         context->goToPage(Menu);
     }
 
-    void handleButtonL4() override {
+    void do_handleButtonL4() override {
         QString num = getUi()->cashSumField->text();
         if(num.length() == 0) return;
 
@@ -48,19 +49,19 @@ class WithdrawState : public WindowState {
     }
 
     //CHARACTER HANDLING
-    void enterNum(char num) override {
+    void do_enterNum(char num) override {
         QString prev = getUi()->cashSumField->text();
         if (prev.length()==5) return;
         getUi()->cashSumField->setText(prev+num);
     }
 
-    void handleButtonCorrect() override {
+    void do_handleButtonCorrect() override {
         QString prev = getUi()->cashSumField->text();
         QString newText = prev.length() == 0 ? "" : prev.chopped(1);
         getUi()->cashSumField->setText(newText);
     }
 
-    void handleButtonDelete() override {
+    void do_handleButtonDelete() override {
         getUi()->cashSumField->setText("");
     }
 

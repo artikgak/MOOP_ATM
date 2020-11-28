@@ -13,21 +13,21 @@ private:
 
 public:
     SuccessFailState(const ScreenPage sp): _prevScreen(sp){}
-
-    const QString screenName() override {
+private:
+    const QString do_screenName() override {
         return "Query result";
     }
 
-    void clearCurrentPage() override {
+    void do_clearCurrentPage() override {
         getUi()->succFailLab->setText("");
         getUi()->succFailLab->setStyleSheet("");
     }
 
-    void handleButtonR4() override {
+    void do_handleButtonR4() override {
         context->goToPage(Menu);
     }
 
-    void handleButtonL4() override {
+    void do_handleButtonL4() override {
             context->goToPage(_prevScreen);
     }
 

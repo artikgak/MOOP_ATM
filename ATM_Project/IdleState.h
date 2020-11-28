@@ -4,12 +4,12 @@
 #include "mainwindow.h"
 
 class IdleState : public WindowState {
-
-    const QString screenName() override {
+private:
+    const QString do_screenName() override {
         return "Welcome!";
     }
 
-    void clearCurrentPage() override {
+    void do_clearCurrentPage() override {
         getUi()->wrongCardNumLabel->setText("");
     }
 };
