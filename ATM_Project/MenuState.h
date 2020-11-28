@@ -5,47 +5,47 @@
 #include <QMessageBox>
 
 class MenuState : public WindowState {
-
-    const QString screenName() override {
+private:
+    const QString do_screenName() override {
         return "Menu";
     }
 
-    void clearCurrentPage() override {
+    void do_clearCurrentPage() override {
         return;
     }
 
-    void handleButtonL1() override {
+    void do_handleButtonL1() override {
         std::string money = emit context->getBalance();
         context->displayBalance(money);
     }
 
-    void handleButtonL2() override {
+    void do_handleButtonL2() override {
         context->goToPage(GetCash);
     }
 
-    void handleButtonL3() override{
+    void do_handleButtonL3() override{
         context->goToPage(TransactionData);
     }
 
-    void handleButtonL4() override{
+    void do_handleButtonL4() override{
     QMessageBox msgBox;
     msgBox.setText("Has not been implemented yed.");
     msgBox.exec();
     }
 
-    void handleButtonR1() override{
+    void do_handleButtonR1() override{
     QMessageBox msgBox;
     msgBox.setText("Has not been implemented yed.");
     msgBox.exec();
     }
 
-    void handleButtonR2() override{
+    void do_handleButtonR2() override{
     QMessageBox msgBox;
     msgBox.setText("Has not been implemented yed.");
     msgBox.exec();
     }
 
-    void handleButtonR4() override {
+    void do_handleButtonR4() override {
         context->endSession();
     }
 
