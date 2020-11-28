@@ -5,10 +5,13 @@
 
 class IdleState : public WindowState {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     const QString screenName() override {
         return "Вітаємо!";
 =======
+=======
+>>>>>>> Stashed changes
 private:
     const QString do_screenName() override {
         return "Welcome!";

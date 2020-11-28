@@ -14,10 +14,13 @@ public:
         // memory violation access ???
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     const QString screenName() override {
         return "Переказ грошей";
 =======
+=======
+>>>>>>> Stashed changes
 private:
     const QString do_screenName() override {
         return "Money transfer";

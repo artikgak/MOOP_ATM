@@ -5,10 +5,13 @@
 
 class PinState : public WindowState {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     const QString screenName() override {
         return "Введіть пін-код";
 =======
+=======
+>>>>>>> Stashed changes
 private:
     const QString do_screenName() override {
         return "Enter the pin code";
@@ -38,9 +41,12 @@ private:
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     void handleButtonEnter() override {
         emit context->validateLogin(getUi()->pinField->text().toStdString());
 =======
+=======
+>>>>>>> Stashed changes
     void do_handleButtonEnter() override {
         bool valid = emit context->validateLogin(getUi()->pinField->text().toStdString());
 
@@ -57,9 +63,12 @@ private:
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     void handleButtonL4() override {
         emit context->validateLogin(getUi()->pinField->text().toStdString());
 =======
+=======
+>>>>>>> Stashed changes
     void do_handleButtonL4() override {
         handleButtonEnter();
 >>>>>>> Stashed changes
