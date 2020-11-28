@@ -15,10 +15,13 @@ public:
     SuccessFailState(const ScreenPage sp): _prevScreen(sp){}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     const QString screenName() override {
         return "Результат запиту";
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 private:

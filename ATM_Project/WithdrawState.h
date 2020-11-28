@@ -8,9 +8,12 @@ class WithdrawState : public WindowState {
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     const QString screenName() override {
         return "Зняти гроші";
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 private:

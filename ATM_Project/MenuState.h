@@ -7,10 +7,13 @@
 class MenuState : public WindowState {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     const QString screenName() override {
         return "Меню вибору";
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 private:
@@ -25,9 +28,12 @@ private:
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     void handleButtonL1() override {
         emit context->getBalance();
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     void do_handleButtonL1() override {
