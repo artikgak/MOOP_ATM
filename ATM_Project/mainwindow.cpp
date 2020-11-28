@@ -70,46 +70,6 @@ void MainWindow::timerEvent(QTimerEvent*)
     ui->timeLab->setText(QTime::currentTime().toString("hh:mm:ss"));
 }
 
-//state 0    - no card - enter window
-//state 1    - card in, no pin - enter pin window
-//state 2    - accaunt menu
-
-//state 11   - enter pin
-//state 12   - show balance
-
-//state 21   - enter sum
-//state 22   - enter pin
-
-//state 31   - enter card. enter sum.
-//state 32   - enter pin
-
-//state 41   - enter phone. enter sum
-//state 42   - enter pin
-
-//state 51   - select game  (maybe some pages)
-//state 52   - enter accID. enter sum
-//state 53   - enter pin
-
-//state 61   - select fond  (maybe some pages)
-//state 62   - enter enter sum
-//state 63   - enter pin
-
-// state -1   intefrace admin
-
-
-// widget pages indexes
-// 0 welcome
-// 1 PIN
-// 2 Menu
-// 3 balance
-// 4 transaction data
-// 5 phone data
-// 6 get cash
-// 7 select charity
-// 8 charity data
-// 9 select game
-// 10 game data
-
 void MainWindow::changeState(WindowState *state) {
   qDebug() << "Context: Transition to " << typeid(*state).name() << ".\n";
   if (this->state != nullptr)
@@ -164,9 +124,6 @@ void MainWindow::goToPage(const ScreenPage sp)
 
     state->set_context(this);
 
-
-
-    //clearCurrentPage();
     ui->screenLabel->setText(state->screenName());
 
     _currentScreen=sp; // TODO delete when ready
@@ -204,7 +161,12 @@ void MainWindow::on_inputCard_clicked()
     if(!ok){ unblockInput(); return;}
 
     num = num.replace(" ", "");
-    emit validateCard(num.toStdString());
+    bool valid = emit validateCard(num.toStdString());
+
+    if (valid)
+        goToPage(EnterPIN);
+    else
+        errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
 }
 
 /*
@@ -255,30 +217,12 @@ void MainWindow::on_buttonNothing_clicked(){state->handleButtonNothing();}
 void MainWindow::on_buttonL1_clicked(){state->handleButtonL1();}
 void MainWindow::on_buttonL2_clicked(){state->handleButtonL2();}
 void MainWindow::on_buttonL3_clicked(){state->handleButtonL3();}
-void MainWindow::on_buttonL4_clicked(){
-    blockInput();
-    state->handleButtonL4();
-}
+void MainWindow::on_buttonL4_clicked(){state->handleButtonL4();}
 
 void MainWindow::on_buttonR1_clicked(){state->handleButtonR1();}
 void MainWindow::on_buttonR2_clicked(){state->handleButtonR2();}
 void MainWindow::on_buttonR3_clicked(){state->handleButtonR3();}
-
-void MainWindow::on_buttonR4_clicked() {
-    state->handleButtonR4();
-    return;
-    switch (_currentScreen) {
-    case Menu:
-    case EnterPIN:
-        endSession();
-        break;
-    case Balance:
-        goToPage(Menu);
-        break;
-    default:
-        break;
-    }
-}
+void MainWindow::on_buttonR4_clicked(){state->handleButtonR4();}
 
 void MainWindow::endSession() {
     QMessageBox::information(this, "Card", "Please take out your card");
@@ -286,14 +230,12 @@ void MainWindow::endSession() {
     destination = Menu; //TODO DELETE WHEN STATES ARE DONE
 }
 
-void MainWindow::blockInput()
-{
+void MainWindow::blockInput() {
 //_loaderGif->start();
 //_loaderLbl->show();
 }
 
-void MainWindow::unblockInput()
-{
+void MainWindow::unblockInput() {
 //_loaderGif->stop();
 //_loaderLbl->hide();
 }
@@ -301,7 +243,7 @@ void MainWindow::unblockInput()
 // ************************************ FeedBackFrom back-end ***************************************************
 void MainWindow::displayAvailBankNotes()
 {
-QString str = "Доступні копюри: ";
+QString str = "Available banknotes: ";
 for(int i=0; i<5; i++)
     if(atm->bankNotes[i])
     str+= "   " + QString::number(atm->bills[i]);
@@ -314,9 +256,6 @@ void MainWindow::clearCurrentPage(){state->clearCurrentPage();}
 void MainWindow::connectSignals() {
     QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
     QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
-    QObject::connect(atm, &ATM::displayBalance, this, &MainWindow::displayBalance);
-    QObject::connect(atm, &ATM::wrongPin, this, &MainWindow::wrongPin);
-    QObject::connect(atm, &ATM::displayBankNotes, this, &MainWindow::displayBankNotes);
 
     QObject::connect(this, &MainWindow::validateLogin, atm, &ATM::validateLogin);
     QObject::connect(this, &MainWindow::getBalance, atm, &ATM::getBalance);
@@ -331,26 +270,31 @@ void MainWindow::connectSignals() {
 void MainWindow::on_adminButton_clicked()
 {
     bool ok;
-      QString text = QInputDialog::getText(this, tr("Адмін"),
-                        tr("Притисність нашу id карту о сканера:"), QLineEdit::Normal,
+      QString text = QInputDialog::getText(this, tr("Admin"),
+                        tr("Please scan your id card:"), QLineEdit::Normal,
                         "", &ok);
-    if(ok)
-        emit validateAdmin(text.toStdString());
+    if (!ok) return;
+
+    bool valid = emit validateAdmin(text.toStdString());
+
+    if (valid)
+        displayBankNotes(atm->bankNotes);
 }
 
 void MainWindow::on_helpServiceButton_clicked()
 {
     bool ok;
-      QString text = QInputDialog::getText(this, tr("Допомога"),
-                                           tr("Для оформлення заявки на блокування карти"
-                                              "\nвведіть номер втраченої картки:"), QLineEdit::Normal,
+      QString text = QInputDialog::getText(this, tr("Help"),
+                                           tr("Please enter your number and service worker will contact you soon"
+                                              "\nEnter your phone number:"), QLineEdit::Normal,
                                            "", &ok);
-      if (ok && !text.isEmpty())
-      {
-          QMessageBox msgBox;
-          msgBox.setText("Ваша заявка отримана, працівник банку скоро зв'яжеться з вами.");
-          msgBox.exec();
-      }
+      if (!ok || text.isEmpty())
+          return;
+
+      QString card = QInputDialog::getText(this, tr("A call"),
+                                           tr("Your phone rings, a manager concats you. "
+                                              "\nShe asks you for the card number that you want to block:"), QLineEdit::Normal,
+                                           "", &ok);
 // if card valid bank phoning
 
 }

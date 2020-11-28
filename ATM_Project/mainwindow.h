@@ -21,79 +21,27 @@ public:
     friend Test_Front;
     MainWindow(ATM* atm, QWidget *parent = nullptr);
     ~MainWindow();
-//    void subscribeATM(ATM*);
+
 
 void saveBankNotes();
+void displayBalance(const std::string& pin);
 
+void wrongPin(const uint);
+void displayBankNotes(const int*);
     //void showLoader();
     //void hideLoader();
 
-//    void callMessageBox(const QString& info);
 //TODO: success/fail creen
 //f - feedback
 // to find these functions much easier
-
-// 0 welcome
-    void fDisplayWrongCardNum();
-
-// 1 PIN
-    void fAddPinChar();
-    void fDeletePinChar();
-    void fClearPinField();
-    void fDisplayWrongPIN(const int triesLeft);
-
-// 2 Menu ???
-
-// 3 balance
-    void fDisplayBalance(const int);
-
-// 4 transaction data
-    //??select
-
-    /*void fAddTrasfCardNumChar(char c);
-    void fDeleteTrasfCardNumChar();
-    void fClearTrasfCardNumField();
-
-    void fAddTransferSumChar(char c);
-    void fDeleteTransferSumChar();
-    void fClearTransferSumField();
-*/
-// 5 phone data
-    void fDisplayWrongPhone();
-    void fDisplayWrongGameID();
-
-// 6 get cash
     void displayAvailBankNotes(); // available banktotes
 
-// all input fields
-    void fInputFieldAddChar(const InputField, const char);
-    void fDeleteFiledChar(const InputField);
-    void fClearField(const InputField);
-
-// 7 select charity
-    //list of fonds
-
-
-// 8 charity data
-    void fDisplaySelectedFond(const QString& str);
-
-// 9 select game
-//list of games
-
-// 10 game data
-    void fDisplaySelectedGame(const QString& str);
-
-void fDisplaySuccessFail(const QString& str);
-
-void test();
-
 signals:
-    void validateCard(const std::string& cardNum);
-    void validateLogin(const std::string& pin);
+    bool validateCard(const std::string& cardNum);
+    bool validateLogin(const std::string& pin);
+    bool validateAdmin(const std::string& id);
 
-    void validateAdmin(const std::string& id);
-
-    void getBalance();
+    std::string getBalance();
     void ejectCard();
     WithdrawResponse withdrawMoney(const uint sum);
 
@@ -105,10 +53,7 @@ public slots: //TODO make slots and signals not voids but responses
     void goToPage(const ScreenPage);
 
     //more specific ones
-    void displayBalance(const std::string& pin);
-    void wrongPin(const uint);
     void endSession();
-    void displayBankNotes(const int*);
 
 private slots:
     void on_button0_clicked();

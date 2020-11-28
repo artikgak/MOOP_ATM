@@ -39,44 +39,38 @@ ATM::~ATM() {
     delete[] bankNotes;
 }
 
-void ATM::validateAdmin(const string& cardNum){
+bool ATM::validateAdmin(const string& id){
     assert(card == nullptr); // Card-reader should be empty
     assert(pin == nullptr); // Pin should be empty
 
-    cout  << "Validating admin " << cardNum << endl;
-    if (cardNum == "cisco")
-        emit displayBankNotes(bankNotes);
+    cout  << "Validating admin " << id << endl;
+    return (id == "cisco");
+        //; TODO DB shemit displayBankNotes(bankNotes)ould have ids
 }
 
-void ATM::validateCard(const string& cardNum) {
+bool ATM::validateCard(const string& cardNum) {
     assert(card == nullptr); // Card-reader should be empty
     assert(pin == nullptr); // Pin should be empty
 
     cout  << "Validating card: " << cardNum << endl;
     bool retrieved = db.cardExists(cardNum);
-    if (retrieved) {
-        card = new std::string(cardNum);
-        emit goToPage(EnterPIN);
-    } else {
-        emit errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
-    }
+
+    if (retrieved) card = new string(cardNum);
+
+    return (retrieved);
 }
 
-void ATM::validateLogin(const string& entered) {
+bool ATM::validateLogin(const string& entered) {
     assert(card != nullptr); // There should be a card in card-reader
     assert(pin == nullptr); // Should be no pin at this point
 
     cout  << "Validating pin: " << pin << endl;
     bool correct = db.checkPin(*card, entered);
-    if (correct) { // change to card pin
-        this->pin = new string(entered);
-        emit goToPage(Menu);
-    } else {
-        emit wrongPin(0); //TODO add tries left
-    }
+    if (correct) pin = new string(entered);
+    return correct;
 }
 
-void ATM::getBalance() {
+std::string ATM::getBalance() {
     assert(card != nullptr); // Card should be present
     assert(pin != nullptr); // Pin should be entered
 
@@ -84,7 +78,7 @@ void ATM::getBalance() {
     assert(money != -1); //If card is present, should be ok
     std::stringstream stream;
     stream << std::fixed << std::setprecision(2) << money;
-    emit displayBalance(stream.str());
+    return stream.str();
 }
 
 WithdrawResponse ATM::withdrawMoney(const uint sum) {
@@ -133,10 +127,18 @@ TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
     assert(card != nullptr);
     assert(pin != nullptr);
 
+    if(!db.cardExists(cardNum))
+        return TARGETCARDNOTFOUND;
+
     if (db.getMoney(*card) < sum)
         return NotEnoughMonet;
-    db.addMoney(*card, -sum);
-    db.addMoney(cardNum, sum);
+
+    bool succ = db.addMoney(*card, -sum);
+    if (!succ) return FAIL;
+
+    succ = db.addMoney(cardNum, sum);
+    if (!succ) return FAIL;
+
     return TOK;
 }
 

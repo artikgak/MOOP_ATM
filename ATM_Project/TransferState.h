@@ -15,7 +15,7 @@ public:
     }
 
     const QString screenName() override {
-        return "Переказ грошей";
+        return "Money transfer";
     }
 
     void clearCurrentPage() override {
@@ -49,12 +49,12 @@ public:
 
         QString num = getUi()->transactionSumField->text();
         if(num.length() == 0){
-            getUi()->transError->setText("Порожня сума");
+            getUi()->transError->setText("Please enter the sum");
             return;
         }
         QString targetCard = getUi()->targetCardField->text();
-        if(targetCard.length()!=8){
-            getUi()->transError->setText("Номер картки має 8 цифр");
+        if(targetCard.length()!=16){
+            getUi()->transError->setText("Card number must be 16 digits");
             return;  // card len
         }
 
@@ -66,18 +66,18 @@ public:
 
         switch (response) {
         case NotEnoughMonet:
-            getUi()->transError->setText("Недостатньо грошей на рахунку");
+            getUi()->transError->setText("Not enough funds");
             return;
         case TARGETCARDNOTFOUND:
-            getUi()->transError->setText("Недійсний номер катки отримувача");
+            getUi()->transError->setText("Invalid number");
             return;
         case FAIL:
-            getUi()->succFailLab->setText("Помилка переказу\nСервер перевантажений,\nспробуйте пізінше.");
+            getUi()->succFailLab->setText("Transfer fail\nServer overloaded,\nTry later.");
             getUi()->succFailLab->setStyleSheet("color: #E64B09;");
             context->goToPage(SuccessFail);
             return;
         case TOK:
-            getUi()->succFailLab->setText("Переказ успішний\nДякуємо, що користуєтесь нашим банком.");
+            getUi()->succFailLab->setText("Transfer successful\nThank You for using our bank.");
             getUi()->succFailLab->setStyleSheet("color: #269E13;");
             context->goToPage(SuccessFail);
             return;
@@ -95,7 +95,7 @@ public:
         getUi()->transactionSumField->setText(prev+num);
         } else{
         QString prev = getUi()->targetCardField->text();
-        if (prev.length()==8) return; // max card len
+        if (prev.length()==16) return; // max card len
         getUi()->targetCardField->setText(prev+num);
         }
     }
