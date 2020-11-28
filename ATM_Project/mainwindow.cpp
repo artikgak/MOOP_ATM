@@ -255,30 +255,12 @@ void MainWindow::on_buttonNothing_clicked(){state->handleButtonNothing();}
 void MainWindow::on_buttonL1_clicked(){state->handleButtonL1();}
 void MainWindow::on_buttonL2_clicked(){state->handleButtonL2();}
 void MainWindow::on_buttonL3_clicked(){state->handleButtonL3();}
-void MainWindow::on_buttonL4_clicked(){
-    blockInput();
-    state->handleButtonL4();
-}
+void MainWindow::on_buttonL4_clicked(){state->handleButtonL4();}
 
 void MainWindow::on_buttonR1_clicked(){state->handleButtonR1();}
 void MainWindow::on_buttonR2_clicked(){state->handleButtonR2();}
 void MainWindow::on_buttonR3_clicked(){state->handleButtonR3();}
-
-void MainWindow::on_buttonR4_clicked() {
-    state->handleButtonR4();
-    return;
-    switch (_currentScreen) {
-    case Menu:
-    case EnterPIN:
-        endSession();
-        break;
-    case Balance:
-        goToPage(Menu);
-        break;
-    default:
-        break;
-    }
-}
+void MainWindow::on_buttonR4_clicked(){state->handleButtonR4();}
 
 void MainWindow::endSession() {
     QMessageBox::information(this, "Card", "Please take out your card");
@@ -286,14 +268,12 @@ void MainWindow::endSession() {
     destination = Menu; //TODO DELETE WHEN STATES ARE DONE
 }
 
-void MainWindow::blockInput()
-{
+void MainWindow::blockInput() {
 //_loaderGif->start();
 //_loaderLbl->show();
 }
 
-void MainWindow::unblockInput()
-{
+void MainWindow::unblockInput() {
 //_loaderGif->stop();
 //_loaderLbl->hide();
 }
