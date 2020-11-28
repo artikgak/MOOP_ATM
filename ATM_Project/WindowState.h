@@ -43,7 +43,7 @@ public:
     }
 
      void clearCurrentPage() {do_clearCurrentPage();}
-     const QString screenName() {do_screenName();}
+     const QString screenName() {return     do_screenName();}
 
      void enterNum(char c) {do_enterNum(c);}
 
