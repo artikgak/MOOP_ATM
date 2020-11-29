@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 
 #include <QMessageBox>
+#include <QSound>
 
 class WithdrawState : public WindowState {
 
@@ -42,7 +43,8 @@ private:
             getUi()->withdrawErrorMsg->setText("Not enough money in ATM");
             return;
         case WOK:
-            QMessageBox::information(context,"Money", "Please take your bills");
+            QSound::play(":sounds/cashDistr.wav");
+            QMessageBox::about(context,"Money", "Please take your bills");
             context->goToPage(Menu);
             break;
         }
