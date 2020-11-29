@@ -1,7 +1,7 @@
 #include "testfront.h"
 #include "Utils.h"
 
-Test_Front::Test_Front(): atm(new ATM()), mw(new MainWindow(atm))
+Test_Front::Test_Front(): atm(new ATM()), mw(new MainWindow(*atm))
 {
 
 }
