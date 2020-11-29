@@ -8,6 +8,7 @@
 #include <cassert>
 #include <iomanip>
 #include <sstream>
+#include "DataBase.h"
 
 using namespace std;
 
@@ -157,17 +158,24 @@ void ATM::ejectCard() {
 }
 
 std::vector<Charity> ATM::getCharities(const uint page) {
-    vector<Charity> charities = db.getCharities(page, 4);
+    std::vector<Charity> charities = db.getCharities(page, 4);
 
     /*charities.push_back(Charity{0,"Cancer research", ""});
     charities.push_back(Charity{1,"Hunger alleviation", ""});
     charities.push_back(Charity{2,"Bumbumbum", ""});*/
 
+    for (auto current : charities) {
+        std::cout << '\t' << current.id << ' ' << current.name << ' ' << current.desc << '\n';
+    }
+
     return charities;
 }
 
 bool ATM::payCharity(uint id, uint sum) {
+    assert(card != nullptr);
     qDebug() << "Transfering to " << id << " $" << sum;
+    int summa = sum;
+    db.addMoney(*card, -summa);
     return true;
 }
 

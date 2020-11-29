@@ -25,6 +25,7 @@ public:
 
     bool deleteCortegeCard(const std::string);
     bool cardExists(const std::string);
+    bool charityExists(const std::string);
     bool checkTries(const std::string);
     bool checkPin(const std::string, const std::string);
     double getMoney(const std::string);

@@ -7,8 +7,9 @@
 
 DataBase::DataBase(std::string name)
 {
-    std::string path = "E:/Workspace/Programming/MOOP_ATM/ATM_Project/";
+    //std::string path = "E:/Workspace/Programming/MOOP_ATM/ATM_Project/";
     //std::string path = "../ATM_Project/";
+    std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
     std::string extention(".sqlite");
     std::string full_name = path + name + extention;
 
@@ -123,6 +124,10 @@ bool DataBase::addCortegeAdmin(const std::string password)
 
 bool DataBase::addCortegeCharity(const std::string name, const std::string description)
 {
+    if (charityExists(name)) {
+        qDebug() << "Charity already exists!";
+        return false; // cortege was not added
+    }
     QSqlQuery qry;
 
     qry.prepare("INSERT INTO charity ("
@@ -155,6 +160,19 @@ bool DataBase::deleteCortegeCard(const std::string cardNumber)
         return false; // cortege wasn't deleted
     }
     return true; // cortege was deleted
+}
+
+bool DataBase::charityExists(const std::string name)
+{
+    QSqlQuery qry;
+    std::string query("SELECT * FROM charity WHERE name='" + name + "';");
+    qry.prepare(query.c_str());
+
+    if (!qry.exec()) {
+        qDebug() << "error: getting data from a database";
+        return false; // there is some error while executing query
+    }
+    return qry.next();
 }
 
 bool DataBase::cardExists(const std::string cardNumber)
@@ -301,7 +319,7 @@ bool DataBase::addMoney(const std::string cardNumber, const double amount)
 
 void DataBase::addMoneyTest()
 {
-    double eps = 0.000001;
+    double eps = 0.0001;
     IS_TRUE(!addMoney("12321", 1231));
     IS_TRUE(!addMoney("12321", -1231));
     double before = getMoney("1234123412341234");
@@ -314,7 +332,7 @@ void DataBase::addMoneyTest()
     IS_TRUE(!addMoney("1234123412341234", -1000000));
 }
 
-std::vector<Charity> getCharities(int page, int info_per_page)
+std::vector<Charity> DataBase::getCharities(int page, int info_per_page)
 {
     QSqlQuery qry;
     std::string query("SELECT * FROM charity;");
@@ -459,6 +477,7 @@ bool DataBase::deleteAllData()
 void fullDB(DataBase& db)
 {
     /* Adding to card table */
+    db.addCortegeCard("1234123412341234", "1234", 4924);
     db.addCortegeCard("8888888888888888", "8888", 88888888);
     db.addCortegeCard("5555555555555555", "5555", 55.55);
     db.addCortegeCard("7777777777777777", "7007", 7007);
@@ -473,4 +492,13 @@ void fullDB(DataBase& db)
     db.addCortegeCharity("charity1", "description for charity 1");
     db.addCortegeCharity("charity2", "description for charity 2");
     db.addCortegeCharity("charity3", "description for charity 3");
+    db.addCortegeCharity("charity4", "description for charity 4");
+    db.addCortegeCharity("charity5", "description for charity 5");
+    db.addCortegeCharity("charity6", "description for charity 6");
+    db.addCortegeCharity("charity7", "description for charity 7");
+    db.addCortegeCharity("charity8", "description for charity 8");
+    db.addCortegeCharity("charity9", "description for charity 9");
+    db.addCortegeCharity("charity10", "description for charity 10");
+    db.addCortegeCharity("charity11", "description for charity 11");
+    db.addCortegeCharity("charity12", "description for charity 12");
 }
