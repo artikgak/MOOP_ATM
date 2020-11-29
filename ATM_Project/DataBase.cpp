@@ -7,9 +7,9 @@
 
 DataBase::DataBase(std::string name)
 {
-    std::string path = "E:/Workspace/Programming/MOOP_ATM/ATM_Project/";
+    //std::string path = "E:/Workspace/Programming/MOOP_ATM/ATM_Project/";
     //std::string path = "../ATM_Project/";
-    //std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
+    std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
     std::string extention(".sqlite");
     std::string full_name = path + name + extention;
 
@@ -23,12 +23,17 @@ DataBase::DataBase(std::string name)
     }
 
 #ifndef QT_NO_DEBUG
-    std::cout << "********* Start testing of cardExist *********" << std::flush;
+    std::cout << "********* Start testing of cardExists *********" << std::flush;
     cardExistsTest();
-    std::cout << "********* Finished testing of cardExist *********" << std::flush;
-    std::cout << "********* Start testing of addMoneyTest *********" << std::flush;
+    std::cout << "********* Finished testing of cardExists *********" << std::flush;
+
+    std::cout << "********* Start testing of adminExists *********" << std::flush;
+    adminExistsTest();
+    std::cout << "********* Finished testing of adminExists *********" << std::flush;
+
+    std::cout << "********* Start testing of addMoney *********" << std::flush;
     addMoneyTest();
-    std::cout << "********* Finished testing of addMoneyTest *********" << std::flush;
+    std::cout << "********* Finished testing of addMoney *********" << std::flush;
 #endif
 }
 
@@ -175,6 +180,19 @@ bool DataBase::charityExists(const std::string name)
     return qry.next();
 }
 
+bool DataBase::adminExists(const std::string password)
+{
+    QSqlQuery qry;
+    std::string query("SELECT * FROM admin_passwrds WHERE password='" + password + "';");
+    qry.prepare(query.c_str());
+
+    if (!qry.exec()) {
+        qDebug() << "error: getting data from a database";
+        return false; // there is some error while executing query
+    }
+    return qry.next();
+}
+
 bool DataBase::cardExists(const std::string cardNumber)
 {
     QSqlQuery qry;
@@ -201,6 +219,19 @@ void DataBase::cardExistsTest()
     IS_TRUE(!cardExists("123123ed123"));
     IS_TRUE(!cardExists("12321asfasf"));
     IS_TRUE(!cardExists(""));
+}
+
+void DataBase::adminExistsTest()
+{
+    IS_TRUE(adminExists("cisco"));
+    IS_TRUE(adminExists("password"));
+    IS_TRUE(adminExists("admin"));
+    IS_TRUE(!adminExists("cisswsco"));
+    IS_TRUE(!adminExists("pas12312sword"));
+    IS_TRUE(!adminExists("asadadmin"));
+    IS_TRUE(adminExists(""));
+    IS_TRUE(adminExists("123"));
+    IS_TRUE(adminExists("00123"));
 }
 
 bool DataBase::checkTries(const std::string cardNumber)

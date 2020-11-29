@@ -25,6 +25,7 @@ public:
 
     bool deleteCortegeCard(const std::string);
     bool cardExists(const std::string);
+    bool adminExists(const std::string);
     bool charityExists(const std::string);
     bool checkTries(const std::string);
     bool checkPin(const std::string, const std::string);
@@ -41,6 +42,7 @@ public:
 
     /* unit tests */
     void cardExistsTest();
+    void adminExistsTest();
     void addMoneyTest();
 };
 

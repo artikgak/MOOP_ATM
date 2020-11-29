@@ -46,8 +46,9 @@ bool ATM::validateAdmin(const string& id){
     assert(pin == nullptr); // Pin should be empty
 
     cout  << "Validating admin " << id << endl;
-    return (id == "cisco");
-        //; TODO DB shemit displayBankNotes(bankNotes)ould have ids
+    /*return (id == "cisco");
+        //; TODO DB shemit displayBankNotes(bankNotes)ould have ids*/
+    return db.adminExists(id);
 }
 
 bool ATM::validateCard(const string& cardNum) {
