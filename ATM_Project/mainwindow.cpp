@@ -44,6 +44,7 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     QRect p =ui->stackedWidget->geometry();
     _loaderLbl->setGeometry(p.x()-50,p.y()-50,p.width(),p.height());
     _loaderLbl->setWindowFlags(Qt::WindowStaysOnTopHint);
+    setWindowIcon(QIcon(":images/winIcon.png"));
 
     // Tying signals to slots TODO extract into a function
     connectSignals();

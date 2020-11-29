@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ATM.h"
 #include "testfront.h"
-
+#include <QSound>
 #include <QApplication>
 #include <QtTest/QtTest>
 

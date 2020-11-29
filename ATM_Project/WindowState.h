@@ -2,6 +2,7 @@
 
 #include "Utils.h"
 #include <ui_mainwindow.h>
+#include <QSound>
 
 class MainWindow;
 
@@ -35,6 +36,7 @@ private:
     virtual void do_handleButtonNothing() {}
     virtual void do_handleButtonCorrect() {}
 
+    void plSo(){QSound::play(":sounds/button.wav");}
 public:
     virtual ~WindowState() {}
 
@@ -45,23 +47,23 @@ public:
      void clearCurrentPage() {do_clearCurrentPage();}
      const QString screenName() {return     do_screenName();}
 
-     void enterNum(char c) {do_enterNum(c);}
+     void enterNum(char c) {plSo();do_enterNum(c);}
 
-     void handleButtonMinus() {do_handleButtonMinus();}
-     void handleButtonPlus() {do_handleButtonPlus();}
+     void handleButtonMinus() {plSo();do_handleButtonMinus();}
+     void handleButtonPlus() {plSo();do_handleButtonPlus();}
 
-     void handleButtonL1() {do_handleButtonL1();}
-     void handleButtonL2() {do_handleButtonL2();}
-     void handleButtonL3() {do_handleButtonL3();}
-     void handleButtonL4() {do_handleButtonL4();}
+     void handleButtonL1() {plSo();do_handleButtonL1();}
+     void handleButtonL2() {plSo();do_handleButtonL2();}
+     void handleButtonL3() {plSo();do_handleButtonL3();}
+     void handleButtonL4() {plSo();do_handleButtonL4();}
 
-     void handleButtonR1() {do_handleButtonR1();}
-     void handleButtonR2() {do_handleButtonR2();}
-     void handleButtonR3() {do_handleButtonR3();}
-     void handleButtonR4() {do_handleButtonR4();}
+     void handleButtonR1() {plSo();do_handleButtonR1();}
+     void handleButtonR2() {plSo();do_handleButtonR2();}
+     void handleButtonR3() {plSo();do_handleButtonR3();}
+     void handleButtonR4() {plSo();do_handleButtonR4();}
 
-     void handleButtonDelete()  {do_handleButtonDelete();}
-     void handleButtonEnter()   {do_handleButtonEnter();}
-     void handleButtonNothing() {do_handleButtonNothing();}
-     void handleButtonCorrect() {do_handleButtonCorrect();}
+     void handleButtonDelete()  {plSo();do_handleButtonDelete();}
+     void handleButtonEnter()   {plSo();do_handleButtonEnter();}
+     void handleButtonNothing() {plSo();do_handleButtonNothing();}
+     void handleButtonCorrect() {plSo();do_handleButtonCorrect();}
 };
