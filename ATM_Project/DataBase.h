@@ -20,32 +20,33 @@ public:
 
     void createTables();
     bool isTableExists(const char *);
-    bool addCortegeCard(const std::string, const std::string, const double);
-    bool addCortegeAdmin(const std::string);
-    bool addCortegeCharity(const std::string, const std::string);
 
-    bool deleteCortegeCard(const std::string);
     bool cardExists(const std::string);
-    bool adminExists(const std::string);
-    bool charityExists(const std::string);
+    bool addCortegeCard(const std::string, const std::string, const double);
+    bool deleteCortegeCard(const std::string);
     bool checkTries(const std::string);
     int getTries(const std::string);
     bool checkPin(const std::string, const std::string);
     double getMoney(const std::string);
     bool addMoney(const std::string, const double);
-
-    std::vector<Charity> getCharities(int, int);
-
     bool outputAllDataCard();
+
+    bool adminExists(const std::string);
+    bool addCortegeAdmin(const std::string);
     bool outputAllDataAdmin();
+
+    bool charityExists(const std::string);
+    bool addCortegeCharity(const std::string, const std::string);
+    std::vector<Charity> getCharities(int, int);
     bool outputAllDataCharity();
 
     bool deleteAllData();
 
     /* unit tests */
+    void testDB();
     void cardExistsTest();
-    void adminExistsTest();
     void addMoneyTest();
+    void adminExistsTest();
 };
 
 /* Put some data into database */

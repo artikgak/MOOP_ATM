@@ -20,8 +20,8 @@ ATM::ATM():
         db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
         card(nullptr),
         pin(nullptr),
-        file("../ATM_Project/bnkNote.txt"),
-        //file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
+        //file("../ATM_Project/bnkNote.txt"),
+        file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
         bankNotes(new int[5]) {
     fullDB(db);
     file.open(QIODevice::ReadOnly);
@@ -47,8 +47,6 @@ bool ATM::validateAdmin(const string& id){
     assert(pin == nullptr); // Pin should be empty
 
     cout  << "Validating admin " << id << endl;
-    /*return (id == "cisco");
-        //; TODO DB shemit displayBankNotes(bankNotes)ould have ids*/
     return db.adminExists(id);
 }
 
@@ -68,9 +66,18 @@ bool ATM::validateLogin(const string& entered) {
     assert(card != nullptr); // There should be a card in card-reader
     assert(pin == nullptr); // Should be no pin at this point
 
-    cout  << "Validating pin: " << pin << endl;
+    cout  << "Validating pin: " << entered << endl;
     bool correct = db.checkPin(*card, entered);
     if (correct) pin = new string(entered);
+    else {
+        auto tries = db.getTries(*card);
+        emit wrongPin(tries);
+
+        if (tries <= 0) {
+            emit errorMsg("Too many wrong tries. *You hear that your card is consumed by ATM*", Welcome);
+            card = nullptr;
+        }
+    }
     return correct;
 }
 

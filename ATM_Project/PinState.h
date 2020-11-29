@@ -39,10 +39,7 @@ private:
     void do_handleButtonEnter() override {
         bool valid = emit context->validateLogin(getUi()->pinField->text().toStdString());
 
-        if (valid)
-            context->goToPage(Menu);
-        else
-            context->wrongPin(0); //TODO add tries left
+        if (valid) context->goToPage(Menu);
 
     }
 
