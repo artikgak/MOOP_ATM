@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
     QThread workerThread;
 public:
     friend Test_Front;
-    MainWindow(ATM* atm, QWidget *parent = nullptr);
+    MainWindow(ATM& atm, QWidget *parent = nullptr);
     ~MainWindow();
 
 
@@ -100,7 +100,7 @@ private:
     static const int MAINWINW;
     static const int MAINWINH;
     Ui::MainWindow *ui;
-    ATM* atm;
+    ATM& atm;
 
     /* Internal state that will help us better incapsulate the code
      * that goes with every screen (remedy for walls of switch())   */
