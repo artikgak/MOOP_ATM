@@ -195,6 +195,13 @@ void MainWindow::on_inputCard_clicked()
         errorMsg("Such card doesn't exist, counterfeit!!", Welcome);
 }
 
+void MainWindow::endSession() {
+    QMessageBox::information(this, "Card", "Please take out your card");
+    emit ejectCard();
+    destination = Menu; //TODO DELETE WHEN STATES ARE DONE
+}
+
+
 /*
 void MainWindow::hideLoader()
 {
@@ -318,6 +325,5 @@ void MainWindow::on_helpServiceButton_clicked()
                                          tr("Your phone rings, a manager contacts you. "
                                             "\nShe asks you for the card number that you want to block:"), QLineEdit::Normal,
                                          "", &ok);
-    QMessageBox::information(this, "A call", "She says that you will be cont")
 
 }

@@ -24,12 +24,12 @@ public:
     ~MainWindow();
 
 
-void saveBankNotes();
-void displayBalance(const std::string& pin);
+    void saveBankNotes();
+    void displayBalance(const std::string& pin);
 
-void wrongPin(const uint);
-void displayBankNotes(const int*);
-void endSession();
+    void wrongPin(const uint);
+    void displayBankNotes(const int*);
+    void endSession();
 
     //void showLoader();
     //void hideLoader();
@@ -59,8 +59,6 @@ public slots:
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);
     void showCheque();
-    //more specific ones
-    void endSession();
 private slots:
     void on_button0_clicked();
     void on_button1_clicked();
