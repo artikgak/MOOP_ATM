@@ -22,7 +22,7 @@ private:
 
     void do_enterNum(char num) override {
         QString prev = getUi()->pinField->text();
-        if (prev.length()==8) return;
+        if (prev.length()==4) return;
         getUi()->pinField->setText(prev+num);
     }
 

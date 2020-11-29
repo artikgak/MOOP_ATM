@@ -32,9 +32,10 @@ private:
     }
 
     void do_handleButtonL4() override{
-    QMessageBox msgBox;
+    /*QMessageBox msgBox;
     msgBox.setText("Has not been implemented yed.");
-    msgBox.exec();
+    msgBox.exec();*/
+        context->goToPage(PhoneData);
     }
 
     void do_handleButtonR1() override{

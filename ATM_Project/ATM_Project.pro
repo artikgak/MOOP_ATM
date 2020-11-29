@@ -30,6 +30,7 @@ HEADERS += \
     Charity.h \
     IdleState.h \
     MenuState.h \
+    PhoneState.h \
     PinState.h \
     SelectCharityState.h \
     SuccessFailState.h \

@@ -18,8 +18,8 @@ ATM::ATM():
         db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
         card(nullptr),
         pin(nullptr),
-        //file("../ATM_Project/bnkNote.txt"),
-        file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
+        file("../ATM_Project/bnkNote.txt"),
+        //file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
         bankNotes(new int[5]) {
     fullDB(db);
     file.open(QIODevice::ReadOnly);
@@ -109,6 +109,18 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     int summa = sum;
     db.addMoney(*card, -summa);
     return WOK;
+}
+
+PhoneResponse ATM::rechargePhone(const uint sum) {
+    assert(card != nullptr); // Card should be present
+    assert(pin != nullptr); // Pin should be entered
+
+    double money = db.getMoney(*card);
+    // if bad credit limit
+    if(money < sum)
+        return NotEnoughMoney;
+
+    return db.addMoney(*card, -sum) ? POK : PFail;
 }
 
 void ATM::recountBankNotes(const int sum, const int billsSize){
