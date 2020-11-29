@@ -354,7 +354,7 @@ bool DataBase::addMoney(const std::string cardNumber, const double amount)
         qDebug() << "There is no card with this number";
         return false; // adding was not performed
     }
-    if (amount < 0 && getMoney(cardNumber) < -amount) {
+    if (amount < 0 && getMoney(cardNumber) + credit_limit < -amount) {
         qDebug() << "There is not enough money on this card!";
         return false; // adding was not performed
     }
