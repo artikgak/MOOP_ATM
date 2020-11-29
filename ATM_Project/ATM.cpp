@@ -18,8 +18,8 @@ ATM::ATM():
         db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
         card(nullptr),
         pin(nullptr),
-        //file("../ATM_Project/bnkNote.txt"),
-        file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
+        file("../ATM_Project/bnkNote.txt"),
+        //file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
         bankNotes(new int[5]) {
     fullDB(db);
     file.open(QIODevice::ReadOnly);

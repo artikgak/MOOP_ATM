@@ -10,7 +10,7 @@ private:
     bool sumActive;   // 1 - sum, 0 - phoneNum
 
 public:
-    PhoneState():sumActive(1){
+    PhoneState(MainWindow* context): WindowState(context), sumActive(1){
         //getUi()->phoneNumField->setStyleSheet("background: #E8FAD5;");
         // memory violation access ???
     }
