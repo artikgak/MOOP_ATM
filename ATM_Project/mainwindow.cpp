@@ -264,6 +264,7 @@ void MainWindow::connectSignals() {
     QObject::connect(this, &MainWindow::withdrawMoney, atm, &ATM::withdrawMoney);
     QObject::connect(this, &MainWindow::transferMoney, atm, &ATM::transferMoney);
     QObject::connect(this, &MainWindow::getCharities, atm, &ATM::getCharities);
+    QObject::connect(this, &MainWindow::payCharity, atm, &ATM::payCharity);
 
     QObject::connect(this, &MainWindow::validateAdmin, atm, &ATM::validateAdmin);
 }

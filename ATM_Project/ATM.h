@@ -46,6 +46,7 @@ public slots:
     bool validateLogin(const std::string& pin);
     std::string getBalance();
 
+    bool payCharity(uint id, uint sum);
     std::vector<Charity> getCharities(const uint page);
     void ejectCard();
 

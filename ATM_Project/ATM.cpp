@@ -165,6 +165,11 @@ std::vector<Charity> ATM::getCharities(const uint page) {
     return charities;
 }
 
+bool ATM::payCharity(uint id, uint sum) {
+    qDebug() << "Transfering to " << id << " $" << sum;
+    return true;
+}
+
 
 void ATM::saveBankToFile()
 {
