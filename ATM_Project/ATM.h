@@ -4,6 +4,7 @@
 #include "DataBase.h"
 #include "QObject"
 #include "Charity.h"
+#include "Cheque.h"
 
 class Test_Front;
 class MainWindow;
@@ -19,6 +20,7 @@ private:
     std::string* card;
     std::string* pin;
     ATMState state;
+    Cheque cheque{"", "", 0, ""};
 
     ATM& operator=(ATM&) = delete;
     ATM(ATM&) = delete;

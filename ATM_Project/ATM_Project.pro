@@ -28,6 +28,7 @@ HEADERS += \
     AdminState.h \
     BalanceState.h \
     Charity.h \
+    Cheque.h \
     IdleState.h \
     MenuState.h \
     PhoneState.h \

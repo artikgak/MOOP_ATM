@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <sstream>
 #include "DataBase.h"
+#include <time.h>
 
 using namespace std;
 
@@ -110,6 +111,23 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
 
     int summa = sum;
     db.addMoney(*card, -summa);
+
+    time_t rawtime;
+    struct tm * timeinfo;
+
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    std::string datetime(asctime(timeinfo));
+
+    cheque.from = std::string(*card);
+    cheque.to = "";
+    cheque.summa = sum;
+    cheque.datetime = datetime;
+
+    std::cout << "From " << cheque.from << '\n' <<
+                 "Amount " << cheque.summa << '\n' <<
+                 "When: " << cheque.datetime << '\n' << std::flush;
+
     return WOK;
 }
 
@@ -155,6 +173,30 @@ TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
 
     succ = db.addMoney(cardNum, sum);
     if (!succ) return FAIL;
+
+    time_t rawtime;
+    struct tm * timeinfo;
+
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    std::string datetime(asctime(timeinfo));
+
+    /*
+     * *card      - card FROM
+     * cardNum    - card TO
+     * sum        - summa
+     * date, time - date, time
+     */
+
+    cheque.from = std::string(*card);
+    cheque.to = std::string(cardNum);
+    cheque.summa = sum;
+    cheque.datetime = datetime;
+
+    std::cout << "From " << cheque.from << '\n' <<
+                 "To " << cheque.to << '\n' <<
+                 "Amount " << cheque.summa << '\n' <<
+                 "When: " << cheque.datetime << '\n' << std::flush;
 
     return TOK;
 }
