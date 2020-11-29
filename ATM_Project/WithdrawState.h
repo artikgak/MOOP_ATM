@@ -36,7 +36,7 @@ private:
         switch (response) {
         case AtmNoBills:
             context->displayAvailBankNotes();
-            //getUi()->withdrawErrorMsg->setText("Доступні копюри: ");
+            //getUi()->withdrawErrorMsg->setText("Available banknotes: ");
             return;
         case UserNoMoney:
             getUi()->withdrawErrorMsg->setText("Not enough funds");
@@ -46,8 +46,10 @@ private:
             return;
         case WOK:
             QSound::play(":sounds/cashDistr.wav");
+            getUi()->succFailLab->setText("Withdraw successful\nThank You for using our bank.");
+            getUi()->succFailLab->setStyleSheet("color: #269E13;");
+            context->goToPage(SuccessFail);
             QMessageBox::about(context,"Money", "Please take your bills");
-            context->goToPage(Menu);
             break;
         }
     }

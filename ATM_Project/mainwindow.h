@@ -56,7 +56,7 @@ public slots: //TODO make slots and signals not voids but responses
     //more generic ones
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);
-
+    void showCheque();
     //more specific ones
     void endSession();
 

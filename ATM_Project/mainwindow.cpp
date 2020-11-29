@@ -97,6 +97,33 @@ atm->bankNotes[4]=ui->spinBox_4->value();
 atm->saveBankToFile();
 }
 
+void MainWindow::showCheque()
+{
+    QSound::play(":sounds/printer.wav");
+    QMessageBox msg;
+    msg.setWindowTitle("Print Cheque");
+    msg.setStandardButtons(QMessageBox::Ok);
+    msg.setStyleSheet("QLabel{min-width: 370px;}");
+    Cheque cheque = atm->getCheque();
+    QString st("");
+    if(cheque.to=="")
+        st+="=============================\nATM withdrow "
+            "operation\n=============================\n";
+    else st+="=============================\nATM transfer "
+             "operation\n=============================\n";
+
+    st += "From " + QString::fromStdString(cheque.from) + '\n';
+
+    if(cheque.to!="")
+        st+="To " + QString::fromStdString(cheque.to) + '\n';
+
+    st+="Amount " + QString::number(cheque.summa) + '\n' +
+                 "Date-Time: " + QString::fromStdString(cheque.datetime)
+            + "=============================";
+    msg.setText(st);
+    msg.exec();
+}
+
 void MainWindow::goToPage(const ScreenPage sp)
 {
     clearCurrentPage();

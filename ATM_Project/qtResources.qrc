@@ -11,5 +11,6 @@
         <file>images/winIcon.png</file>
         <file>sounds/cashDistr.wav</file>
         <file>sounds/button.wav</file>
+        <file>sounds/printer.wav</file>
     </qresource>
 </RCC>
