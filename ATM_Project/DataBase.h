@@ -9,13 +9,14 @@ class DataBase
 private:
     QSqlDatabase _db;
 
-    DataBase(const DataBase&) = delete; // Only one database in a program
+    DataBase(const DataBase&) = delete; /* Only one database in a program */
     DataBase& operator=(const DataBase&) = delete;
 
 public:
     DataBase(std::string name = "DefaultDB");
     ~DataBase();
 
+    void createTables();
     bool isTableExists(const char *);
     bool addCortege(const std::string, const std::string, const double);
     bool deleteCortege(const std::string);
@@ -28,9 +29,12 @@ public:
     bool getAllData();
     bool deleteAllData();
 
-    // unit tests
+    /* unit tests */
     void cardExistsTest();
     void addMoneyTest();
 };
 
-#endif // DATABASE_H
+/* Put some data into database */
+void fullDB(DataBase&);
+
+#endif /* DATABASE_H */
