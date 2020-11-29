@@ -44,7 +44,7 @@ signals:
     std::string getBalance();
     void ejectCard();
     WithdrawResponse withdrawMoney(const uint sum);
-
+    PhoneResponse rechargePhone(const uint sum);
     TransferResponse transferMoney(const uint sum, const std::string& cardNum);
 
 public slots: //TODO make slots and signals not voids but responses

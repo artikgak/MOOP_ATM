@@ -24,6 +24,10 @@ enum WithdrawResponse {
     AtmNoMoney, UserNoMoney, AtmNoBills, WOK
 };
 
+enum PhoneResponse{
+    NotEnoughMoney, POK, PFail
+};
+
 // widget pages indexes
 // 0 welcome
 // 1 PIN

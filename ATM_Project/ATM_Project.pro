@@ -31,6 +31,7 @@ HEADERS += \
     BalanceState.h \
     IdleState.h \
     MenuState.h \
+    PhoneState.h \
     PinState.h \
     SuccessFailState.h \
     TransferState.h \

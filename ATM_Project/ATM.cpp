@@ -109,6 +109,18 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     return WOK;
 }
 
+PhoneResponse ATM::rechargePhone(const uint sum) {
+    assert(card != nullptr); // Card should be present
+    assert(pin != nullptr); // Pin should be entered
+
+    double money = db.getMoney(*card);
+    // if bad credit limit
+    if(money < sum)
+        return NotEnoughMoney;
+
+    return db.addMoney(*card, -sum) ? POK : PFail;
+}
+
 void ATM::recountBankNotes(const int sum, const int billsSize){
     int rest = sum;
     int i = billsSize;
