@@ -58,6 +58,9 @@ public slots:
     //more generic ones
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);
+    void showCheque();
+    //more specific ones
+    void endSession();
 private slots:
     void on_button0_clicked();
     void on_button1_clicked();

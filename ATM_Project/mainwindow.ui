@@ -216,7 +216,7 @@ background-color: rgb(233, 255, 245);
 </string>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>11</number>
           </property>
           <widget class="QWidget" name="welcome_p">
            <widget class="QPushButton" name="inputCard">
@@ -2471,6 +2471,24 @@ margin: 1px;</string>
             </property>
             <property name="text">
              <string>Retry</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="printCheckLabel">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>200</y>
+              <width>161</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Print Cheque</string>
             </property>
            </widget>
           </widget>
