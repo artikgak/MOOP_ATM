@@ -28,14 +28,13 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     , ui(new Ui::MainWindow)
     , atm(atm)
     , state(new IdleState(this))
-    ,_currentScreen(Welcome)
     , destination(Menu)
     , _loaderGif(new QMovie(":images/loader.gif"))
 {
     // UI CODE
     ui->setupUi(this);
     MainWindow::setGeometry(330,200,MAINWINW,MAINWINH);
-    ui->stackedWidget->setCurrentIndex(_currentScreen);
+    ui->stackedWidget->setCurrentIndex(Idle);
     startTimer(1000);   // 1-second timer
     ui->wrongCardNumLabel->setVisible(false);
     _loaderLbl = new QLabel(ui->stackedWidget);
@@ -82,7 +81,8 @@ void MainWindow::changeState(WindowState *state) {
 // PUBLIC SLOTS (generally messages FROM ATM - thus unblocking)
 
 void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
-    QMessageBox::critical(this,"Error",errorMsg, QMessageBox::Ok); // IF artem you want it rework with SuccessFail window :^)))))))))))))))))))))))))))))))))))))))) x-DDdd
+//    ui->succFailLab->setText(errorMsg);
+    QMessageBox::critical(this,"Error",errorMsg, QMessageBox::Ok);
     goToPage(whereToGo);
     unblockInput();
 }
@@ -121,20 +121,14 @@ void MainWindow::goToPage(const ScreenPage sp)
     else if(sp == SuccessFail)
         state = new SuccessFailState(this, static_cast<ScreenPage>(prevSt));
     else if(sp == Admin)
-//<<<<<<< HEAD
-   //     state = new AdminState();
-   // state->set_context(this);
-//=======
         state = new AdminState(this);
     else if(sp == SelectCharity)
         state = new SelectCharityState(this,0);
     else if(sp == PhoneData)
         state = new PhoneState(this);
-//>>>>>>> main
 
     ui->screenLabel->setText(state->screenName());
 
-    _currentScreen=sp; // TODO delete when ready
     unblockInput();
 }
 
@@ -155,6 +149,7 @@ void MainWindow::displayBalance(const std::string& money) {
 }
 
 void MainWindow::wrongPin(const uint triesLeft) {
+    qDebug() << "tries left" << " " << triesLeft;
     ui->wrongPINLabel->setText("Wrong pin, " + QString::number(triesLeft) + " tries left");
 }
 
@@ -264,6 +259,7 @@ void MainWindow::clearCurrentPage(){state->clearCurrentPage();}
 void MainWindow::connectSignals() {
     QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
     QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
+    QObject::connect(atm, &ATM::wrongPin, this, &MainWindow::wrongPin);
 
     QObject::connect(this, &MainWindow::validateLogin, atm, &ATM::validateLogin);
     QObject::connect(this, &MainWindow::getBalance, atm, &ATM::getBalance);

@@ -68,9 +68,18 @@ bool ATM::validateLogin(const string& entered) {
     assert(card != nullptr); // There should be a card in card-reader
     assert(pin == nullptr); // Should be no pin at this point
 
-    cout  << "Validating pin: " << pin << endl;
+    cout  << "Validating pin: " << entered << endl;
     bool correct = db.checkPin(*card, entered);
     if (correct) pin = new string(entered);
+    else {
+        auto tries = db.getTries(*card);
+        emit wrongPin(tries);
+
+        if (tries <= 0) {
+            emit errorMsg("Too many wrong tries. *You hear that your card is consumed by ATM*", Welcome);
+            card = nullptr;
+        }
+    }
     return correct;
 }
 
