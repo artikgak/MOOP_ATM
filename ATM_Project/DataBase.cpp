@@ -8,8 +8,8 @@
 DataBase::DataBase(std::string name)
 {
     //std::string path = "E:/Workspace/Programming/MOOP_ATM/ATM_Project/";
-    //std::string path = "../ATM_Project/";
-    std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
+    std::string path = "../ATM_Project/";
+    //std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
     std::string extention(".sqlite");
     std::string full_name = path + name + extention;
 
