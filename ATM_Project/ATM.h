@@ -31,6 +31,7 @@ private:
 
     void recountBankNotes(const int sum, const int billsSize=5);
 public:
+inline const Cheque& getCheque() const {return cheque;}
 static const int bills[5];
 void saveBankToFile();
 int* bankNotes;

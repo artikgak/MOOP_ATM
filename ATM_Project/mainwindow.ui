@@ -2473,7 +2473,7 @@ margin: 1px;</string>
              <string>Повторити</string>
             </property>
            </widget>
-           <widget class="QLabel" name="label_37">
+           <widget class="QLabel" name="printCheckLabel">
             <property name="geometry">
              <rect>
               <x>10</x>
@@ -2488,7 +2488,7 @@ margin: 1px;</string>
              </font>
             </property>
             <property name="text">
-             <string>Друкувати чек</string>
+             <string>Print Cheque</string>
             </property>
            </widget>
           </widget>
