@@ -28,6 +28,10 @@ enum CharityPages {
     Four = 4, Five, Six
 };
 
+enum PhoneResponse{
+    NotEnoughMoney, POK, PFail
+};
+
 // widget pages indexes
 // 0 welcome
 // 1 PIN

@@ -16,6 +16,7 @@
 #include "TransferState.h"
 #include "SuccessFailState.h"
 #include "AdminState.h"
+#include "PhoneState.h"
 #include "SelectCharityState.h"
 
 const int MainWindow::MAINWINW = 680;
@@ -120,9 +121,16 @@ void MainWindow::goToPage(const ScreenPage sp)
     else if(sp == SuccessFail)
         state = new SuccessFailState(this, static_cast<ScreenPage>(prevSt));
     else if(sp == Admin)
+//<<<<<<< HEAD
+   //     state = new AdminState();
+   // state->set_context(this);
+//=======
         state = new AdminState(this);
     else if(sp == SelectCharity)
         state = new SelectCharityState(this,0);
+    else if(sp == PhoneData)
+        state = new PhoneState(this);
+//>>>>>>> main
 
     ui->screenLabel->setText(state->screenName());
 
@@ -263,8 +271,10 @@ void MainWindow::connectSignals() {
     QObject::connect(this, &MainWindow::ejectCard, atm, &ATM::ejectCard);
     QObject::connect(this, &MainWindow::withdrawMoney, atm, &ATM::withdrawMoney);
     QObject::connect(this, &MainWindow::transferMoney, atm, &ATM::transferMoney);
+    QObject::connect(this, &MainWindow::rechargePhone, atm, &ATM::rechargePhone);
     QObject::connect(this, &MainWindow::getCharities, atm, &ATM::getCharities);
     QObject::connect(this, &MainWindow::payCharity, atm, &ATM::payCharity);
+
 
     QObject::connect(this, &MainWindow::validateAdmin, atm, &ATM::validateAdmin);
 }
