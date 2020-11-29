@@ -252,8 +252,30 @@ bool DataBase::checkTries(const std::string cardNumber)
         int tries = qry.value(3).toInt();
         if (tries < 1)
             return false;
+        return true;
     }
-    return true;
+    return false;
+}
+
+int DataBase::getTries(const std::string cardNumber)
+{
+    if (!cardExists(cardNumber)) {
+        qDebug() << "There is no card with this number";
+        return false;
+    }
+    QSqlQuery qry;
+    std::string query("SELECT * FROM card WHERE cardNo='" + cardNumber + "';");
+    qry.prepare(query.c_str());
+
+    if (!qry.exec()) {
+        qDebug() << "error: getting data from a database";
+        return false; // there is some error while executing query
+    }
+    if (qry.next()) {
+        int tries = qry.value(3).toInt();
+        return tries;
+    }
+    return -1;
 }
 
 bool DataBase::checkPin(const std::string cardNumber, const std::string pin_code)
@@ -509,7 +531,8 @@ void fullDB(DataBase& db)
 {
     /* Adding to card table */
     db.addCortegeCard("1234123412341234", "1234", 4924);
-    db.addCortegeCard("8888888888888888", "8888", 88888888);
+    db.deleteCortegeCard("8888888888888888");
+    db.addCortegeCard("8888888888888888", "8888", 888888);
     db.addCortegeCard("5555555555555555", "5555", 55.55);
     db.addCortegeCard("7777777777777777", "7007", 7007);
     db.addCortegeCard("6666666666666666", "6116", 666.666);

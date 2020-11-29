@@ -28,6 +28,7 @@ public:
     bool adminExists(const std::string);
     bool charityExists(const std::string);
     bool checkTries(const std::string);
+    int getTries(const std::string);
     bool checkPin(const std::string, const std::string);
     double getMoney(const std::string);
     bool addMoney(const std::string, const double);
