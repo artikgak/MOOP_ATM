@@ -2,9 +2,9 @@
 //#include <filesystem>
 #include <iostream>
 
-#ifndef QT_NO_DEBUG
+//#ifndef QT_NO_DEBUG
 #define IS_TRUE(x) { if (!x) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << std::endl << std::flush; else std::cout << "ok\n"; }
-#endif
+//#endif
 
 DataBase::DataBase(std::string name)
 {
@@ -60,9 +60,10 @@ void DataBase::createTables()
             qDebug() << "error: creating table 'admin_passwrds'";
         }
     }
+
     if(!isTableExists("charity")) {
         QString create_table_query = "CREATE TABLE charity ("
-                                     "id UNSIGNED INT NOT NULL,"
+                                     "id INTEGER,"
                                      "name VARCHAR(10) NOT NULL,"
                                      "description VARCHAR(150),"
                                      "PRIMARY KEY (id));";
@@ -81,7 +82,7 @@ bool DataBase::isTableExists(const char *tablename)
     return true;
 }
 
-bool DataBase::addCortege(const std::string cardNo, const std::string pin, const double balance)
+bool DataBase::addCortegeCard(const std::string cardNo, const std::string pin, const double balance)
 {
     QSqlQuery qry;
 
@@ -98,13 +99,49 @@ bool DataBase::addCortege(const std::string cardNo, const std::string pin, const
     qry.addBindValue(3);
 
     if (!qry.exec()) {
-        qDebug() << "error: adding cortege to a database";
+        qDebug() << "error: adding cortege to the card table";
         return false; // cortege wasn't added
     }
     return true; // cortege was added
 }
 
-bool DataBase::deleteCortege(const std::string cardNumber)
+bool DataBase::addCortegeAdmin(const std::string password)
+{
+    QSqlQuery qry;
+
+    qry.prepare("INSERT INTO admin_passwrds ("
+                "password)"
+                "VALUES (?);");
+
+    qry.addBindValue(QString::fromStdString(password));
+
+    if (!qry.exec()) {
+        qDebug() << "error: adding cortege to the admin_passwrds table";
+        return false; // cortege wasn't added
+    }
+    return true; // cortege was added
+}
+
+bool DataBase::addCortegeCharity(const std::string name, const std::string description)
+{
+    QSqlQuery qry;
+
+    qry.prepare("INSERT INTO charity ("
+                "name,"
+                "description)"
+                "VALUES (?,?);");
+
+    qry.addBindValue(QString::fromStdString(name));
+    qry.addBindValue(QString::fromStdString(description));
+
+    if (!qry.exec()) {
+        qDebug() << "error: adding cortege to the charity table";
+        return false; // cortege wasn't added
+    }
+    return true; // cortege was added
+}
+
+bool DataBase::deleteCortegeCard(const std::string cardNumber)
 {
     if (!cardExists(cardNumber)) {
         qDebug() << "There is no card with this number";
@@ -243,7 +280,6 @@ double DataBase::getMoney(const std::string cardNumber)
 
 bool DataBase::addMoney(const std::string cardNumber, const double amount)
 {
-    std::cout << "Entered\n";
     if (!cardExists(cardNumber)) {
         qDebug() << "There is no card with this number";
         return false; // adding was not performed
@@ -254,7 +290,7 @@ bool DataBase::addMoney(const std::string cardNumber, const double amount)
     }
     double balance = getMoney(cardNumber);
     QSqlQuery qry;
-    std::string query("UPDATE card SET balance = '" + QString("%3").arg(balance + amount).toStdString() + "' WHERE cardNo='" + cardNumber + "';");
+    std::string query("UPDATE card SET balance = '" + QString("%6").arg(balance + amount).toStdString() + "' WHERE cardNo='" + cardNumber + "';");
     qry.prepare(query.c_str());
 
     if (!qry.exec()) {
@@ -279,14 +315,14 @@ void DataBase::addMoneyTest()
     IS_TRUE(!addMoney("1234123412341234", -1000000));
 }
 
-bool DataBase::getAllData()
+bool DataBase::getAllDataCard()
 {
     QSqlQuery qry;
     std::string query("SELECT * FROM card;");
     qry.prepare(query.c_str());
 
     if (!qry.exec()) {
-        qDebug() << "error: getting data from a database";
+        qDebug() << "error: getting data from the card table";
         return false; // there is some error while executing query
     }
 
@@ -304,23 +340,107 @@ bool DataBase::getAllData()
     return true; // There is data
 }
 
-bool DataBase::deleteAllData()
+bool DataBase::getAllDataAdmin()
 {
     QSqlQuery qry;
-    std::string query("DELETE FROM card;");
+    std::string query("SELECT * FROM admin_passwrds;");
     qry.prepare(query.c_str());
 
     if (!qry.exec()) {
-        qDebug() << "error: deleting data from a database";
+        qDebug() << "error: getting data from the admin_passwrds table";
         return false; // there is some error while executing query
     }
+
+    bool check = false;
+    while (qry.next()) {
+        QString password = qry.value(0).toString();
+        qDebug() << password;
+        check = true;
+    }
+    if (!check) {
+        return false; // There is no data
+    }
+    return true; // There is data
+}
+
+bool DataBase::getAllDataCharity()
+{
+    QSqlQuery qry;
+    std::string query("SELECT * FROM charity;");
+    qry.prepare(query.c_str());
+
+    if (!qry.exec()) {
+        qDebug() << "error: getting data from the charity table";
+        return false; // there is some error while executing query
+    }
+
+    bool check = false;
+    while (qry.next()) {
+        int id = qry.value(0).toInt();
+        QString name = qry.value(1).toString();
+        QString descr = qry.value(2).toString();
+        qDebug() << id << name << descr;
+        check = true;
+    }
+    if (!check) {
+        return false; // There is no data
+    }
+    return true; // There is data
+}
+
+bool DataBase::deleteAllData()
+{
+    {
+        QSqlQuery qry;
+        std::string query("DELETE FROM card;");
+        qry.prepare(query.c_str());
+
+        if (!qry.exec()) {
+            qDebug() << "error: deleting data from the card table";
+            return false; // there is some error while executing query
+        }
+    }
+
+    {
+        QSqlQuery qry;
+        std::string query("DELETE FROM charity;");
+        qry.prepare(query.c_str());
+
+        if (!qry.exec()) {
+            qDebug() << "error: deleting data from the charity table";
+            return false; // there is some error while executing query
+        }
+    }
+
+    {
+        QSqlQuery qry;
+        std::string query("DELETE FROM admin_passwrds;");
+        qry.prepare(query.c_str());
+
+        if (!qry.exec()) {
+            qDebug() << "error: deleting data from the admin_passwrds table";
+            return false; // there is some error while executing query
+        }
+    }
+
     return true;
 }
 
 void fullDB(DataBase& db)
 {
-    db.addCortege("8888888888888888", "8888", 88888888);
-    db.addCortege("5555555555555555", "5555", 55.55);
-    db.addCortege("7777777777777777", "7007", 7007);
-    db.addCortege("6666666666666666", "6116", 666.666);
+    /* Adding to card table */
+    db.addCortegeCard("8888888888888888", "8888", 88888888);
+    db.addCortegeCard("5555555555555555", "5555", 55.55);
+    db.addCortegeCard("7777777777777777", "7007", 7007);
+    db.addCortegeCard("6666666666666666", "6116", 666.666);
+
+    /* Adding to admin table */
+    db.addCortegeAdmin("cisco");
+    db.addCortegeAdmin("password");
+    db.addCortegeAdmin("admin");
+
+    /* Adding to charity table */
+    db.addCortegeCharity("charity1", "description for charity 1");
+    db.addCortegeCharity("charity2", "description for charity 2");
+    db.addCortegeCharity("charity3", "description for charity 3");
 }
