@@ -17,6 +17,7 @@
 #include "SuccessFailState.h"
 #include "AdminState.h"
 #include "PhoneState.h"
+#include "SelectCharityState.h"
 
 const int MainWindow::MAINWINW = 680;
 const int MainWindow::MAINWINH = 550;
@@ -26,12 +27,11 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
 //    , state(0)
     , ui(new Ui::MainWindow)
     , atm(atm)
-    , state(new IdleState())
+    , state(new IdleState(this))
     ,_currentScreen(Welcome)
     , destination(Menu)
     , _loaderGif(new QMovie(":images/loader.gif"))
 {
-    state->set_context(this);
     // UI CODE
     ui->setupUi(this);
     MainWindow::setGeometry(330,200,MAINWINW,MAINWINH);
@@ -77,7 +77,6 @@ void MainWindow::changeState(WindowState *state) {
   if (this->state != nullptr)
     delete this->state;
   this->state = state;
-  this->state->set_context(this);
 }
 
 // PUBLIC SLOTS (generally messages FROM ATM - thus unblocking)
@@ -108,25 +107,30 @@ void MainWindow::goToPage(const ScreenPage sp)
     state = nullptr;
 
     if (sp == Welcome)
-        state = new IdleState();
+        state = new IdleState(this);
     else if (sp == EnterPIN)
-        state = new PinState();
+        state = new PinState(this);
     else if (sp == Menu)
-        state = new MenuState();
+        state = new MenuState(this);
     else if (sp == Balance)
-        state = new BalanceState();
+        state = new BalanceState(this);
     else if (sp == GetCash)
-        state = new WithdrawState();
+        state = new WithdrawState(this);
     else if (sp == TransactionData)
-        state = new TransferState();
+        state = new TransferState(this);
     else if(sp == SuccessFail)
-        state = new SuccessFailState(static_cast<ScreenPage>(prevSt));
+        state = new SuccessFailState(this, static_cast<ScreenPage>(prevSt));
     else if(sp == Admin)
-        state = new AdminState();
+//<<<<<<< HEAD
+   //     state = new AdminState();
+   // state->set_context(this);
+//=======
+        state = new AdminState(this);
+    else if(sp == SelectCharity)
+        state = new SelectCharityState(this,0);
     else if(sp == PhoneData)
-        state = new PhoneState();
-
-    state->set_context(this);
+        state = new PhoneState(this);
+//>>>>>>> main
 
     ui->screenLabel->setText(state->screenName());
 
@@ -268,6 +272,9 @@ void MainWindow::connectSignals() {
     QObject::connect(this, &MainWindow::withdrawMoney, atm, &ATM::withdrawMoney);
     QObject::connect(this, &MainWindow::transferMoney, atm, &ATM::transferMoney);
     QObject::connect(this, &MainWindow::rechargePhone, atm, &ATM::rechargePhone);
+    QObject::connect(this, &MainWindow::getCharities, atm, &ATM::getCharities);
+    QObject::connect(this, &MainWindow::payCharity, atm, &ATM::payCharity);
+
 
     QObject::connect(this, &MainWindow::validateAdmin, atm, &ATM::validateAdmin);
 }

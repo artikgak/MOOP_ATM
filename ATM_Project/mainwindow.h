@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include "Utils.h"
+#include "Charity.h"
 #include <QLabel>
 #include <QThread>
 
@@ -43,8 +44,12 @@ signals:
 
     std::string getBalance();
     void ejectCard();
+
+    bool payCharity(uint id, uint sum);
+    std::vector<Charity> getCharities(const uint page);
     WithdrawResponse withdrawMoney(const uint sum);
     PhoneResponse rechargePhone(const uint sum);
+
     TransferResponse transferMoney(const uint sum, const std::string& cardNum);
 
 public slots: //TODO make slots and signals not voids but responses

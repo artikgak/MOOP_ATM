@@ -12,7 +12,7 @@ private:
     ScreenPage _prevScreen;
 
 public:
-    SuccessFailState(const ScreenPage sp): _prevScreen(sp){}
+    SuccessFailState(MainWindow* context, const ScreenPage sp): WindowState(context), _prevScreen(sp){}
 private:
     const QString do_screenName() override {
         return "Query result";

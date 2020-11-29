@@ -8,9 +8,8 @@
 
 DataBase::DataBase(std::string name)
 {
-    //std::cout << QCoreApplication::applicationDirPath().toStdString() << '\n';
-    //std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
-    std::string path = "../ATM_Project/";
+    std::string path = "E:/Workspace/Programming/MOOP_ATM/ATM_Project/";
+    //std::string path = "../ATM_Project/";
     std::string extention(".sqlite");
     std::string full_name = path + name + extention;
 
@@ -20,21 +19,9 @@ DataBase::DataBase(std::string name)
     if (!_db.open()) {
         qDebug() << "error: problem opening database";
     } else {
-        if (!isTableExists("card")) {
-            QString create_table_query = "CREATE TABLE card ("
-                                         "cardNo VARCHAR(16) NOT NULL,"
-                                         "pin VARCHAR(4) NOT NULL,"
-                                         "balance double NOT NULL,"
-                                         "tries int NOT NULL,"
-                                         "PRIMARY KEY (cardNo));";
-            QSqlQuery create_table_qry;
-            if (!create_table_qry.exec(create_table_query)) {
-                qDebug() << "error: creating table";
-            }
-        }
-        //this->addCortege("1234123412341240", "1234", 0);
-        //this->addCortege("1234123412341241", "4321", 11231.12321);
+        createTables();
     }
+
 #ifndef QT_NO_DEBUG
     std::cout << "********* Start testing of cardExist *********" << std::flush;
     cardExistsTest();
@@ -48,6 +35,42 @@ DataBase::DataBase(std::string name)
 DataBase::~DataBase()
 {
     _db.close();
+}
+
+void DataBase::createTables()
+{
+    if (!isTableExists("card")) {
+        QString create_table_query = "CREATE TABLE card ("
+                                     "cardNo VARCHAR(16) NOT NULL,"
+                                     "pin VARCHAR(4) NOT NULL,"
+                                     "balance double NOT NULL,"
+                                     "tries int NOT NULL,"
+                                     "PRIMARY KEY (cardNo));";
+        QSqlQuery create_table_qry;
+        if (!create_table_qry.exec(create_table_query)) {
+            qDebug() << "error: creating table 'card'";
+        }
+    }
+    if(!isTableExists("admin_passwrds")) {
+        QString create_table_query = "CREATE TABLE admin_passwrds ("
+                                     "password VARCHAR(8) NOT NULL,"
+                                     "PRIMARY KEY (password));";
+        QSqlQuery create_table_qry;
+        if (!create_table_qry.exec(create_table_query)) {
+            qDebug() << "error: creating table 'admin_passwrds'";
+        }
+    }
+    if(!isTableExists("charity")) {
+        QString create_table_query = "CREATE TABLE charity ("
+                                     "id UNSIGNED INT NOT NULL,"
+                                     "name VARCHAR(10) NOT NULL,"
+                                     "description VARCHAR(150),"
+                                     "PRIMARY KEY (id));";
+        QSqlQuery create_table_qry;
+        if (!create_table_qry.exec(create_table_query)) {
+            qDebug() << "error: creating table 'charity'";
+        }
+    }
 }
 
 bool DataBase::isTableExists(const char *tablename)
@@ -220,12 +243,13 @@ double DataBase::getMoney(const std::string cardNumber)
 
 bool DataBase::addMoney(const std::string cardNumber, const double amount)
 {
-    if (amount < 0 && getMoney(cardNumber) < -amount) {
-        qDebug() << "There is not enough money on this card!";
-        return false; // adding was not performed
-    }
+    std::cout << "Entered\n";
     if (!cardExists(cardNumber)) {
         qDebug() << "There is no card with this number";
+        return false; // adding was not performed
+    }
+    if (amount < 0 && getMoney(cardNumber) < -amount) {
+        qDebug() << "There is not enough money on this card!";
         return false; // adding was not performed
     }
     double balance = getMoney(cardNumber);
@@ -242,10 +266,16 @@ bool DataBase::addMoney(const std::string cardNumber, const double amount)
 
 void DataBase::addMoneyTest()
 {
+    double eps = 0.000001;
     IS_TRUE(!addMoney("12321", 1231));
     IS_TRUE(!addMoney("12321", -1231));
+    double before = getMoney("1234123412341234");
     IS_TRUE(addMoney("1234123412341234", 1231));
+    double after = getMoney("1234123412341234");
+    IS_TRUE((abs(after - (before + 1231)) < eps));
     IS_TRUE(addMoney("1234123412341234", -1231));
+    after = getMoney("1234123412341234");
+    IS_TRUE((abs(after - before) < eps));
     IS_TRUE(!addMoney("1234123412341234", -1000000));
 }
 
@@ -285,4 +315,12 @@ bool DataBase::deleteAllData()
         return false; // there is some error while executing query
     }
     return true;
+}
+
+void fullDB(DataBase& db)
+{
+    db.addCortege("8888888888888888", "8888", 88888888);
+    db.addCortege("5555555555555555", "5555", 55.55);
+    db.addCortege("7777777777777777", "7007", 7007);
+    db.addCortege("6666666666666666", "6116", 666.666);
 }

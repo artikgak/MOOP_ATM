@@ -5,6 +5,10 @@
 
 class PinState : public WindowState {
 
+public:
+    PinState(MainWindow* context): WindowState(context) {}
+
+
 private:
     const QString do_screenName() override {
         return "Enter the pin code";

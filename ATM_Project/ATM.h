@@ -3,6 +3,7 @@
 #include "Utils.h"
 #include "DataBase.h"
 #include "QObject"
+#include "Charity.h"
 
 class Test_Front;
 class MainWindow;
@@ -46,6 +47,8 @@ public slots:
     bool validateLogin(const std::string& pin);
     std::string getBalance();
 
+    bool payCharity(uint id, uint sum);
+    std::vector<Charity> getCharities(const uint page);
     void ejectCard();
 
 // Signals sent to UI

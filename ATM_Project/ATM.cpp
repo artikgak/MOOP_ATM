@@ -18,9 +18,10 @@ ATM::ATM():
         db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
         card(nullptr),
         pin(nullptr),
-        file("../ATM_Project/bnkNote.txt"),
-        //file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
+        //file("../ATM_Project/bnkNote.txt"),
+        file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
         bankNotes(new int[5]) {
+    fullDB(db);
     file.open(QIODevice::ReadOnly);
     if(!file.isOpen())
         cout << "<banknotes not open>" <<endl;
@@ -105,7 +106,8 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     if(withdraw < sum)
         return UserNoMoney;
 
-    //  cardMoney-=sum
+    int summa = sum;
+    db.addMoney(*card, -summa);
     return WOK;
 }
 
@@ -145,7 +147,8 @@ TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
     if (db.getMoney(*card) < sum)
         return NotEnoughMonet;
 
-    bool succ = db.addMoney(*card, -sum);
+    int summa = sum;
+    bool succ = db.addMoney(*card, -summa);
     if (!succ) return FAIL;
 
     succ = db.addMoney(cardNum, sum);
@@ -164,6 +167,21 @@ void ATM::ejectCard() {
 
     emit goToPage(Welcome);
 }
+
+std::vector<Charity> ATM::getCharities(const uint page) {
+    vector<Charity> charities;
+    charities.push_back(Charity{0,"Cancer research", ""});
+    charities.push_back(Charity{1,"Hunger alleviation", ""});
+    charities.push_back(Charity{2,"Bumbumbum", ""});
+
+    return charities;
+}
+
+bool ATM::payCharity(uint id, uint sum) {
+    qDebug() << "Transfering to " << id << " $" << sum;
+    return true;
+}
+
 
 void ATM::saveBankToFile()
 {
