@@ -4,6 +4,10 @@
 #include "mainwindow.h"
 
 class BalanceState : public WindowState {
+public:
+
+    BalanceState(MainWindow* context): WindowState(context) {}
+
 private:
     const QString do_screenName() override {
         return "Ваш баланс";

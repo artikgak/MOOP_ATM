@@ -17,7 +17,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     ATM.cpp \
-    AccountMenu.cpp \
     WindowState.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,12 +25,13 @@ SOURCES += \
 
 HEADERS += \
     ATM.h \
-    AccountMenu.h \
     AdminState.h \
     BalanceState.h \
+    Charity.h \
     IdleState.h \
     MenuState.h \
     PinState.h \
+    SelectCharityState.h \
     SuccessFailState.h \
     TransferState.h \
     Utils.h \

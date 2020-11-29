@@ -1,5 +1,5 @@
-#ifndef TRANSFERSTATE_H
-#define TRANSFERSTATE_H
+#pragma once
+
 #include "WindowState.h"
 #include "mainwindow.h"
 
@@ -9,7 +9,7 @@ private:
     bool sumActive;   // 1 - sum, 0 - target card
 
 public:
-    TransferState():sumActive(1){
+    TransferState(MainWindow* context):sumActive(1), WindowState(context){
       //  getUi()->transactionSumField->setStyleSheet("background: #E8FAD5;");
         // memory violation access ???
     }
@@ -118,5 +118,3 @@ private:
     }
 
 };
-
-#endif // TRANSFERSTATE_H

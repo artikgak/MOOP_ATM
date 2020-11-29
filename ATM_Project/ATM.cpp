@@ -153,6 +153,16 @@ void ATM::ejectCard() {
     emit goToPage(Welcome);
 }
 
+std::vector<Charity> ATM::getCharities(const uint page) {
+    vector<Charity> charities;
+    charities.push_back(Charity{0,"Cancer research", ""});
+    charities.push_back(Charity{1,"Hunger alleviation", ""});
+    charities.push_back(Charity{2,"Bumbumbum", ""});
+
+    return charities;
+}
+
+
 void ATM::saveBankToFile()
 {
     file.open(QIODevice::WriteOnly | QIODevice::Text |QFile::Truncate);

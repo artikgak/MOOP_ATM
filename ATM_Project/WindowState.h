@@ -40,7 +40,7 @@ private:
 public:
     virtual ~WindowState() {}
 
-    void set_context(MainWindow *context) {
+    WindowState(MainWindow *context) {
         this->context = context;
     }
 

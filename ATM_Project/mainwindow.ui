@@ -216,7 +216,7 @@ background-color: rgb(233, 255, 245);
 </string>
           </property>
           <property name="currentIndex">
-           <number>6</number>
+           <number>7</number>
           </property>
           <widget class="QWidget" name="welcome_p">
            <widget class="QPushButton" name="inputCard">
@@ -1635,7 +1635,7 @@ background: #E8FAD5</string>
              </property>
              <item row="1" column="0">
               <widget class="QWidget" name="widgCash_2" native="true">
-               <widget class="QLabel" name="label_35">
+               <widget class="QLabel" name="charity2">
                 <property name="geometry">
                  <rect>
                   <x>10</x>
@@ -1653,14 +1653,14 @@ background: #E8FAD5</string>
                  <string notr="true">border-width: 0px;</string>
                 </property>
                 <property name="text">
-                 <string>fond2</string>
+                 <string/>
                 </property>
                </widget>
               </widget>
              </item>
              <item row="2" column="0">
               <widget class="QWidget" name="widget_8" native="true">
-               <widget class="QLabel" name="label_37">
+               <widget class="QLabel" name="charity3">
                 <property name="geometry">
                  <rect>
                   <x>10</x>
@@ -1678,14 +1678,14 @@ background: #E8FAD5</string>
                  <string notr="true">border-width: 0px;</string>
                 </property>
                 <property name="text">
-                 <string>fond2</string>
+                 <string/>
                 </property>
                </widget>
               </widget>
              </item>
              <item row="0" column="0">
               <widget class="QWidget" name="widget_10" native="true">
-               <widget class="QLabel" name="label_41">
+               <widget class="QLabel" name="charity1">
                 <property name="geometry">
                  <rect>
                   <x>10</x>
@@ -1703,7 +1703,7 @@ background: #E8FAD5</string>
                  <string notr="true">border-width: 0px;</string>
                 </property>
                 <property name="text">
-                 <string>Fond1</string>
+                 <string/>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>
@@ -1713,7 +1713,7 @@ background: #E8FAD5</string>
              </item>
              <item row="0" column="1">
               <widget class="QWidget" name="widget_11" native="true">
-               <widget class="QLabel" name="label_43">
+               <widget class="QLabel" name="charity4">
                 <property name="geometry">
                  <rect>
                   <x>110</x>
@@ -1732,7 +1732,7 @@ background: #E8FAD5</string>
 </string>
                 </property>
                 <property name="text">
-                 <string>fond2</string>
+                 <string/>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1742,7 +1742,7 @@ background: #E8FAD5</string>
              </item>
              <item row="1" column="1">
               <widget class="QWidget" name="widget_12" native="true">
-               <widget class="QLabel" name="label_45">
+               <widget class="QLabel" name="charity5">
                 <property name="geometry">
                  <rect>
                   <x>200</x>
@@ -1760,7 +1760,7 @@ background: #E8FAD5</string>
                  <string notr="true">border-width: 0px;</string>
                 </property>
                 <property name="text">
-                 <string>fond2</string>
+                 <string/>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1788,11 +1788,39 @@ background: #E8FAD5</string>
                 <string notr="true">margin-right: 2px;</string>
                </property>
                <property name="text">
-                <string>Завершити роботу</string>
+                <string>To Menu</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QWidget" name="widget_18" native="true">
+               <widget class="QLabel" name="charity6">
+                <property name="geometry">
+                 <rect>
+                  <x>200</x>
+                  <y>20</y>
+                  <width>51</width>
+                  <height>31</height>
+                 </rect>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-width: 0px;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
               </widget>
              </item>
             </layout>
@@ -2643,7 +2671,7 @@ border-bottom-width:0px;
 </string>
          </property>
          <property name="text">
-          <string>Вітаємо!</string>
+          <string>Welcome!</string>
          </property>
          <property name="margin">
           <number>5</number>
