@@ -157,10 +157,11 @@ void ATM::ejectCard() {
 }
 
 std::vector<Charity> ATM::getCharities(const uint page) {
-    vector<Charity> charities;
-    charities.push_back(Charity{0,"Cancer research", ""});
+    vector<Charity> charities = db.getCharities(page, 4);
+
+    /*charities.push_back(Charity{0,"Cancer research", ""});
     charities.push_back(Charity{1,"Hunger alleviation", ""});
-    charities.push_back(Charity{2,"Bumbumbum", ""});
+    charities.push_back(Charity{2,"Bumbumbum", ""});*/
 
     return charities;
 }

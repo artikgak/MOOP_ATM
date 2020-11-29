@@ -3,6 +3,7 @@
 
 #include <QtSql>
 #include <string>
+#include "Charity.h"
 
 class DataBase
 {
@@ -29,11 +30,11 @@ public:
     double getMoney(const std::string);
     bool addMoney(const std::string, const double);
 
+    std::vector<Charity> getCharities(int, int);
 
-
-    bool getAllDataCard();
-    bool getAllDataAdmin();
-    bool getAllDataCharity();
+    bool outputAllDataCard();
+    bool outputAllDataAdmin();
+    bool outputAllDataCharity();
 
     bool deleteAllData();
 

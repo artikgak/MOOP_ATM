@@ -24,6 +24,10 @@ enum WithdrawResponse {
     AtmNoMoney, UserNoMoney, AtmNoBills, WOK
 };
 
+enum CharityPages {
+    Four = 4, Five, Six
+};
+
 // widget pages indexes
 // 0 welcome
 // 1 PIN

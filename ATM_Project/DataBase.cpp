@@ -1,5 +1,4 @@
 #include "DataBase.h"
-//#include <filesystem>
 #include <iostream>
 
 //#ifndef QT_NO_DEBUG
@@ -315,7 +314,38 @@ void DataBase::addMoneyTest()
     IS_TRUE(!addMoney("1234123412341234", -1000000));
 }
 
-bool DataBase::getAllDataCard()
+std::vector<Charity> getCharities(int page, int info_per_page)
+{
+    QSqlQuery qry;
+    std::string query("SELECT * FROM charity;");
+    qry.prepare(query.c_str());
+
+    std::vector<Charity> result;
+
+    if (!qry.exec() || page < 0 || info_per_page < 1) {
+        qDebug() << "error: getting data from the charity table";
+        return result; // there is some error while executing query
+    }
+
+    int ipp = 0;
+    int pg = 0;
+    while (qry.next() && ipp < info_per_page) {
+        if (pg < page * info_per_page) {
+            ++pg;
+        }
+        else {
+            uint id = qry.value(0).toInt();
+            QString name = qry.value(1).toString();
+            QString descr = qry.value(2).toString();
+            Charity charity{id, name.toStdString(), descr.toStdString()};
+            result.push_back(charity);
+            ++ipp;
+        }
+    }
+    return result;
+}
+
+bool DataBase::outputAllDataCard()
 {
     QSqlQuery qry;
     std::string query("SELECT * FROM card;");
@@ -340,7 +370,7 @@ bool DataBase::getAllDataCard()
     return true; // There is data
 }
 
-bool DataBase::getAllDataAdmin()
+bool DataBase::outputAllDataAdmin()
 {
     QSqlQuery qry;
     std::string query("SELECT * FROM admin_passwrds;");
@@ -363,7 +393,7 @@ bool DataBase::getAllDataAdmin()
     return true; // There is data
 }
 
-bool DataBase::getAllDataCharity()
+bool DataBase::outputAllDataCharity()
 {
     QSqlQuery qry;
     std::string query("SELECT * FROM charity;");
