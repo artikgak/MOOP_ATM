@@ -9,7 +9,7 @@ class DataBase
 {
 private:
     QSqlDatabase _db;
-    u_int32_t credit_limit = 2000;
+    uint64_t credit_limit = 2000;
 
     DataBase(const DataBase&) = delete; /* Only one database in a program */
     DataBase& operator=(const DataBase&) = delete;
