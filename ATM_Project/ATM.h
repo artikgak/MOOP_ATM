@@ -26,14 +26,14 @@ private:
     ATM(ATM&) = delete;
 
     QFile file;
-//    template<class voidFunc>
-//    void validatePinAndEmit(const std::string& pin, voidFunc toEmit);
 
     void recountBankNotes(const int sum, const int billsSize=5);
+
 public:
-static const int bills[5];
-void saveBankToFile();
-int* bankNotes;
+
+    static const int bills[5];
+    void saveBankToFile();
+    int* bankNotes;
 
     friend Test_Front;
     ATM();

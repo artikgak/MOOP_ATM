@@ -216,7 +216,7 @@ background-color: rgb(233, 255, 245);
 </string>
           </property>
           <property name="currentIndex">
-           <number>8</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="welcome_p">
            <widget class="QPushButton" name="inputCard">
@@ -235,7 +235,7 @@ background-color: rgb(233, 255, 245);
              <string notr="true">background-color: rgb(225, 225, 225)</string>
             </property>
             <property name="text">
-             <string>Вставити картку</string>
+             <string>Insert your card</string>
             </property>
            </widget>
            <widget class="QLabel" name="label_4">
@@ -320,7 +320,7 @@ color: red;</string>
              </rect>
             </property>
             <property name="text">
-             <string>Служба підтримки</string>
+             <string>Support</string>
             </property>
            </widget>
           </widget>
@@ -595,7 +595,7 @@ margin-bottom: 40px;</string>
 </string>
                 </property>
                 <property name="text">
-                 <string>благодійність</string>
+                 <string>Charity</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -645,7 +645,7 @@ margin-bottom: 40px;</string>
                  <string notr="true">border-width: 0px;</string>
                 </property>
                 <property name="text">
-                 <string>зняти готівку</string>
+                 <string>Withdraw cash</string>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>
@@ -692,7 +692,7 @@ margin-bottom: 40px;</string>
                  <string notr="true">border-width: 0px;</string>
                 </property>
                 <property name="text">
-                 <string>ігри</string>
+                 <string>Games</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -739,7 +739,7 @@ margin-bottom: 40px;</string>
                  <string notr="true">border-width: 0px;</string>
                 </property>
                 <property name="text">
-                 <string>переглянути баланс</string>
+                 <string>Check your balance</string>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>
@@ -786,7 +786,7 @@ margin-bottom: 40px;</string>
                  <string notr="true">border-width: 0px;</string>
                 </property>
                 <property name="text">
-                 <string>переказ грошей</string>
+                 <string>Money Transfer</string>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>
@@ -833,7 +833,7 @@ margin-bottom: 40px;</string>
                  <string notr="true">border-width: 0px;</string>
                 </property>
                 <property name="text">
-                 <string>поповнити телефон</string>
+                 <string>Top-up the phone</string>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>
@@ -878,7 +878,7 @@ margin-bottom: 40px;</string>
              <string notr="true">border-width: 0px;</string>
             </property>
             <property name="text">
-             <string>До головного меню</string>
+             <string>To Menu</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -902,7 +902,7 @@ margin-bottom: 40px;</string>
              <string notr="true">border-width: 0px;</string>
             </property>
             <property name="text">
-             <string>Ваш баланс:</string>
+             <string>Your balance:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -997,7 +997,7 @@ margin-bottom: 40px;</string>
 margin: 1px;</string>
                </property>
                <property name="text">
-                <string>Ведіть суму:</string>
+                <string>Enter the sum:</string>
                </property>
               </widget>
              </item>
@@ -1018,7 +1018,7 @@ margin: 1px;</string>
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string>Підтвердити</string>
+                <string>Confirm</string>
                </property>
               </widget>
              </item>
@@ -1042,7 +1042,7 @@ margin: 1px;</string>
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string>Назад до гловного меню</string>
+                <string>To Menu</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1067,7 +1067,7 @@ margin: 1px;</string>
 margin: 1px;</string>
                </property>
                <property name="text">
-                <string>Карта отримувача:</string>
+                <string>Receiver:</string>
                </property>
               </widget>
              </item>
@@ -1123,7 +1123,7 @@ margin: 1px;</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Комісія: </string>
+                 <string>Comission:</string>
                 </property>
                </widget>
                <widget class="QLabel" name="transferCommision">
@@ -1222,7 +1222,7 @@ margin: 1px;</string>
                 <string notr="true">margin-right: 4px;</string>
                </property>
                <property name="text">
-                <string>Назад до гловного меню</string>
+                <string>To Menu</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1250,7 +1250,7 @@ margin: 1px;</string>
 margin: 1px;</string>
                </property>
                <property name="text">
-                <string>Введіть номер телефону:</string>
+                <string>Enter the phone number:</string>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
@@ -1309,7 +1309,7 @@ border-color: black;
 margin: 1px;</string>
                </property>
                <property name="text">
-                <string>Введіть суму:</string>
+                <string>Enter the sum:</string>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
@@ -1366,7 +1366,7 @@ margin: 1px;</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Комісія: </string>
+                 <string>Comission:</string>
                 </property>
                </widget>
                <widget class="QLabel" name="phoneCommision">
@@ -1448,7 +1448,7 @@ margin: 1px;</string>
 margin: 1px;</string>
                </property>
                <property name="text">
-                <string>Сума готівки:</string>
+                <string>Cash sum:</string>
                </property>
               </widget>
              </item>
@@ -1504,7 +1504,7 @@ background: #E8FAD5</string>
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string>Підтвердити</string>
+                <string>Confirm:</string>
                </property>
               </widget>
              </item>
@@ -1531,7 +1531,7 @@ background: #E8FAD5</string>
 </string>
                </property>
                <property name="text">
-                <string>Назад до гловного меню</string>
+                <string>To Menu:</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1555,7 +1555,7 @@ background: #E8FAD5</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Комісія:</string>
+                 <string>Comission:</string>
                 </property>
                </widget>
                <widget class="QLabel" name="availBanknotesLabel">
@@ -1573,7 +1573,7 @@ background: #E8FAD5</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Доступні банкноти:</string>
+                 <string>Available banknotes:</string>
                 </property>
                </widget>
                <widget class="QLabel" name="withdrawErrorMsg">
@@ -1955,7 +1955,7 @@ margin: 1px;</string>
 </string>
                </property>
                <property name="text">
-                <string>Назад до гловного меню</string>
+                <string>Back To Menu</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1980,7 +1980,7 @@ margin: 1px;</string>
 margin: 1px;</string>
                </property>
                <property name="text">
-                <string>Ведіть суму:</string>
+                <string>Enter the sum:</string>
                </property>
               </widget>
              </item>
@@ -2425,7 +2425,7 @@ margin: 1px;</string>
              </font>
             </property>
             <property name="text">
-             <string>Назад до меню</string>
+             <string>To Menu</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2470,7 +2470,7 @@ margin: 1px;</string>
              </font>
             </property>
             <property name="text">
-             <string>Повторити</string>
+             <string>Retry</string>
             </property>
            </widget>
           </widget>
@@ -2490,7 +2490,7 @@ margin: 1px;</string>
              </font>
             </property>
             <property name="text">
-             <string>Заповнити грошима</string>
+             <string>Fill with Money</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -2658,7 +2658,7 @@ margin: 1px;</string>
              </font>
             </property>
             <property name="text">
-             <string>Вийти</string>
+             <string>Quit</string>
             </property>
            </widget>
            <widget class="QLabel" name="label_39">
@@ -2676,7 +2676,7 @@ margin: 1px;</string>
              </font>
             </property>
             <property name="text">
-             <string>Зберегти</string>
+             <string>Save</string>
             </property>
            </widget>
           </widget>

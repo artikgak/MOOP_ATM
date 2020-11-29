@@ -29,6 +29,8 @@ void displayBalance(const std::string& pin);
 
 void wrongPin(const uint);
 void displayBankNotes(const int*);
+void endSession();
+
     //void showLoader();
     //void hideLoader();
 
@@ -47,19 +49,15 @@ signals:
 
     bool payCharity(uint id, uint sum);
     std::vector<Charity> getCharities(const uint page);
+
     WithdrawResponse withdrawMoney(const uint sum);
     PhoneResponse rechargePhone(const uint sum);
-
     TransferResponse transferMoney(const uint sum, const std::string& cardNum);
 
-public slots: //TODO make slots and signals not voids but responses
+public slots:
     //more generic ones
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);
-
-    //more specific ones
-    void endSession();
-
 private slots:
     void on_button0_clicked();
     void on_button1_clicked();

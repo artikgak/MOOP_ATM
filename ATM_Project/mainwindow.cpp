@@ -46,15 +46,11 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     _loaderLbl->setWindowFlags(Qt::WindowStaysOnTopHint);
     setWindowIcon(QIcon(":images/winIcon.png"));
 
-    // Tying signals to slots TODO extract into a function
+    //Connecting signals from and to ATM for parallel computations
     connectSignals();
-
 }
 
-MainWindow::~MainWindow()
-{
-    //delete movie;
-    //delete lbl;
+MainWindow::~MainWindow() {
     delete ui;
     delete state;
 }
@@ -227,12 +223,6 @@ void MainWindow::on_buttonR2_clicked(){state->handleButtonR2();}
 void MainWindow::on_buttonR3_clicked(){state->handleButtonR3();}
 void MainWindow::on_buttonR4_clicked(){state->handleButtonR4();}
 
-void MainWindow::endSession() {
-    QMessageBox::information(this, "Card", "Please take out your card");
-    emit ejectCard();
-    destination = Menu; //TODO DELETE WHEN STATES ARE DONE
-}
-
 void MainWindow::blockInput() {
 //_loaderGif->start();
 //_loaderLbl->show();
@@ -278,13 +268,11 @@ void MainWindow::connectSignals() {
 void MainWindow::on_adminButton_clicked()
 {
     bool ok;
-      QString text = QInputDialog::getText(this, tr("Admin"),
-                        tr("Please scan your id card:"), QLineEdit::Normal,
-                        "", &ok);
+    QString text = QInputDialog::getText(this, tr("Admin"),
+                                         tr("Please scan your id card:"), QLineEdit::Normal,
+                                         "", &ok);
     if (!ok) return;
-
     bool valid = emit validateAdmin(text.toStdString());
-
     if (valid)
         displayBankNotes(atm->bankNotes);
 }
@@ -292,17 +280,17 @@ void MainWindow::on_adminButton_clicked()
 void MainWindow::on_helpServiceButton_clicked()
 {
     bool ok;
-      QString text = QInputDialog::getText(this, tr("Help"),
-                                           tr("Please enter your number and service worker will contact you soon"
-                                              "\nEnter your phone number:"), QLineEdit::Normal,
-                                           "", &ok);
-      if (!ok || text.isEmpty())
-          return;
+    QString text = QInputDialog::getText(this, tr("Help"),
+                                         tr("Please enter your number and service worker will contact you soon"
+                                            "\nEnter your phone number:"), QLineEdit::Normal,
+                                         "", &ok);
+    if (!ok || text.isEmpty())
+        return;
 
-      QString card = QInputDialog::getText(this, tr("A call"),
-                                           tr("Your phone rings, a manager concats you. "
-                                              "\nShe asks you for the card number that you want to block:"), QLineEdit::Normal,
-                                           "", &ok);
-// if card valid bank phoning
+    QString card = QInputDialog::getText(this, tr("A call"),
+                                         tr("Your phone rings, a manager contacts you. "
+                                            "\nShe asks you for the card number that you want to block:"), QLineEdit::Normal,
+                                         "", &ok);
+    QMessageBox::information(this, "A call", "She says that you will be cont")
 
 }
