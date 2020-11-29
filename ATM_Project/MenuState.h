@@ -5,6 +5,10 @@
 #include <QMessageBox>
 
 class MenuState : public WindowState {
+public:
+
+    MenuState(MainWindow* context): WindowState(context) {}
+
 private:
     const QString do_screenName() override {
         return "Menu";
@@ -34,9 +38,7 @@ private:
     }
 
     void do_handleButtonR1() override{
-    QMessageBox msgBox;
-    msgBox.setText("Has not been implemented yed.");
-    msgBox.exec();
+        context->goToPage(SelectCharity);
     }
 
     void do_handleButtonR2() override{

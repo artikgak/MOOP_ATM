@@ -6,9 +6,11 @@
 #include <QSound>
 
 class WithdrawState : public WindowState {
+public:
+    WithdrawState(MainWindow* context): WindowState(context) {}
 
 private:
-    const QString do_screenName() override {
+     const QString do_screenName() override {
         return "Withdraw funds";
     }
 
@@ -49,6 +51,7 @@ private:
             break;
         }
     }
+
 
     //CHARACTER HANDLING
     void do_enterNum(char num) override {

@@ -21,12 +21,15 @@ public:
     bool addCortegeCard(const std::string, const std::string, const double);
     bool addCortegeAdmin(const std::string);
     bool addCortegeCharity(const std::string, const std::string);
+
     bool deleteCortegeCard(const std::string);
     bool cardExists(const std::string);
     bool checkTries(const std::string);
     bool checkPin(const std::string, const std::string);
     double getMoney(const std::string);
     bool addMoney(const std::string, const double);
+
+
 
     bool getAllDataCard();
     bool getAllDataAdmin();

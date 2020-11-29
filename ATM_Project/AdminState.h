@@ -4,6 +4,10 @@
 #include "mainwindow.h"
 
 class AdminState : public WindowState {
+public:
+    AdminState(MainWindow* context): WindowState(context) {}
+
+
 private:
     const QString do_screenName() override {
         return "Admin";
