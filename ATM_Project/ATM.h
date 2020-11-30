@@ -9,23 +9,22 @@
 class Test_Front;
 class MainWindow;
 
-class ATM : public QObject
-{
+class ATM : public QObject  {
     Q_OBJECT
 private:
+    /*Program needs only one ATM, no such use scenarios*/
+    ATM& operator=(ATM&) = delete;
+    ATM(ATM&) = delete;
+
     /* Class variables */
     MainWindow* mainW;
 
     DataBase& db;
-    std::string* card;
-    std::string* pin;
-    ATMState state;
-    Cheque cheque{"", "", 0, ""};
+    std::string* card; /*Card != nullptr if it's in reader*/
+    std::string* pin;  /*Pin != nullprt if it's already entered and valid*/
+    Cheque cheque{"", "", 0, ""}; /*Cheque which records all of the transactions that are performed*/
 
-    ATM& operator=(ATM&) = delete;
-    ATM(ATM&) = delete;
-
-    QFile file;
+    QFile file; /*Banknotes file*/
 
     void recountBankNotes(const int sum, const int billsSize=5);
 

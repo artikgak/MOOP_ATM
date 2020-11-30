@@ -34,7 +34,7 @@ MainWindow::MainWindow(ATM& atm, QWidget *parent)
     // UI CODE
     ui->setupUi(this);
     MainWindow::setGeometry(330,200,MAINWINW,MAINWINH);
-    ui->stackedWidget->setCurrentIndex(Idle);
+    ui->stackedWidget->setCurrentIndex(0);
     startTimer(1000);   // 1-second timer
     ui->wrongCardNumLabel->setVisible(false);
     _loaderLbl = new QLabel(ui->stackedWidget);
@@ -268,15 +268,13 @@ void MainWindow::unblockInput() {
 }
 
 // ************************************ FeedBackFrom back-end ***************************************************
-void MainWindow::displayAvailBankNotes()
-{
-QString str = "Available banknotes: ";
-for(int i=0; i<5; i++)
-    if(atm.bankNotes[i])
-    str+= "   " + QString::number(atm.bills[i]);
-ui->withdrawErrorMsg->setText(str);
+void MainWindow::displayAvailBankNotes(){
+    QString str = "Available banknotes: ";
+    for(int i=0; i<5; i++)
+        if(atm.bankNotes[i])
+            str+= "   " + QString::number(atm.bills[i]);
+    ui->availBanknotesLabel->setText(str);
 }
-
 
 void MainWindow::clearCurrentPage(){state->clearCurrentPage();}
 
