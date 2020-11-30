@@ -1,15 +1,14 @@
 #include "ATM.h"
 #include "mainwindow.h"
-#include "DataBase.h"
 
 #include <iostream>
 #include <QString>
-#include <QDebug>
 #include <functional>
 #include <fstream>
 #include <cassert>
 #include <iomanip>
 #include <sstream>
+#include "DataBase.h"
 #include <time.h>
 
 using namespace std;
@@ -24,18 +23,19 @@ ATM::ATM():
         file("../ATM_Project/bnkNote.txt"),
         //file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
         bankNotes(new int[5]) {
-    fullDB(db); //fills db with values
+    fullDB(db);
     file.open(QIODevice::ReadOnly);
     if(!file.isOpen())
-         qDebug() << "<banknotes not open>" <<endl;
+        cout << "<banknotes not open>" <<endl;
     QString line = file.readLine();
     file.close();
 
     QStringList list = line.split(' ');
     for(int i=0; i<list.length(); ++i)
         bankNotes[i] = list.at(i).toInt();
-    qDebug() << "<" << line << ">" <<endl;
+    cout << "<" << line.toStdString() << ">" <<endl;
 }
+
 
 ATM::~ATM() {
     delete card;
@@ -46,7 +46,7 @@ bool ATM::validateAdmin(const string& id){
     assert(card == nullptr); // Card-reader should be empty
     assert(pin == nullptr); // Pin should be empty
 
-    qDebug() << "Validating admin " << id.c_str() << endl;
+    cout  << "Validating admin " << id << endl;
     return db.adminExists(id);
 }
 
@@ -54,7 +54,7 @@ bool ATM::validateCard(const string& cardNum) {
     assert(card == nullptr); // Card-reader should be empty
     assert(pin == nullptr); // Pin should be empty
 
-    qDebug() << "Validating card: " << cardNum.c_str() << endl;
+    cout  << "Validating card: " << cardNum << endl;
     bool retrieved = db.cardExists(cardNum);
 
     if (retrieved) card = new string(cardNum);
@@ -66,7 +66,7 @@ bool ATM::validateLogin(const string& entered) {
     assert(card != nullptr); // There should be a card in card-reader
     assert(pin == nullptr); // Should be no pin at this point
 
-    qDebug() << "Validating pin: " << entered.c_str() << endl;
+    cout  << "Validating pin: " << entered << endl;
     bool correct = db.checkPin(*card, entered);
     if (correct) pin = new string(entered);
     else {
@@ -96,7 +96,7 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     assert(card != nullptr); // Card should be present
     assert(pin != nullptr); // Pin should be entered
 
-    // find max dilnyk
+    // find max banknote
     int i = 0;
     while (sum % bills[i] && i < 5)
         ++i;
@@ -116,7 +116,23 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     if(withdraw < sum)
         return UserNoMoney;
 
+
     int summa = sum;
+    int tryfind[] = {0,0,0,0,0};
+    for(int i=4; i>=0; --i)
+        while(summa>=bills[i] && (bankNotes[i]-tryfind[i])>0)
+        {
+            summa-=bills[i];
+            tryfind[i]++;
+        }
+
+    if(summa)
+        return AtmNoBills;
+
+    for(int i=0; i<5; ++i)
+        bankNotes[i]-=tryfind[i];
+
+
     db.addMoney(*card, -summa);
 
     time_t rawtime;
@@ -222,8 +238,12 @@ void ATM::ejectCard() {
 std::vector<Charity> ATM::getCharities(const uint page) {
     std::vector<Charity> charities = db.getCharities(page, 4);
 
+    /*charities.push_back(Charity{0,"Cancer research", ""});
+    charities.push_back(Charity{1,"Hunger alleviation", ""});
+    charities.push_back(Charity{2,"Bumbumbum", ""});*/
+
     for (auto current : charities) {
-        qDebug() << '\t' << current.id << ' ' << current.name.c_str() << ' ' << current.desc.c_str() << '\n';
+        std::cout << '\t' << current.id << ' ' << current.name << ' ' << current.desc << '\n';
     }
 
     return charities;
@@ -231,9 +251,7 @@ std::vector<Charity> ATM::getCharities(const uint page) {
 
 bool ATM::payCharity(uint id, uint sum) {
     assert(card != nullptr);
-
     qDebug() << "Transfering to " << id << " $" << sum;
-
     int summa = sum;
     db.addMoney(*card, -summa);
     return true;

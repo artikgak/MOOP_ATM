@@ -32,7 +32,6 @@ private:
         bool *ok = nullptr;
         uint sum = num.toUInt(ok);
         assert(&ok); //should always be a valid number
-
         WithdrawResponse response = emit context->withdrawMoney(sum);
 
         switch (response) {
@@ -49,8 +48,8 @@ private:
             QSound::play(":sounds/cashDistr.wav");
             getUi()->succFailLab->setText("Withdraw successful\nThank You for using our bank.");
             getUi()->succFailLab->setStyleSheet("color: #269E13;");
-            context->goToPage(SuccessFail);
             QMessageBox::about(context,"Money", "Please take your bills");
+            context->goToPage(SuccessFail);
             break;
         }
     }
