@@ -46,7 +46,7 @@ signals:
 
     WithdrawResponse withdrawMoney(const uint sum);
 
-    PhoneResponse rechargePhone(const uint sum);
+    PhoneResponse rechargePhone(const uint sum, const std::string& phoneNum);
     TransferResponse transferMoney(const uint sum, const std::string& cardNum);
 
     QString withdMoney();

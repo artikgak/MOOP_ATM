@@ -43,7 +43,7 @@ public:
 public slots:
     WithdrawResponse withdrawMoney(const uint sum);
     TransferResponse transferMoney(const uint sum, const std::string& cardNum);
-    PhoneResponse rechargePhone(const uint sum);
+    PhoneResponse rechargePhone(const uint sum,const std::string& phone);
     bool validateAdmin(const std::string& adminID);
     bool validateCard(const std::string& cardNum);
     bool validateLogin(const std::string& pin);

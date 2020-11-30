@@ -140,7 +140,7 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     return WOK;
 }
 
-PhoneResponse ATM::rechargePhone(const uint sum) {
+PhoneResponse ATM::rechargePhone(const uint sum, const std::string& phone) {
     assert(card != nullptr); // Card should be present
     assert(pin != nullptr); // Pin should be entered
 
@@ -148,6 +148,8 @@ PhoneResponse ATM::rechargePhone(const uint sum) {
     // if bad credit limit
     if(money < sum)
         return NotEnoughMoney;
+
+    createCheque("Top-up phone", phone, sum);
 
     return db.addMoney(*card, -sum) ? POK : PFail;
 }
