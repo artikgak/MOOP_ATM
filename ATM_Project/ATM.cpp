@@ -184,6 +184,9 @@ TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
     assert(card != nullptr);
     assert(pin != nullptr);
 
+    if(cardNum == *card )
+        return SAMECARD;
+
     if(!db.cardExists(cardNum))
         return TARGETCARDNOTFOUND;
 
@@ -238,25 +241,52 @@ void ATM::ejectCard() {
 std::vector<Charity> ATM::getCharities(const uint page) {
     std::vector<Charity> charities = db.getCharities(page, 4);
 
-    /*charities.push_back(Charity{0,"Cancer research", ""});
-    charities.push_back(Charity{1,"Hunger alleviation", ""});
-    charities.push_back(Charity{2,"Bumbumbum", ""});*/
-
     for (auto current : charities) {
-        std::cout << '\t' << current.id << ' ' << current.name << ' ' << current.desc << '\n';
+        std::cout << '\t' << current.id << ' ' << current.name << '\n';
     }
 
     return charities;
 }
 
-bool ATM::payCharity(uint id, uint sum) {
+TransferResponse ATM::payCharity(uint id, uint sum) {
     assert(card != nullptr);
     qDebug() << "Transfering to " << id << " $" << sum;
     int summa = sum;
-    db.addMoney(*card, -summa);
-    return true;
+    bool resp = db.addMoney(*card, -summa);
+
+    if(resp)
+    {
+    createCheque("Charity donation", std::string(getCharities(0).at(id).name), sum);
+    return TOK;
+    }
+    return NotEnoughMonet;
 }
 
+
+void ATM::createCheque(std::string what, std::string to, int sum)
+{
+    time_t rawtime;
+    struct tm * timeinfo;
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    std::string datetime(asctime(timeinfo));
+    /* what
+     * *card      - card FROM
+     * cardNum    - card TO
+     * sum        - summa
+     * date, time - date, time
+     */
+    cheque.what = what;
+    cheque.from = std::string(*card);
+    cheque.to = to;
+    cheque.summa = sum;
+    cheque.datetime = datetime;
+
+    std::cout << "From " << cheque.from << '\n' <<
+                 "To " << cheque.to << '\n' <<
+                 "Amount " << cheque.summa << '\n' <<
+                 "When: " << cheque.datetime << '\n' << std::flush;
+}
 
 void ATM::saveBankToFile()
 {

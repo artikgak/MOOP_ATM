@@ -1607,9 +1607,9 @@ background: #E8FAD5</string>
                 <property name="geometry">
                  <rect>
                   <x>10</x>
-                  <y>30</y>
-                  <width>131</width>
-                  <height>31</height>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1632,9 +1632,9 @@ background: #E8FAD5</string>
                 <property name="geometry">
                  <rect>
                   <x>10</x>
-                  <y>20</y>
-                  <width>121</width>
-                  <height>31</height>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1657,9 +1657,9 @@ background: #E8FAD5</string>
                 <property name="geometry">
                  <rect>
                   <x>10</x>
-                  <y>20</y>
-                  <width>131</width>
-                  <height>41</height>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1684,10 +1684,10 @@ background: #E8FAD5</string>
                <widget class="QLabel" name="charity4">
                 <property name="geometry">
                  <rect>
-                  <x>110</x>
-                  <y>20</y>
-                  <width>141</width>
-                  <height>31</height>
+                  <x>10</x>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1713,10 +1713,10 @@ background: #E8FAD5</string>
                <widget class="QLabel" name="charity5">
                 <property name="geometry">
                  <rect>
-                  <x>200</x>
-                  <y>20</y>
-                  <width>51</width>
-                  <height>31</height>
+                  <x>10</x>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1793,16 +1793,34 @@ background: #E8FAD5</string>
              </item>
              <item row="3" column="0">
               <widget class="QWidget" name="widget_19" native="true">
-               <widget class="QLineEdit" name="charitySumField_2">
+               <widget class="QLabel" name="label_35">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>30</y>
+                  <width>91</width>
+                  <height>21</height>
+                 </rect>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>14</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Donate</string>
+                </property>
+               </widget>
+               <widget class="QLineEdit" name="charitySumField">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
                 <property name="geometry">
                  <rect>
-                  <x>110</x>
+                  <x>100</x>
                   <y>0</y>
-                  <width>161</width>
-                  <height>70</height>
+                  <width>171</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="minimumSize">
@@ -1824,7 +1842,6 @@ background: #E8FAD5</string>
                 <property name="styleSheet">
                  <string notr="true">background-color: white;
 border-color: black;
-margin-right: 10px;
 background: #E8FAD5</string>
                 </property>
                 <property name="text">
@@ -1832,24 +1849,6 @@ background: #E8FAD5</string>
                 </property>
                 <property name="readOnly">
                  <bool>true</bool>
-                </property>
-               </widget>
-               <widget class="QLabel" name="label_35">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>30</y>
-                  <width>71</width>
-                  <height>21</height>
-                 </rect>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>14</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Transfer</string>
                 </property>
                </widget>
               </widget>
@@ -1967,7 +1966,7 @@ margin: 1px;</string>
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLineEdit" name="charitySumField">
+              <widget class="QLineEdit" name="charitySumField_5">
                <property name="enabled">
                 <bool>true</bool>
                </property>

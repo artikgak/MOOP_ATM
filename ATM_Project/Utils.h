@@ -13,7 +13,7 @@ enum InputField{
 };
 
 enum TransferResponse{
-    NotEnoughMonet, TOK, FAIL, TARGETCARDNOTFOUND
+    NotEnoughMonet, TOK, FAIL, TARGETCARDNOTFOUND, SAMECARD
 };
 
 enum WithdrawResponse {

@@ -58,6 +58,7 @@ private:
             return;  // card len
         }
 
+
         bool *ok = nullptr;
         uint sum = num.toUInt(ok);
         assert(&ok); //should always be a valid number
@@ -65,6 +66,9 @@ private:
         TransferResponse response = emit context->transferMoney(sum, targetCard.toStdString());
 
         switch (response) {
+        case SAMECARD:
+            getUi()->transError->setText("Target card cannot be input card");
+            return;
         case NotEnoughMonet:
             getUi()->transError->setText("Not enough funds");
             return;

@@ -558,16 +558,8 @@ void fullDB(DataBase& db)
     db.addCortegeAdmin("admin");
 
     /* Adding to charity table */
-    db.addCortegeCharity("charity1", "description for charity 1");
-    db.addCortegeCharity("charity2", "description for charity 2");
-    db.addCortegeCharity("charity3", "description for charity 3");
-    db.addCortegeCharity("charity4", "description for charity 4");
-    db.addCortegeCharity("charity5", "description for charity 5");
-    db.addCortegeCharity("charity6", "description for charity 6");
-    db.addCortegeCharity("charity7", "description for charity 7");
-    db.addCortegeCharity("charity8", "description for charity 8");
-    db.addCortegeCharity("charity9", "description for charity 9");
-    db.addCortegeCharity("charity10", "description for charity 10");
-    db.addCortegeCharity("charity11", "description for charity 11");
-    db.addCortegeCharity("charity12", "description for charity 12");
+    db.addCortegeCharity("Open Society Foundation", "description for charity 1");
+    db.addCortegeCharity("The Ford Foundation", "description for charity 2");
+    db.addCortegeCharity("The United Nations", "description for charity 3");
+    db.addCortegeCharity("The Rockefeller Foundation", "description for charity 4");
 }

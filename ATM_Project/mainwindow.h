@@ -41,7 +41,7 @@ signals:
     std::string getBalance();
     void ejectCard();
 
-    bool payCharity(uint id, uint sum);
+    TransferResponse payCharity(uint id, uint sum);
     std::vector<Charity> getCharities(const uint page);
 
     WithdrawResponse withdrawMoney(const uint sum);
