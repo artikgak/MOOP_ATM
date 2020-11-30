@@ -9,10 +9,8 @@ private:
     bool sumActive;   // 1 - sum, 0 - target card
 
 public:
-    TransferState(MainWindow* context):sumActive(1), WindowState(context){
-      //  getUi()->transactionSumField->setStyleSheet("background: #E8FAD5;");
-        // memory violation access ???
-    }
+    TransferState(MainWindow* context):WindowState(context), sumActive(1){}
+
 private:
     const QString do_screenName() override {
         return "Money transfer";
@@ -58,6 +56,7 @@ private:
             return;  // card len
         }
 
+
         bool *ok = nullptr;
         uint sum = num.toUInt(ok);
         assert(&ok); //should always be a valid number
@@ -65,6 +64,9 @@ private:
         TransferResponse response = emit context->transferMoney(sum, targetCard.toStdString());
 
         switch (response) {
+        case SAMECARD:
+            getUi()->transError->setText("Target card cannot be input card");
+            return;
         case NotEnoughMonet:
             getUi()->transError->setText("Not enough funds");
             return;

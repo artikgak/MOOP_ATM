@@ -5,6 +5,8 @@
 #include "Charity.h"
 #include "QString"
 #include "QDebug"
+#include <QMessageBox>
+
 
 class SelectCharityState : public WindowState
 {
@@ -61,35 +63,35 @@ public:
 
     void do_handleButtonL1() override {
         resetStyle();
-        getUi()->charity1->setStyleSheet("background: #E8FAD5;"); //moved here
+        getUi()->charity1->setStyleSheet("background: #FFF2A1;"); //moved here
         select = 0;
     }
     void do_handleButtonL2() override {
         resetStyle();
-        getUi()->charity2->setStyleSheet("background: #E8FAD5;"); //moved here
+        getUi()->charity2->setStyleSheet("background: #FFF2A1;"); //moved here
         select = 1;
     }
     void do_handleButtonL3() override {
         resetStyle();
-        getUi()->charity3->setStyleSheet("background: #E8FAD5;"); //moved here
+        getUi()->charity3->setStyleSheet("background: #FFF2A1;"); //moved here
         select = 2;
     }
 
     void do_handleButtonR1() override {
         resetStyle();
-        getUi()->charity4->setStyleSheet("background: #E8FAD5;"); //moved here
+        getUi()->charity4->setStyleSheet("background: #FFF2A1;"); //moved here
         select = 3;
     }
 
     void do_handleButtonR2() override {
         resetStyle();
-        getUi()->charity5->setStyleSheet("background: #E8FAD5;"); //moved here
+        getUi()->charity5->setStyleSheet("background: #FFF2A1;"); //moved here
         select = 4;
     }
 
     void do_handleButtonR3() override {
         resetStyle();
-        getUi()->charity6->setStyleSheet("background: #E8FAD5;"); //moved here
+        getUi()->charity6->setStyleSheet("background: #FFF2A1;"); //moved here
         select = 5;
     }
 
@@ -105,8 +107,28 @@ public:
         assert(&ok);
 
 
-        bool isPaymentOk = emit context->payCharity(charities[select].id, sum);
-        context->goToPage(Menu);
+        TransferResponse isPaymentOk = emit context->payCharity(charities[select].id-1, sum);
+
+        switch (isPaymentOk)
+        {
+        case NotEnoughMonet:
+            getUi()->succFailLab->setText("Not enough money on your balance.");
+            getUi()->succFailLab->setStyleSheet("color: #fa8072;");
+            getUi()->printCheckLabel->setText("");
+            context->goToPage(SuccessFail);
+            break;
+        case TOK:
+            getUi()->succFailLab->setText("Donation successful\nThank You for using our bank.");
+            getUi()->succFailLab->setStyleSheet("color: #269E13;");
+            context->goToPage(SuccessFail);
+            break;
+        default:
+            getUi()->succFailLab->setText("Donation is not available now. Try later");
+            getUi()->succFailLab->setStyleSheet("color: #fa8072;");
+            context->goToPage(SuccessFail);
+            break;
+        }
+
     }
 
     void resetStyle() {

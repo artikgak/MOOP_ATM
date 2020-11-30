@@ -7,7 +7,9 @@
 
 class WithdrawState : public WindowState {
 public:
-    WithdrawState(MainWindow* context): WindowState(context) {}
+    WithdrawState(MainWindow* context): WindowState(context) {
+        context->displayAvailBankNotes();
+    }
 
 private:
      const QString do_screenName() override {
@@ -30,13 +32,11 @@ private:
         bool *ok = nullptr;
         uint sum = num.toUInt(ok);
         assert(&ok); //should always be a valid number
-
         WithdrawResponse response = emit context->withdrawMoney(sum);
 
         switch (response) {
         case AtmNoBills:
-            context->displayAvailBankNotes();
-            //getUi()->withdrawErrorMsg->setText("Available banknotes: ");
+            getUi()->withdrawErrorMsg->setText("No bills to give you that sum.");
             return;
         case UserNoMoney:
             getUi()->withdrawErrorMsg->setText("Not enough funds");
@@ -48,8 +48,9 @@ private:
             QSound::play(":sounds/cashDistr.wav");
             getUi()->succFailLab->setText("Withdraw successful\nThank You for using our bank.");
             getUi()->succFailLab->setStyleSheet("color: #269E13;");
+            QString moneyToTake = emit context->withdMoney();
+            QMessageBox::about(context,"Please take your bills", moneyToTake);
             context->goToPage(SuccessFail);
-            QMessageBox::about(context,"Money", "Please take your bills");
             break;
         }
     }

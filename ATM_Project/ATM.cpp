@@ -20,9 +20,10 @@ ATM::ATM():
         db(*new DataBase("db")), // should be parameter - name of database. if not database is DefaultDB.sqlite
         card(nullptr),
         pin(nullptr),
-        //file("../ATM_Project/bnkNote.txt"),
-        file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
-        bankNotes(new int[5]) {
+        file("../ATM_Project/bnkNote.txt"),
+        //file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
+        bankNotes(new int[5]),
+        bnkOnPot(new int[5]){
     fullDB(db);
     file.open(QIODevice::ReadOnly);
     if(!file.isOpen())
@@ -33,6 +34,7 @@ ATM::ATM():
     QStringList list = line.split(' ');
     for(int i=0; i<list.length(); ++i)
         bankNotes[i] = list.at(i).toInt();
+    for(int i=0; i<5; ++i)bnkOnPot[i]=0;
     cout << "<" << line.toStdString() << ">" <<endl;
 }
 
@@ -40,6 +42,13 @@ ATM::ATM():
 ATM::~ATM() {
     delete card;
     delete[] bankNotes;
+    delete[] bnkOnPot;
+}
+
+void ATM::takeMoney()
+{
+    for(int i=0;i<5;++i)
+        bnkOnPot[i]=0;
 }
 
 bool ATM::validateAdmin(const string& id){
@@ -96,13 +105,6 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     assert(card != nullptr); // Card should be present
     assert(pin != nullptr); // Pin should be entered
 
-    // find max dilnyk
-    int i = 0;
-    while (sum % bills[i] && i < 5)
-        ++i;
-    if(i == 5)
-        return AtmNoBills;
-
     // work with banknotes
     size_t allMoney = 0;
     for (int i = 0; i<5; ++i)
@@ -116,29 +118,29 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     if(withdraw < sum)
         return UserNoMoney;
 
+
     int summa = sum;
+    for(int i=4; i>=0; --i)
+        while(summa>=bills[i] && (bankNotes[i]-bnkOnPot[i])>0)
+        {
+            summa-=bills[i];
+            bnkOnPot[i]++;
+        }
+
+    if(summa)
+        return AtmNoBills;
+
+    for(int i=0; i<5; ++i)
+        bankNotes[i]-=bnkOnPot[i];
+
+
     db.addMoney(*card, -summa);
 
-    time_t rawtime;
-    struct tm * timeinfo;
-
-    time ( &rawtime );
-    timeinfo = localtime ( &rawtime );
-    std::string datetime(asctime(timeinfo));
-
-    cheque.from = std::string(*card);
-    cheque.to = "";
-    cheque.summa = sum;
-    cheque.datetime = datetime;
-
-    std::cout << "From " << cheque.from << '\n' <<
-                 "Amount " << cheque.summa << '\n' <<
-                 "When: " << cheque.datetime << '\n' << std::flush;
-
+    createCheque("Withdraw",  "", sum);
     return WOK;
 }
 
-PhoneResponse ATM::rechargePhone(const uint sum) {
+PhoneResponse ATM::rechargePhone(const uint sum, const std::string& phone) {
     assert(card != nullptr); // Card should be present
     assert(pin != nullptr); // Pin should be entered
 
@@ -146,6 +148,8 @@ PhoneResponse ATM::rechargePhone(const uint sum) {
     // if bad credit limit
     if(money < sum)
         return NotEnoughMoney;
+
+    createCheque("Top-up phone", phone, sum);
 
     return db.addMoney(*card, -sum) ? POK : PFail;
 }
@@ -168,6 +172,9 @@ TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
     assert(card != nullptr);
     assert(pin != nullptr);
 
+    if(cardNum == *card )
+        return SAMECARD;
+
     if(!db.cardExists(cardNum))
         return TARGETCARDNOTFOUND;
 
@@ -181,30 +188,7 @@ TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
     succ = db.addMoney(cardNum, sum);
     if (!succ) return FAIL;
 
-    time_t rawtime;
-    struct tm * timeinfo;
-
-    time ( &rawtime );
-    timeinfo = localtime ( &rawtime );
-    std::string datetime(asctime(timeinfo));
-
-    /*
-     * *card      - card FROM
-     * cardNum    - card TO
-     * sum        - summa
-     * date, time - date, time
-     */
-
-    cheque.from = std::string(*card);
-    cheque.to = std::string(cardNum);
-    cheque.summa = sum;
-    cheque.datetime = datetime;
-
-    std::cout << "From " << cheque.from << '\n' <<
-                 "To " << cheque.to << '\n' <<
-                 "Amount " << cheque.summa << '\n' <<
-                 "When: " << cheque.datetime << '\n' << std::flush;
-
+    createCheque("Transfer",  std::string(cardNum), sum);
     return TOK;
 }
 
@@ -222,25 +206,64 @@ void ATM::ejectCard() {
 std::vector<Charity> ATM::getCharities(const uint page) {
     std::vector<Charity> charities = db.getCharities(page, 4);
 
-    /*charities.push_back(Charity{0,"Cancer research", ""});
-    charities.push_back(Charity{1,"Hunger alleviation", ""});
-    charities.push_back(Charity{2,"Bumbumbum", ""});*/
-
     for (auto current : charities) {
-        std::cout << '\t' << current.id << ' ' << current.name << ' ' << current.desc << '\n';
+        std::cout << '\t' << current.id << ' ' << current.name << '\n';
     }
 
     return charities;
 }
 
-bool ATM::payCharity(uint id, uint sum) {
+TransferResponse ATM::payCharity(uint id, uint sum) {
     assert(card != nullptr);
     qDebug() << "Transfering to " << id << " $" << sum;
     int summa = sum;
-    db.addMoney(*card, -summa);
-    return true;
+    bool resp = db.addMoney(*card, -summa);
+
+    if(resp)
+    {
+    createCheque("Charity donation", std::string(getCharities(0).at(id).name), sum);
+    return TOK;
+    }
+    return NotEnoughMonet;
 }
 
+
+QString ATM::withdMoney()
+{
+    QString st;
+    for(int i=0; i<5; ++i)
+        if(bnkOnPot[i]>0)
+            st+= QString::number(bills[i]) + "grn - " +
+                    QString::number(bnkOnPot[i]) + "banknotes\n" ;
+
+    takeMoney();
+    return st;
+}
+
+void ATM::createCheque(std::string what, std::string to, int sum)
+{
+    time_t rawtime;
+    struct tm * timeinfo;
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    std::string datetime(asctime(timeinfo));
+    /* what
+     * *card      - card FROM
+     * cardNum    - card TO
+     * sum        - summa
+     * date, time - date, time
+     */
+    cheque.what = what;
+    cheque.from = std::string(*card);
+    cheque.to = to;
+    cheque.summa = sum;
+    cheque.datetime = datetime;
+
+    std::cout << "From " << cheque.from << '\n' <<
+                 "To " << cheque.to << '\n' <<
+                 "Amount " << cheque.summa << '\n' <<
+                 "When: " << cheque.datetime << '\n' << std::flush;
+}
 
 void ATM::saveBankToFile()
 {

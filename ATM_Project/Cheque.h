@@ -1,13 +1,13 @@
-#ifndef CHEQUE_H
-#define CHEQUE_H
+#pragma once
 
 #include <string>
 
 struct Cheque {
+    std::string what;
     std::string from;
     std::string to;
     int summa;
     std::string datetime;
 };
 
-#endif // CHEQUE_H
+

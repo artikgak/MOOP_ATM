@@ -22,7 +22,7 @@
 const int MainWindow::MAINWINW = 680;
 const int MainWindow::MAINWINH = 550;
 
-MainWindow::MainWindow(ATM* atm, QWidget *parent)
+MainWindow::MainWindow(ATM& atm, QWidget *parent)
     : QMainWindow(parent)
 //    , state(0)
     , ui(new Ui::MainWindow)
@@ -34,7 +34,7 @@ MainWindow::MainWindow(ATM* atm, QWidget *parent)
     // UI CODE
     ui->setupUi(this);
     MainWindow::setGeometry(330,200,MAINWINW,MAINWINH);
-    ui->stackedWidget->setCurrentIndex(Idle);
+    ui->stackedWidget->setCurrentIndex(0);
     startTimer(1000);   // 1-second timer
     ui->wrongCardNumLabel->setVisible(false);
     _loaderLbl = new QLabel(ui->stackedWidget);
@@ -58,7 +58,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::closeEvent (QCloseEvent *event)
 {
-    atm->saveBankToFile();
+    atm.saveBankToFile();
     event->accept();
 }
 
@@ -80,17 +80,16 @@ void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
 //    ui->succFailLab->setText(errorMsg);
     QMessageBox::critical(this,"Error",errorMsg, QMessageBox::Ok);
     goToPage(whereToGo);
-    unblockInput();
 }
 
 void MainWindow::saveBankNotes()
 {
-atm->bankNotes[0]=ui->spinBox->value();
-atm->bankNotes[1]=ui->spinBox_1->value();
-atm->bankNotes[2]=ui->spinBox_2->value();
-atm->bankNotes[3]=ui->spinBox_3->value();
-atm->bankNotes[4]=ui->spinBox_4->value();
-atm->saveBankToFile();
+atm.bankNotes[0]=ui->spinBox->value();
+atm.bankNotes[1]=ui->spinBox_1->value();
+atm.bankNotes[2]=ui->spinBox_2->value();
+atm.bankNotes[3]=ui->spinBox_3->value();
+atm.bankNotes[4]=ui->spinBox_4->value();
+atm.saveBankToFile();
 }
 
 void MainWindow::showCheque()
@@ -100,20 +99,18 @@ void MainWindow::showCheque()
     msg.setWindowTitle("Print Cheque");
     msg.setStandardButtons(QMessageBox::Ok);
     msg.setStyleSheet("QLabel{min-width: 370px;}");
-    Cheque cheque = atm->getCheque();
+    Cheque cheque = atm.getCheque();
     QString st("");
-    if(cheque.to=="")
-        st+="=============================\nATM withdrow "
-            "operation\n=============================\n";
-    else st+="=============================\nATM transfer "
-             "operation\n=============================\n";
+    st+="=============================\n"
+                + QString::fromStdString(cheque.what) +
+            "\n=============================\n"
 
-    st += "From " + QString::fromStdString(cheque.from) + '\n';
+     + "From: " + QString::fromStdString(cheque.from) + '\n';
 
-    if(cheque.to!="")
-        st+="To " + QString::fromStdString(cheque.to) + '\n';
+if(cheque.to!="")
+     st+=  "To: " + QString::fromStdString(cheque.to) + '\n';
 
-    st+="Amount " + QString::number(cheque.summa) + '\n' +
+    st+="Amount: " + QString::number(cheque.summa) + "grn\n" +
                  "Date-Time: " + QString::fromStdString(cheque.datetime)
             + "=============================";
     msg.setText(st);
@@ -152,7 +149,6 @@ void MainWindow::goToPage(const ScreenPage sp)
 
     ui->screenLabel->setText(state->screenName());
 
-    unblockInput();
 }
 
 void MainWindow::displayBankNotes(const int* arr){
@@ -162,13 +158,11 @@ void MainWindow::displayBankNotes(const int* arr){
     ui->spinBox_2->setValue(arr[2]);
     ui->spinBox_3->setValue(arr[3]);
     ui->spinBox_4->setValue(arr[4]);
-    unblockInput();
 }
 
 void MainWindow::displayBalance(const std::string& money) {
     goToPage(Balance);
     ui->cashBalanceLabel->setText(QString::fromStdString(money) + "₴");
-    unblockInput();
 }
 
 void MainWindow::wrongPin(const uint triesLeft) {
@@ -180,11 +174,10 @@ void MainWindow::wrongPin(const uint triesLeft) {
 
 void MainWindow::on_inputCard_clicked()
 {
-    blockInput();
     bool ok;
     QString num = QInputDialog::getText(this, tr("Input card"),
                                             tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
-    if(!ok){ unblockInput(); return;}
+    if(!ok) return;
 
     num = num.replace(" ", "");
     bool valid = emit validateCard(num.toStdString());
@@ -200,32 +193,6 @@ void MainWindow::endSession() {
     emit ejectCard();
     destination = Menu; //TODO DELETE WHEN STATES ARE DONE
 }
-
-
-/*
-void MainWindow::hideLoader()
-{
-    movie->stop();
-    lbl->hide();
-    delete movie;
-    delete lbl;
-    this->setEnabled(true);
-}*/
-/*
-void MainWindow::showLoader()
-{
-    this->setEnabled(false);
-    lbl = new QLabel(ui->stackedWidget);
-    movie = new QMovie(":/images/loader.gif");
-    lbl->setMovie(movie);
-    lbl->setAlignment(Qt::AlignCenter);
-    lbl->setAttribute( Qt::WA_TranslucentBackground, true );
-    QRect p = ui->stackedWidget->geometry();
-    lbl->setGeometry(p.x()-50,p.y()-50,p.width(),p.height());
-    lbl->setWindowFlags(Qt::WindowStaysOnTopHint);
-    movie->start();
-    lbl->show();
-}*/
 
 //  Just binding to State
 void MainWindow::on_button0_clicked() {state->enterNum('0');}
@@ -257,46 +224,34 @@ void MainWindow::on_buttonR2_clicked(){state->handleButtonR2();}
 void MainWindow::on_buttonR3_clicked(){state->handleButtonR3();}
 void MainWindow::on_buttonR4_clicked(){state->handleButtonR4();}
 
-void MainWindow::blockInput() {
-//_loaderGif->start();
-//_loaderLbl->show();
-}
-
-void MainWindow::unblockInput() {
-//_loaderGif->stop();
-//_loaderLbl->hide();
-}
-
 // ************************************ FeedBackFrom back-end ***************************************************
-void MainWindow::displayAvailBankNotes()
-{
-QString str = "Available banknotes: ";
-for(int i=0; i<5; i++)
-    if(atm->bankNotes[i])
-    str+= "   " + QString::number(atm->bills[i]);
-ui->withdrawErrorMsg->setText(str);
+void MainWindow::displayAvailBankNotes(){
+    QString str = "Available banknotes: ";
+    for(int i=0; i<5; i++)
+        if(atm.bankNotes[i])
+            str+= "   " + QString::number(atm.bills[i]);
+    ui->availBanknotesLabel->setText(str);
 }
-
 
 void MainWindow::clearCurrentPage(){state->clearCurrentPage();}
 
 void MainWindow::connectSignals() {
-    QObject::connect(atm, &ATM::goToPage, this, &MainWindow::goToPage);
-    QObject::connect(atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
-    QObject::connect(atm, &ATM::wrongPin, this, &MainWindow::wrongPin);
+    QObject::connect(&atm, &ATM::goToPage, this, &MainWindow::goToPage);
+    QObject::connect(&atm, &ATM::errorMsg, this, &MainWindow::errorMsg);
+    QObject::connect(&atm, &ATM::wrongPin, this, &MainWindow::wrongPin);
 
-    QObject::connect(this, &MainWindow::validateLogin, atm, &ATM::validateLogin);
-    QObject::connect(this, &MainWindow::getBalance, atm, &ATM::getBalance);
-    QObject::connect(this, &MainWindow::validateCard, atm, &ATM::validateCard);
-    QObject::connect(this, &MainWindow::ejectCard, atm, &ATM::ejectCard);
-    QObject::connect(this, &MainWindow::withdrawMoney, atm, &ATM::withdrawMoney);
-    QObject::connect(this, &MainWindow::transferMoney, atm, &ATM::transferMoney);
-    QObject::connect(this, &MainWindow::rechargePhone, atm, &ATM::rechargePhone);
-    QObject::connect(this, &MainWindow::getCharities, atm, &ATM::getCharities);
-    QObject::connect(this, &MainWindow::payCharity, atm, &ATM::payCharity);
+    QObject::connect(this, &MainWindow::validateLogin, &atm, &ATM::validateLogin);
+    QObject::connect(this, &MainWindow::getBalance, &atm, &ATM::getBalance);
+    QObject::connect(this, &MainWindow::validateCard, &atm, &ATM::validateCard);
+    QObject::connect(this, &MainWindow::ejectCard, &atm, &ATM::ejectCard);
+    QObject::connect(this, &MainWindow::withdrawMoney, &atm, &ATM::withdrawMoney);
+    QObject::connect(this, &MainWindow::transferMoney, &atm, &ATM::transferMoney);
+    QObject::connect(this, &MainWindow::rechargePhone, &atm, &ATM::rechargePhone);
+    QObject::connect(this, &MainWindow::getCharities, &atm, &ATM::getCharities);
+    QObject::connect(this, &MainWindow::payCharity, &atm, &ATM::payCharity);
+    QObject::connect(this, &MainWindow::withdMoney, &atm, &ATM::withdMoney);
 
-
-    QObject::connect(this, &MainWindow::validateAdmin, atm, &ATM::validateAdmin);
+    QObject::connect(this, &MainWindow::validateAdmin, &atm, &ATM::validateAdmin);
 }
 
 void MainWindow::on_adminButton_clicked()
@@ -308,7 +263,7 @@ void MainWindow::on_adminButton_clicked()
     if (!ok) return;
     bool valid = emit validateAdmin(text.toStdString());
     if (valid)
-        displayBankNotes(atm->bankNotes);
+        displayBankNotes(atm.bankNotes);
 }
 
 void MainWindow::on_helpServiceButton_clicked()

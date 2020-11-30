@@ -11,10 +11,10 @@ int main(int argc, char *argv[])
 {
     ATM atm;
     QApplication a(argc, argv);
-    MainWindow w(&atm);
+    MainWindow w(atm);
     w.show();
 #ifndef QT_NO_DEBUG
-    QTest::qExec(new Test_Front());
+    //QTest::qExec(new Test_Front());
 #endif
     return a.exec();
 }

@@ -216,7 +216,7 @@ background-color: rgb(233, 255, 245);
 </string>
           </property>
           <property name="currentIndex">
-           <number>11</number>
+           <number>5</number>
           </property>
           <widget class="QWidget" name="welcome_p">
            <widget class="QPushButton" name="inputCard">
@@ -677,9 +677,9 @@ margin-bottom: 40px;</string>
                <widget class="QLabel" name="label_8">
                 <property name="geometry">
                  <rect>
-                  <x>200</x>
+                  <x>180</x>
                   <y>20</y>
-                  <width>51</width>
+                  <width>71</width>
                   <height>31</height>
                  </rect>
                 </property>
@@ -1123,7 +1123,7 @@ margin: 1px;</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Comission:</string>
+                 <string/>
                 </property>
                </widget>
                <widget class="QLabel" name="transferCommision">
@@ -1195,7 +1195,7 @@ margin: 1px;</string>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">margin-left:5px;</string>
                </property>
                <property name="text">
                 <string>Confirm</string>
@@ -1351,24 +1351,6 @@ margin: 1px;</string>
              </item>
              <item row="2" column="1">
               <widget class="QWidget" name="widget_18" native="true">
-               <widget class="QLabel" name="label_40">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>10</y>
-                  <width>71</width>
-                  <height>31</height>
-                 </rect>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Comission:</string>
-                </property>
-               </widget>
                <widget class="QLabel" name="phoneCommision">
                 <property name="geometry">
                  <rect>
@@ -1540,24 +1522,6 @@ background: #E8FAD5</string>
              </item>
              <item row="1" column="1">
               <widget class="QWidget" name="widget_17" native="true">
-               <widget class="QLabel" name="label_19">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>10</y>
-                  <width>391</width>
-                  <height>31</height>
-                 </rect>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Comission:</string>
-                </property>
-               </widget>
                <widget class="QLabel" name="availBanknotesLabel">
                 <property name="geometry">
                  <rect>
@@ -1612,7 +1576,7 @@ background: #E8FAD5</string>
               <x>0</x>
               <y>0</y>
               <width>551</width>
-              <height>381</height>
+              <height>351</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_9" rowstretch="1,1,1,1" columnstretch="1,1" columnminimumwidth="0,0">
@@ -1625,9 +1589,9 @@ background: #E8FAD5</string>
                 <property name="geometry">
                  <rect>
                   <x>10</x>
-                  <y>30</y>
-                  <width>131</width>
-                  <height>31</height>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1650,9 +1614,9 @@ background: #E8FAD5</string>
                 <property name="geometry">
                  <rect>
                   <x>10</x>
-                  <y>20</y>
-                  <width>121</width>
-                  <height>31</height>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1675,9 +1639,9 @@ background: #E8FAD5</string>
                 <property name="geometry">
                  <rect>
                   <x>10</x>
-                  <y>20</y>
-                  <width>131</width>
-                  <height>41</height>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1702,10 +1666,10 @@ background: #E8FAD5</string>
                <widget class="QLabel" name="charity4">
                 <property name="geometry">
                  <rect>
-                  <x>110</x>
-                  <y>20</y>
-                  <width>141</width>
-                  <height>31</height>
+                  <x>10</x>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1731,10 +1695,10 @@ background: #E8FAD5</string>
                <widget class="QLabel" name="charity5">
                 <property name="geometry">
                  <rect>
-                  <x>200</x>
-                  <y>20</y>
-                  <width>51</width>
-                  <height>31</height>
+                  <x>10</x>
+                  <y>10</y>
+                  <width>251</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="font">
@@ -1811,16 +1775,34 @@ background: #E8FAD5</string>
              </item>
              <item row="3" column="0">
               <widget class="QWidget" name="widget_19" native="true">
-               <widget class="QLineEdit" name="charitySumField_2">
+               <widget class="QLabel" name="label_35">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>30</y>
+                  <width>91</width>
+                  <height>21</height>
+                 </rect>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>14</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Donate</string>
+                </property>
+               </widget>
+               <widget class="QLineEdit" name="charitySumField">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
                 <property name="geometry">
                  <rect>
-                  <x>110</x>
+                  <x>100</x>
                   <y>0</y>
-                  <width>161</width>
-                  <height>70</height>
+                  <width>171</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="minimumSize">
@@ -1842,7 +1824,6 @@ background: #E8FAD5</string>
                 <property name="styleSheet">
                  <string notr="true">background-color: white;
 border-color: black;
-margin-right: 10px;
 background: #E8FAD5</string>
                 </property>
                 <property name="text">
@@ -1850,24 +1831,6 @@ background: #E8FAD5</string>
                 </property>
                 <property name="readOnly">
                  <bool>true</bool>
-                </property>
-               </widget>
-               <widget class="QLabel" name="label_35">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>30</y>
-                  <width>71</width>
-                  <height>21</height>
-                 </rect>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>14</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Transfer</string>
                 </property>
                </widget>
               </widget>
@@ -1985,7 +1948,7 @@ margin: 1px;</string>
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLineEdit" name="charitySumField">
+              <widget class="QLineEdit" name="charitySumField_5">
                <property name="enabled">
                 <bool>true</bool>
                </property>

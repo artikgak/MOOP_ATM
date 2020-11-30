@@ -1,10 +1,10 @@
 #pragma once
 
 #include <QMainWindow>
-#include "Utils.h"
-#include "Charity.h"
 #include <QLabel>
 #include <QThread>
+#include "Utils.h"
+#include "Charity.h"
 
 class WindowState;
 class Test_Front;
@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
     QThread workerThread;
 public:
     friend Test_Front;
-    MainWindow(ATM* atm, QWidget *parent = nullptr);
+    MainWindow(ATM& atm, QWidget *parent = nullptr);
     ~MainWindow();
 
 
@@ -31,12 +31,6 @@ public:
     void displayBankNotes(const int*);
     void endSession();
 
-    //void showLoader();
-    //void hideLoader();
-
-//TODO: success/fail creen
-//f - feedback
-// to find these functions much easier
     void displayAvailBankNotes(); // available banktotes
 
 signals:
@@ -47,12 +41,15 @@ signals:
     std::string getBalance();
     void ejectCard();
 
-    bool payCharity(uint id, uint sum);
+    TransferResponse payCharity(uint id, uint sum);
     std::vector<Charity> getCharities(const uint page);
 
     WithdrawResponse withdrawMoney(const uint sum);
-    PhoneResponse rechargePhone(const uint sum);
+
+    PhoneResponse rechargePhone(const uint sum, const std::string& phoneNum);
     TransferResponse transferMoney(const uint sum, const std::string& cardNum);
+
+    QString withdMoney();
 
 public slots:
     //more generic ones
@@ -100,7 +97,7 @@ private:
     static const int MAINWINW;
     static const int MAINWINH;
     Ui::MainWindow *ui;
-    ATM* atm;
+    ATM& atm;
 
     /* Internal state that will help us better incapsulate the code
      * that goes with every screen (remedy for walls of switch())   */
@@ -123,8 +120,4 @@ private:
 
     //Clears current page of previous content before switching to it
     void clearCurrentPage();
-
-    //Block and unblock input before/after sending signals to the ATM
-    void blockInput();
-    void unblockInput();
 };
