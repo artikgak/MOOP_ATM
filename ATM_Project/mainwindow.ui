@@ -216,7 +216,7 @@ background-color: rgb(233, 255, 245);
 </string>
           </property>
           <property name="currentIndex">
-           <number>6</number>
+           <number>7</number>
           </property>
           <widget class="QWidget" name="welcome_p">
            <widget class="QPushButton" name="inputCard">
@@ -1594,7 +1594,7 @@ background: #E8FAD5</string>
               <x>0</x>
               <y>0</y>
               <width>551</width>
-              <height>381</height>
+              <height>351</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_9" rowstretch="1,1,1,1" columnstretch="1,1" columnminimumwidth="0,0">

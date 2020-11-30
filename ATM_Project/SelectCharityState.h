@@ -105,7 +105,8 @@ public:
         assert(&ok);
 
 
-        bool isPaymentOk = emit context->payCharity(charities[select].id, sum);
+        //bool isPaymentOk =
+        emit context->payCharity(charities[select].id, sum);
         context->goToPage(Menu);
     }
 
