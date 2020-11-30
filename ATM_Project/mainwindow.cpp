@@ -108,7 +108,7 @@ void MainWindow::showCheque()
      + "From: " + QString::fromStdString(cheque.from) + '\n';
 
 if(cheque.to!="")
-       "To: " + QString::fromStdString(cheque.to) + '\n';
+     st+=  "To: " + QString::fromStdString(cheque.to) + '\n';
 
     st+="Amount: " + QString::number(cheque.summa) + "grn\n" +
                  "Date-Time: " + QString::fromStdString(cheque.datetime)

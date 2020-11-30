@@ -61,7 +61,7 @@ private:
         uint sum = num.toUInt(ok);
         assert(&ok); //should always be a valid number
 
-        PhoneResponse response = emit context->rechargePhone(sum);
+        PhoneResponse response = emit context->rechargePhone(sum,phoneNum.toStdString());
         switch (response) {
         case NotEnoughMoney:
             getUi()->phoneError->setText("Not enough funds");
