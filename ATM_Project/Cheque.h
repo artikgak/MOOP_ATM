@@ -1,5 +1,4 @@
-#ifndef CHEQUE_H
-#define CHEQUE_H
+#pragma once
 
 #include <string>
 
@@ -10,4 +9,4 @@ struct Cheque {
     std::string datetime;
 };
 
-#endif // CHEQUE_H
+

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <QMainWindow>
-#include "Utils.h"
-#include "Charity.h"
 #include <QLabel>
 #include <QThread>
+#include "Utils.h"
+#include "Charity.h"
 
 class WindowState;
 class Test_Front;
@@ -31,12 +31,6 @@ public:
     void displayBankNotes(const int*);
     void endSession();
 
-    //void showLoader();
-    //void hideLoader();
-
-//TODO: success/fail creen
-//f - feedback
-// to find these functions much easier
     void displayAvailBankNotes(); // available banktotes
 
 signals:

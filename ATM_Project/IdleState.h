@@ -5,7 +5,6 @@
 
 class IdleState : public WindowState {
 public:
-
     IdleState(MainWindow* context): WindowState(context) {}
 
 private:
