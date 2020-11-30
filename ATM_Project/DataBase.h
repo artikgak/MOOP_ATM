@@ -1,5 +1,4 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#pragma once
 
 #include <QtSql>
 #include <string>
@@ -9,18 +8,21 @@ class DataBase
 {
 private:
     QSqlDatabase _db;
-    uint64_t credit_limit = 2000;
+    const uint64_t credit_limit = 2000;
 
-    DataBase(const DataBase&) = delete; /* Only one database in a program */
+    /* Only one database in a program */
+    DataBase(const DataBase&) = delete;
     DataBase& operator=(const DataBase&) = delete;
 
 public:
     DataBase(std::string name = "DefaultDB");
     ~DataBase();
 
+    /*Database management queries*/
     void createTables();
     bool isTableExists(const char *);
 
+    /*Money-connected queries*/
     bool cardExists(const std::string);
     bool addCortegeCard(const std::string, const std::string, const double);
     bool deleteCortegeCard(const std::string);
@@ -31,10 +33,12 @@ public:
     bool addMoney(const std::string, const double);
     bool outputAllDataCard();
 
+    /*Admin-connected queries*/
     bool adminExists(const std::string);
     bool addCortegeAdmin(const std::string);
     bool outputAllDataAdmin();
 
+    /*Charity-connected queries*/
     bool charityExists(const std::string);
     bool addCortegeCharity(const std::string, const std::string);
     std::vector<Charity> getCharities(int, int);
@@ -51,5 +55,3 @@ public:
 
 /* Put some data into database */
 void fullDB(DataBase&);
-
-#endif /* DATABASE_H */

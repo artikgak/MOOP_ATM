@@ -8,10 +8,6 @@ enum Button {
     ENTER, CORRECTION, CANCEL
 };
 
-enum ATMState {
-    Idle, S1, S2, S3, Fin, Mntnc,
-};
-
 enum InputField{
     CashSum, GameAccountID, GameSum, CharitySum, PhoneNum, PhoneSum, TransactionCard, TransactionSum
 };

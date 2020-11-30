@@ -7,7 +7,9 @@
 
 class WithdrawState : public WindowState {
 public:
-    WithdrawState(MainWindow* context): WindowState(context) {}
+    WithdrawState(MainWindow* context): WindowState(context) {
+        context->displayAvailBankNotes();
+    }
 
 private:
      const QString do_screenName() override {
@@ -35,8 +37,7 @@ private:
 
         switch (response) {
         case AtmNoBills:
-            context->displayAvailBankNotes();
-            //getUi()->withdrawErrorMsg->setText("Available banknotes: ");
+            getUi()->withdrawErrorMsg->setText("No bills to give you that sum.");
             return;
         case UserNoMoney:
             getUi()->withdrawErrorMsg->setText("Not enough funds");

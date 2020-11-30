@@ -1,12 +1,11 @@
-#ifndef ADMINSTATE_H
-#define ADMINSTATE_H
+#pragma once
+
 #include "WindowState.h"
 #include "mainwindow.h"
 
 class AdminState : public WindowState {
 public:
     AdminState(MainWindow* context): WindowState(context) {}
-
 
 private:
     const QString do_screenName() override {
@@ -30,5 +29,3 @@ private:
      }
 
 };
-
-#endif // ADMINSTATE_H
