@@ -48,7 +48,8 @@ private:
             QSound::play(":sounds/cashDistr.wav");
             getUi()->succFailLab->setText("Withdraw successful\nThank You for using our bank.");
             getUi()->succFailLab->setStyleSheet("color: #269E13;");
-            QMessageBox::about(context,"Money", "Please take your bills");
+            QString moneyToTake = emit context->withdMoney();
+            QMessageBox::about(context,"Please take your bills", moneyToTake);
             context->goToPage(SuccessFail);
             break;
         }

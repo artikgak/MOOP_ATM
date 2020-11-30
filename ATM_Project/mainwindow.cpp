@@ -80,7 +80,6 @@ void MainWindow::errorMsg(const QString& errorMsg, ScreenPage whereToGo) {
 //    ui->succFailLab->setText(errorMsg);
     QMessageBox::critical(this,"Error",errorMsg, QMessageBox::Ok);
     goToPage(whereToGo);
-    unblockInput();
 }
 
 void MainWindow::saveBankNotes()
@@ -106,12 +105,12 @@ void MainWindow::showCheque()
                 + QString::fromStdString(cheque.what) +
             "\n=============================\n"
 
-     + "From: " + QString::fromStdString(cheque.from) + '\n'
+     + "From: " + QString::fromStdString(cheque.from) + '\n';
 
+if(cheque.to!="")
+       "To: " + QString::fromStdString(cheque.to) + '\n';
 
-       +"To: " + QString::fromStdString(cheque.to) + '\n'
-
-    +"Amount: " + QString::number(cheque.summa) + "grn\n" +
+    st+="Amount: " + QString::number(cheque.summa) + "grn\n" +
                  "Date-Time: " + QString::fromStdString(cheque.datetime)
             + "=============================";
     msg.setText(st);
@@ -150,7 +149,6 @@ void MainWindow::goToPage(const ScreenPage sp)
 
     ui->screenLabel->setText(state->screenName());
 
-    unblockInput();
 }
 
 void MainWindow::displayBankNotes(const int* arr){
@@ -160,13 +158,11 @@ void MainWindow::displayBankNotes(const int* arr){
     ui->spinBox_2->setValue(arr[2]);
     ui->spinBox_3->setValue(arr[3]);
     ui->spinBox_4->setValue(arr[4]);
-    unblockInput();
 }
 
 void MainWindow::displayBalance(const std::string& money) {
     goToPage(Balance);
     ui->cashBalanceLabel->setText(QString::fromStdString(money) + "₴");
-    unblockInput();
 }
 
 void MainWindow::wrongPin(const uint triesLeft) {
@@ -178,11 +174,10 @@ void MainWindow::wrongPin(const uint triesLeft) {
 
 void MainWindow::on_inputCard_clicked()
 {
-    blockInput();
     bool ok;
     QString num = QInputDialog::getText(this, tr("Input card"),
                                             tr("Enter card ID:"), QLineEdit::Normal,"", &ok);
-    if(!ok){ unblockInput(); return;}
+    if(!ok) return;
 
     num = num.replace(" ", "");
     bool valid = emit validateCard(num.toStdString());
@@ -198,32 +193,6 @@ void MainWindow::endSession() {
     emit ejectCard();
     destination = Menu; //TODO DELETE WHEN STATES ARE DONE
 }
-
-
-/*
-void MainWindow::hideLoader()
-{
-    movie->stop();
-    lbl->hide();
-    delete movie;
-    delete lbl;
-    this->setEnabled(true);
-}*/
-/*
-void MainWindow::showLoader()
-{
-    this->setEnabled(false);
-    lbl = new QLabel(ui->stackedWidget);
-    movie = new QMovie(":/images/loader.gif");
-    lbl->setMovie(movie);
-    lbl->setAlignment(Qt::AlignCenter);
-    lbl->setAttribute( Qt::WA_TranslucentBackground, true );
-    QRect p = ui->stackedWidget->geometry();
-    lbl->setGeometry(p.x()-50,p.y()-50,p.width(),p.height());
-    lbl->setWindowFlags(Qt::WindowStaysOnTopHint);
-    movie->start();
-    lbl->show();
-}*/
 
 //  Just binding to State
 void MainWindow::on_button0_clicked() {state->enterNum('0');}
@@ -255,16 +224,6 @@ void MainWindow::on_buttonR2_clicked(){state->handleButtonR2();}
 void MainWindow::on_buttonR3_clicked(){state->handleButtonR3();}
 void MainWindow::on_buttonR4_clicked(){state->handleButtonR4();}
 
-void MainWindow::blockInput() {
-//_loaderGif->start();
-//_loaderLbl->show();
-}
-
-void MainWindow::unblockInput() {
-//_loaderGif->stop();
-//_loaderLbl->hide();
-}
-
 // ************************************ FeedBackFrom back-end ***************************************************
 void MainWindow::displayAvailBankNotes(){
     QString str = "Available banknotes: ";
@@ -290,7 +249,7 @@ void MainWindow::connectSignals() {
     QObject::connect(this, &MainWindow::rechargePhone, &atm, &ATM::rechargePhone);
     QObject::connect(this, &MainWindow::getCharities, &atm, &ATM::getCharities);
     QObject::connect(this, &MainWindow::payCharity, &atm, &ATM::payCharity);
-
+    QObject::connect(this, &MainWindow::withdMoney, &atm, &ATM::withdMoney);
 
     QObject::connect(this, &MainWindow::validateAdmin, &atm, &ATM::validateAdmin);
 }
