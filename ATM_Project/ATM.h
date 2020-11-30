@@ -22,12 +22,12 @@ private:
     DataBase& db;
     std::string* card; /*Card != nullptr if it's in reader*/
     std::string* pin;  /*Pin != nullprt if it's already entered and valid*/
-    Cheque cheque{"", "", 0, ""}; /*Cheque which records all of the transactions that are performed*/
+    Cheque cheque{"","", "", 0, ""}; /*Cheque which records all of the transactions that are performed*/
 
     QFile file; /*Banknotes file*/
 
     void recountBankNotes(const int sum, const int billsSize=5);
-
+    void createCheque(std::string what, std::string to, int sum);
 public:
     inline const Cheque& getCheque() const {return cheque;}
     static const int bills[5];
@@ -48,7 +48,7 @@ public slots:
     bool validateLogin(const std::string& pin);
     std::string getBalance();
 
-    bool payCharity(uint id, uint sum);
+    TransferResponse payCharity(uint id, uint sum);
     std::vector<Charity> getCharities(const uint page);
     void ejectCard();
 
