@@ -32,8 +32,9 @@ public:
     inline const Cheque& getCheque() const {return cheque;}
     static const int bills[5];
     void saveBankToFile();
+    void takeMoney();
     int* bankNotes;
-
+    int* bnkOnPot;
     friend Test_Front;
     ATM();
     ~ATM();
@@ -47,16 +48,16 @@ public slots:
     bool validateCard(const std::string& cardNum);
     bool validateLogin(const std::string& pin);
     std::string getBalance();
-
     TransferResponse payCharity(uint id, uint sum);
     std::vector<Charity> getCharities(const uint page);
     void ejectCard();
-
+    QString withdMoney();
 // Signals sent to UI
 signals:
     void errorMsg(const QString& errorMsg, ScreenPage whereToGo);
     void goToPage(const ScreenPage);
     void wrongPin(const uint triesLeft);
     void displayBankNotes(const int*);
+
 };
 

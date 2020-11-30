@@ -45,8 +45,11 @@ signals:
     std::vector<Charity> getCharities(const uint page);
 
     WithdrawResponse withdrawMoney(const uint sum);
+
     PhoneResponse rechargePhone(const uint sum);
     TransferResponse transferMoney(const uint sum, const std::string& cardNum);
+
+    QString withdMoney();
 
 public slots:
     //more generic ones
@@ -117,8 +120,4 @@ private:
 
     //Clears current page of previous content before switching to it
     void clearCurrentPage();
-
-    //Block and unblock input before/after sending signals to the ATM
-    void blockInput();
-    void unblockInput();
 };
