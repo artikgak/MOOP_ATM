@@ -9,7 +9,7 @@ private:
     bool sumActive;   // 1 - sum, 0 - target card
 
 public:
-    TransferState(MainWindow* context):sumActive(1), WindowState(context){
+    TransferState(MainWindow* context):WindowState(context), sumActive(1){
       //  getUi()->transactionSumField->setStyleSheet("background: #E8FAD5;");
         // memory violation access ???
     }
