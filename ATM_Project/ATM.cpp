@@ -102,7 +102,7 @@ std::string ATM::getBalance() {
     return stream.str();
 }
 
-WithdrawResponse ATM::withdrawMoney(const uint sum) {
+WithdrawResponse ATM::withdrawMoney(const int sum) {
     assert(card != nullptr); // Card should be present
     assert(pin != nullptr); // Pin should be entered
 
@@ -141,7 +141,7 @@ WithdrawResponse ATM::withdrawMoney(const uint sum) {
     return WOK;
 }
 
-PhoneResponse ATM::rechargePhone(const uint sum, const std::string& phone) {
+PhoneResponse ATM::rechargePhone(const int sum, const std::string& phone) {
     assert(card != nullptr); // Card should be present
     assert(pin != nullptr); // Pin should be entered
 
@@ -169,7 +169,7 @@ void ATM::recountBankNotes(const int sum, const int billsSize){
     }
 }
 
-TransferResponse ATM::transferMoney(const uint sum, const std::string& cardNum){
+TransferResponse ATM::transferMoney(const int sum, const std::string& cardNum){
     assert(card != nullptr);
     assert(pin != nullptr);
 
@@ -214,7 +214,7 @@ std::vector<Charity> ATM::getCharities(const uint page) {
     return charities;
 }
 
-TransferResponse ATM::payCharity(uint id, uint sum) {
+TransferResponse ATM::payCharity(uint id, int sum) {
     assert(card != nullptr);
     qDebug() << "Transfering to " << id << " $" << sum;
     int summa = sum;
