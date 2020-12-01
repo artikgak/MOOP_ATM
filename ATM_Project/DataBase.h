@@ -29,6 +29,7 @@ public:
     bool checkTries(const std::string);
     int getTries(const std::string);
     bool checkPin(const std::string, const std::string);
+    bool blockCard(const std::string&);
     double getMoney(const std::string);
     bool addMoney(const std::string, const double);
     bool outputAllDataCard();
