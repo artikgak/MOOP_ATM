@@ -266,6 +266,8 @@ void MainWindow::on_adminButton_clicked()
         displayBankNotes(atm.bankNotes);
 }
 
+#include <iostream>
+
 void MainWindow::on_helpServiceButton_clicked()
 {
     bool ok;
@@ -280,5 +282,7 @@ void MainWindow::on_helpServiceButton_clicked()
                                          tr("Your phone rings, a manager contacts you. "
                                             "\nShe asks you for the card number that you want to block:"), QLineEdit::Normal,
                                          "", &ok);
+
+    this->atm.blockCard(card.toStdString());
 
 }

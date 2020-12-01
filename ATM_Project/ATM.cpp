@@ -24,7 +24,7 @@ ATM::ATM():
         //file("/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/bnkNote.txt"),
         bankNotes(new int[5]),
         bnkOnPot(new int[5]){
-    fullDB(db);
+    //fullDB(db);
     //db.testDB();
     file.open(QIODevice::ReadOnly);
     if(!file.isOpen())
@@ -50,6 +50,11 @@ void ATM::takeMoney()
 {
     for(int i=0;i<5;++i)
         bnkOnPot[i]=0;
+}
+
+void ATM::blockCard(std::string cardNo)
+{
+    db.blockCard(cardNo);
 }
 
 bool ATM::validateAdmin(const string& id){

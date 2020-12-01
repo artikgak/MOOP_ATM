@@ -33,6 +33,7 @@ public:
     static const int bills[5];
     void saveBankToFile();
     void takeMoney();
+    void blockCard(std::string);
     int* bankNotes;
     int* bnkOnPot;
     friend Test_Front;
