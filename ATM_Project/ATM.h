@@ -42,14 +42,14 @@ public:
 
 // Signals received from UI
 public slots:
-    WithdrawResponse withdrawMoney(const uint sum);
-    TransferResponse transferMoney(const uint sum, const std::string& cardNum);
-    PhoneResponse rechargePhone(const uint sum,const std::string& phone);
+    WithdrawResponse withdrawMoney(const int sum);
+    TransferResponse transferMoney(const int sum, const std::string& cardNum);
+    PhoneResponse rechargePhone(const int sum,const std::string& phone);
     bool validateAdmin(const std::string& adminID);
     bool validateCard(const std::string& cardNum);
     bool validateLogin(const std::string& pin);
     std::string getBalance();
-    TransferResponse payCharity(uint id, uint sum);
+    TransferResponse payCharity(uint id, int sum);
     std::vector<Charity> getCharities(const uint page);
     void ejectCard();
     QString withdMoney();
