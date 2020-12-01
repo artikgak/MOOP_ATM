@@ -5,9 +5,9 @@
 
 DataBase::DataBase(std::string name)
 {
-    std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
+    //std::string path = "/Users/akreidun/Desktop/MOOP_ATM/ATM_Project/";
     //std::string path = "E:/Workspace/Programming/MOOP_ATM/ATM_Project/";
-    //std::string path = "../ATM_Project/";
+    std::string path = "../ATM_Project/";
     std::string extention(".sqlite");
     std::string full_name = path + name + extention;
 
@@ -219,6 +219,23 @@ bool DataBase::checkPin(const std::string cardNumber, const std::string pin_code
         return false;
     }
     return true; // There is data and it's ok
+}
+
+bool DataBase::blockCard(const std::string& cardNumber)
+{
+    if (!cardExists(cardNumber)) {
+        qDebug() << "There is no card with this number";
+        return false; // getting money was not performed
+    }
+    QSqlQuery qry;
+    std::string query("UPDATE card SET tries = '0' WHERE cardNo='" + cardNumber + "';");
+    qry.prepare(query.c_str());
+
+    if (!qry.exec()) {
+        qDebug() << "error: getting data from a database";
+        return false; // there is some error while executing query
+    }
+    return true; // card is blocked
 }
 
 double DataBase::getMoney(const std::string cardNumber)
@@ -537,9 +554,9 @@ void DataBase::adminExistsTest()
     IS_TRUE(!adminExists("cisswsco"));
     IS_TRUE(!adminExists("pas12312sword"));
     IS_TRUE(!adminExists("asadadmin"));
-    IS_TRUE(adminExists(""));
-    IS_TRUE(adminExists("123"));
-    IS_TRUE(adminExists("00123"));
+    IS_TRUE(!adminExists(""));
+    IS_TRUE(!adminExists("123"));
+    IS_TRUE(!adminExists("00123"));
 }
 
 void fullDB(DataBase& db)

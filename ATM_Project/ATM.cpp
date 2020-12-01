@@ -25,6 +25,7 @@ ATM::ATM():
         bankNotes(new int[5]),
         bnkOnPot(new int[5]){
     fullDB(db);
+    //db.testDB();
     file.open(QIODevice::ReadOnly);
     if(!file.isOpen())
         cout << "<banknotes not open>" <<endl;
